@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 class BannerController extends Controller
 {
     /**
@@ -40,10 +42,24 @@ class BannerController extends Controller
         $this->validate($request,[
             'title'=>'string|required|max:50',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
             'status'=>'required|in:active,inactive',
         ]);
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo']=$filePath;
+        }
+        // dd($data['photo']);
+
         $slug=Str::slug($request->title);
         $count=Banner::where('slug',$slug)->count();
         if($count>0){
