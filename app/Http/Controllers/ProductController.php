@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
 
@@ -49,7 +50,12 @@ class ProductController extends Controller
             'title'=>'string|required',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
             'size'=>'nullable',
             'stock'=>"required|numeric",
             'cat_id'=>'required|exists:categories,id',
@@ -79,6 +85,14 @@ class ProductController extends Controller
         }
         // return $size;
         // return $data;
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo']=$filePath;
+        }
+
         $status=Product::create($data);
         if($status){
             request()->session()->flash('success','Product Successfully added');
@@ -133,7 +147,7 @@ class ProductController extends Controller
             'title'=>'string|required',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
+            'photo' => 'image|mimes:jpeg,png,gif',
             'size'=>'nullable',
             'stock'=>"required|numeric",
             'cat_id'=>'required|exists:categories,id',
@@ -156,6 +170,19 @@ class ProductController extends Controller
             $data['size']='';
         }
         // return $data;
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($product->photo)) {
+                Storage::disk('public')->delete($product->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=$product->fill($data)->save();
         if($status){
             request()->session()->flash('success','Product Successfully updated');
@@ -174,15 +201,22 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+
         $product=Product::findOrFail($id);
-        $status=$product->delete();
-        
-        if($status){
-            request()->session()->flash('success','Product successfully deleted');
+
+        // Delete the associated image from storage
+        if (Storage::disk('public')->exists($product->photo)) {
+            Storage::disk('public')->delete($product->photo);
         }
-        else{
-            request()->session()->flash('error','Error while deleting product');
+
+        $status = $product->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Product successfully deleted');
+        } else {
+            request()->session()->flash('error', 'Error occurred while deleting product');
         }
+
         return redirect()->route('product.index');
     }
 }
