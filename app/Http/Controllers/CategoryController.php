@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -43,12 +44,25 @@ class CategoryController extends Controller
         $this->validate($request,[
             'title'=>'string|required',
             'summary'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
             'status'=>'required|in:active,inactive',
             'is_parent'=>'sometimes|in:1',
             'parent_id'=>'nullable|exists:categories,id',
         ]);
         $data= $request->all();
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo']=$filePath;
+        }
+
         $slug=Str::slug($request->title);
         $count=Category::where('slug',$slug)->count();
         if($count>0){
@@ -56,7 +70,7 @@ class CategoryController extends Controller
         }
         $data['slug']=$slug;
         $data['is_parent']=$request->input('is_parent',0);
-        // return $data;   
+        // return $data;
         $status=Category::create($data);
         if($status){
             request()->session()->flash('success','Category successfully added');
@@ -107,12 +121,25 @@ class CategoryController extends Controller
         $this->validate($request,[
             'title'=>'string|required',
             'summary'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo' => 'image|mimes:jpeg,png,gif',
             'status'=>'required|in:active,inactive',
             'is_parent'=>'sometimes|in:1',
             'parent_id'=>'nullable|exists:categories,id',
         ]);
         $data= $request->all();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($category->photo)) {
+                Storage::disk('public')->delete($category->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $data['is_parent']=$request->input('is_parent',0);
         // return $data;
         $status=$category->fill($data)->save();
@@ -133,20 +160,36 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        // $category=Category::findOrFail($id);
+        // $child_cat_id=Category::where('parent_id',$id)->pluck('id');
+        // // return $child_cat_id;
+        // $status=$category->delete();
+
+        // if($status){
+        //     if(count($child_cat_id)>0){
+        //         Category::shiftChild($child_cat_id);
+        //     }
+        //     request()->session()->flash('success','Category successfully deleted');
+        // }
+        // else{
+        //     request()->session()->flash('error','Error while deleting category');
+        // }
+
         $category=Category::findOrFail($id);
-        $child_cat_id=Category::where('parent_id',$id)->pluck('id');
-        // return $child_cat_id;
-        $status=$category->delete();
-        
-        if($status){
-            if(count($child_cat_id)>0){
-                Category::shiftChild($child_cat_id);
-            }
-            request()->session()->flash('success','Category successfully deleted');
+
+        // Delete the associated image from storage
+        if (Storage::disk('public')->exists($category->photo)) {
+            Storage::disk('public')->delete($category->photo);
         }
-        else{
-            request()->session()->flash('error','Error while deleting category');
+
+        $status = $category->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Category successfully deleted');
+        } else {
+            request()->session()->flash('error', 'Error occurred while deleting category');
         }
+
         return redirect()->route('category.index');
     }
 
