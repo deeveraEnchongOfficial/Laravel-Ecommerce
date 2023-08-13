@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -50,7 +51,12 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
@@ -58,6 +64,13 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo']=$filePath;
+        }
 
         $slug=Str::slug($request->title);
         $count=Post::where('slug',$slug)->count();
@@ -127,7 +140,7 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo' => 'image|mimes:jpeg,png,gif',
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
@@ -135,6 +148,19 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($post->photo)) {
+                Storage::disk('public')->delete($post->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $tags=$request->input('tags');
         // return $tags;
         if($tags){
@@ -164,9 +190,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post=Post::findOrFail($id);
-       
+
+        // Delete the associated image from storage
+        if (Storage::disk('public')->exists($post->photo)) {
+            Storage::disk('public')->delete($post->photo);
+        }
+
         $status=$post->delete();
-        
+
         if($status){
             request()->session()->flash('success','Post successfully deleted');
         }

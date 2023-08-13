@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 class BannerController extends Controller
 {
     /**
@@ -40,10 +42,23 @@ class BannerController extends Controller
         $this->validate($request,[
             'title'=>'string|required|max:50',
             'description'=>'string|nullable',
-            'photo'=>'string|required',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
             'status'=>'required|in:active,inactive',
         ]);
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo']=$filePath;
+        }
+
         $slug=Str::slug($request->title);
         $count=Banner::where('slug',$slug)->count();
         if($count>0){
@@ -93,28 +108,37 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $banner=Banner::findOrFail($id);
-        $this->validate($request,[
-            'title'=>'string|required|max:50',
-            'description'=>'string|nullable',
-            'photo'=>'string|required',
-            'status'=>'required|in:active,inactive',
+        $banner = Banner::findOrFail($id);
+
+        $this->validate($request, [
+            'title' => 'string|required|max:50',
+            'description' => 'string|nullable',
+            'photo' => 'image|mimes:jpeg,png,gif',
+            'status' => 'required|in:active,inactive',
         ]);
-        $data=$request->all();
-        // $slug=Str::slug($request->title);
-        // $count=Banner::where('slug',$slug)->count();
-        // if($count>0){
-        //     $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
-        // }
-        // $data['slug']=$slug;
-        // return $slug;
-        $status=$banner->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Banner successfully updated');
+
+        $data = $request->all();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($banner->photo)) {
+                Storage::disk('public')->delete($banner->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $data['photo'] = $filePath;
         }
-        else{
-            request()->session()->flash('error','Error occurred while updating banner');
+
+        $status = $banner->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Banner successfully updated');
+        } else {
+            request()->session()->flash('error', 'Error occurred while updating banner');
         }
+
         return redirect()->route('banner.index');
     }
 
@@ -126,14 +150,21 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $banner=Banner::findOrFail($id);
-        $status=$banner->delete();
-        if($status){
-            request()->session()->flash('success','Banner successfully deleted');
+        $banner = Banner::findOrFail($id);
+
+        // Delete the associated image from storage
+        if (Storage::disk('public')->exists($banner->photo)) {
+            Storage::disk('public')->delete($banner->photo);
         }
-        else{
-            request()->session()->flash('error','Error occurred while deleting banner');
+
+        $status = $banner->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Banner successfully deleted');
+        } else {
+            request()->session()->flash('error', 'Error occurred while deleting banner');
         }
+
         return redirect()->route('banner.index');
     }
 }
