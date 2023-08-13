@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+
 class UsersController extends Controller
 {
     /**
@@ -43,10 +45,23 @@ class UsersController extends Controller
             'password'=>'string|required',
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
-            'photo'=>'nullable|string',
+            'photo' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png,gif',
+            ],
         ]);
         // dd($request->all());
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/users', $filename, 'public');
+            $data['photo']=$filePath;
+        }
+
         $data['password']=Hash::make($request->password);
         // dd($data);
         $status=User::create($data);
@@ -100,12 +115,24 @@ class UsersController extends Controller
             'email'=>'string|required',
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
-            'photo'=>'nullable|string',
+            'photo' => 'image|mimes:jpeg,png,gif',
         ]);
         // dd($request->all());
         $data=$request->all();
         // dd($data);
-        
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/users', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated');
@@ -126,6 +153,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $delete=User::findorFail($id);
+
+        // Delete the associated image from storage
+        if (Storage::disk('public')->exists($delete->photo)) {
+            Storage::disk('public')->delete($delete->photo);
+        }
+
         $status=$delete->delete();
         if($status){
             request()->session()->flash('success','User Successfully deleted');
