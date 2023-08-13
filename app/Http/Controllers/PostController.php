@@ -68,7 +68,7 @@ class PostController extends Controller
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/post', $filename, 'public');
             $data['photo']=$filePath;
         }
 
@@ -157,7 +157,7 @@ class PostController extends Controller
 
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/post', $filename, 'public');
             $data['photo'] = $filePath;
         }
 

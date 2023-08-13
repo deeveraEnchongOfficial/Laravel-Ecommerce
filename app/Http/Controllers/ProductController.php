@@ -89,7 +89,7 @@ class ProductController extends Controller
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
             $data['photo']=$filePath;
         }
 
@@ -179,7 +179,7 @@ class ProductController extends Controller
 
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
             $data['photo'] = $filePath;
         }
 
