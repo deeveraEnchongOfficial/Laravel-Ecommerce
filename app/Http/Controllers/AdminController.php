@@ -9,6 +9,8 @@ use App\Rules\MatchOldPassword;
 use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Storage;
+
 class AdminController extends Controller
 {
     public function index(){
@@ -34,8 +36,24 @@ class AdminController extends Controller
 
     public function profileUpdate(Request $request,$id){
         // return $request->all();
+        $this->validate($request,[
+            'photo' => 'image|mimes:jpeg,png,gif',
+        ]);
         $user=User::findOrFail($id);
         $data=$request->all();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated your profile');
@@ -56,15 +74,41 @@ class AdminController extends Controller
         $this->validate($request,[
             'short_des'=>'required|string',
             'description'=>'required|string',
-            'photo'=>'required',
-            'logo'=>'required',
+            'photo' => 'image|mimes:jpeg,png,gif',
+            'logo'=> 'image|mimes:jpeg,png,gif',
             'address'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
         ]);
         $data=$request->all();
+
         // return $data;
         $settings=Settings::first();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($settings->photo)) {
+                Storage::disk('public')->delete($settings->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('logo')) {
+            if (Storage::disk('public')->exists($settings->logo)) {
+                Storage::disk('public')->delete($settings->logo);
+            }
+
+            $uploadedFile = $request->file('logo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
+            $data['logo'] = $filePath;
+        }
+
         // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
@@ -86,9 +130,9 @@ class AdminController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
 
