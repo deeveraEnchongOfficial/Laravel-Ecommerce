@@ -9,6 +9,8 @@ use App\Models\ProductReview;
 use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
+use Illuminate\Support\Facades\Storage;
+
 
 class HomeController extends Controller
 {
@@ -41,8 +43,26 @@ class HomeController extends Controller
 
     public function profileUpdate(Request $request,$id){
         // return $request->all();
+
+        $this->validate($request,[
+            'photo' => 'image|mimes:jpeg,png,gif',
+        ]);
+
         $user=User::findOrFail($id);
         $data=$request->all();
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated your profile');
@@ -220,11 +240,11 @@ class HomeController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('user')->with('success','Password successfully changed');
     }
 
-    
+
 }
