@@ -352,7 +352,7 @@
                                 @php
                                     $after_discount=($product->price-($product->price*$product->discount)/100)
                                 @endphp
-                                <h1 class="price">${{number_format($after_discount)}} <s>${{number_format($data->price)}}</s></h1>
+                                <h1 class="price">₱{{number_format($after_discount)}} <s>₱{{number_format($data->price)}}</s></h1>
                                 <div class="coming-time">
                                     <div class="clearfix" data-countdown="2021/02/30"></div>
                                 </div>
