@@ -59,7 +59,7 @@ class CategoryController extends Controller
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
             $data['photo']=$filePath;
         }
 
@@ -136,7 +136,7 @@ class CategoryController extends Controller
 
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
             $data['photo'] = $filePath;
         }
 
@@ -160,20 +160,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        // $category=Category::findOrFail($id);
-        // $child_cat_id=Category::where('parent_id',$id)->pluck('id');
-        // // return $child_cat_id;
-        // $status=$category->delete();
-
-        // if($status){
-        //     if(count($child_cat_id)>0){
-        //         Category::shiftChild($child_cat_id);
-        //     }
-        //     request()->session()->flash('success','Category successfully deleted');
-        // }
-        // else{
-        //     request()->session()->flash('error','Error while deleting category');
-        // }
 
         $category=Category::findOrFail($id);
 
