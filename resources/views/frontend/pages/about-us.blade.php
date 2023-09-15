@@ -30,10 +30,11 @@
 							@php
 								$settings=DB::table('settings')->get();
 							@endphp
-							<h3>Welcome To <span>Eshop</span></h3>
-							<p>@foreach($settings as $data) {{$data->description}} @endforeach</p>
+							<h3>Welcome To <span>Padilla Gowns and Barongs</span></h3>
+                            <p>Padilla Gowns and Barongs, nestled in the heart of San Carlos City, Pangasinan, stands as a premier destination for those in search of impeccable attire. This revered establishment has earned its reputation as one of the finest rental shops in the region, offering an extensive collection of barongs and gowns that seamlessly blend tradition and modernity. Whether it's a traditional Filipino celebration or a grand formal event, Padilla's commitment to quality and style ensures that every customer finds their perfect ensemble. The warm hospitality and personalized service provided by the Padilla family make this boutique a cherished gem, leaving visitors with unforgettable memories and a sense of sartorial satisfaction. For those seeking elegance and sophistication in San Carlos City, Padilla Gowns and Barongs remains the ultimate choice.</p>
+							{{-- <p>@foreach($settings as $data) {{$data->description}} @endforeach</p> --}}
 							<div class="button">
-								<a href="{{route('blog')}}" class="btn">Our Blog</a>
+								{{-- <a href="{{route('blog')}}" class="btn">Our Blog</a> --}}
 								<a href="{{route('contact')}}" class="btn primary">Contact Us</a>
 							</div>
 						</div>
@@ -43,7 +44,8 @@
 							{{-- <div class="button">
 								<a href="#" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
 							</div> --}}
-							<img src="@foreach($settings as $data) {{$data->photo}} @endforeach" alt="@foreach($settings as $data) {{$data->photo}} @endforeach">
+                            <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="">
+							{{-- <img src="@foreach($settings as $data) {{$data->photo}} @endforeach" alt="@foreach($settings as $data) {{$data->photo}} @endforeach"> --}}
 						</div>
 					</div>
 				</div>
@@ -68,7 +70,7 @@
 	<!--/ End Team Area -->
 
 	<!-- Start Shop Services Area -->
-	<section class="shop-services section">
+	{{-- <section class="shop-services section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-12">
@@ -109,7 +111,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!-- End Shop Services Area -->
 
 	@include('frontend.layouts.newsletter')

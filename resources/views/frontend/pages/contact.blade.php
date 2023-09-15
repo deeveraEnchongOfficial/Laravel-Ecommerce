@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
 
+@section('title','Padilla Gowns and Barongs || Contact Us')
+
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">

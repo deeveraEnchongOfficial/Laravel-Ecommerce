@@ -1,11 +1,11 @@
 @extends('frontend.layouts.master')
-@section('title','E-SHOP || HOME PAGE')
+@section('title','Padilla Gowns and Barongs || HOME PAGE')
 @section('main-content')
 <!-- Slider Area -->
 <section class="hero-slider">
     <!-- Single Slider -->
 
-    {{-- <div class="single-slider">
+     {{-- <div class="single-slider">
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-lg-9 offset-lg-3 col-12">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>  --}}
     <!--/ End Single Slider -->
 </section>
 @if(count($banners)>0)
@@ -75,7 +75,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="single-banner">
                                 @if($cat->photo)
-                                    <img src="{{$cat->photo}}" alt="{{$cat->photo}}">
+                                    <img src="{{$cat->photo}}" alt="{{$cat->photo}}" style="width: 100%; height:600px;">
                                 @else
                                     <img src="https://via.placeholder.com/600x370" alt="#">
                                 @endif

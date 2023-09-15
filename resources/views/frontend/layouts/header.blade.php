@@ -14,7 +14,7 @@
                     <!-- Top Right -->
                     <div class="right-content">
                         <ul class="list-main">
-                        <li><i class="ti-location-pin"></i> <a href="{{route('order.track')}}">Track Order</a></li>
+                        {{-- <li><i class="ti-location-pin"></i> <a href="{{route('order.track')}}">Track Order</a></li> --}}
                             {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
                             @auth
                                 @if(Auth::user()->role=='admin')
@@ -44,7 +44,7 @@
                         @php
                             $settings=DB::table('settings')->get();
                         @endphp
-                        <a href="{{route('home')}}"><img src="@foreach($settings as $data) {{asset($data->logo)}} @endforeach" alt="logo" width="75" height="75"></a>
+                        <a href="{{route('home')}}"><img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="logo" width="75" height="75" style="border-radius: 10px;"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->

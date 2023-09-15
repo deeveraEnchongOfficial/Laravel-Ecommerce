@@ -6,14 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>E-SHOP || DASHBOARD</title>
-  
+    <link rel="icon" href="{{ URL::asset('/images/icon/Padilla_gowns.jpg') }}" type="image/x-icon"/>
+
+    {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset("../images/icon/Padilla_gowns.jpg") }}" /> --}}
+
+    <title>Padilla Gowns and Barongs || DASHBOARD</title>
+
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
+
     <!-- Custom styles for this template-->
     <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
     @stack('styles')
-  
+
 </head>
