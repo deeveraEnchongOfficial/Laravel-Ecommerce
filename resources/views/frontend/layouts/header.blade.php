@@ -44,7 +44,7 @@
                         @php
                         $settings=DB::table('settings')->get();
                         @endphp
-                        <a href="{{route('home')}}"><img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="logo" width="75" height="75" style="border-radius: 10px;"></a>
+                        <a href="{{route('home')}}"><img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="logo" width="80" height="80" style="border-radius: 10px;"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->

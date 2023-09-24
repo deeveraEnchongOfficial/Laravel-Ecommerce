@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('title','E-SHOP || DASHBOARD')
 @section('main-content')
-<div class="container-fluid min-vh-100">
+<div class="container-fluid" style=" height: 100%;">
     @include('backend.layouts.notification')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">

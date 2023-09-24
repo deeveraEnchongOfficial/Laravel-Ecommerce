@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -27,5 +28,8 @@ class UsersTableSeeder extends Seeder
                 'status'=>'active'
             ),
         );
+
+        DB::table('users')->insert($data);
+
     }
 }

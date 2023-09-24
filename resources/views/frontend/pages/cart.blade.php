@@ -173,7 +173,7 @@
 	</div>
 	<!--/ End Shopping Cart -->
 
-	<!-- Start Shop Services Area  -->
+	{{-- <!-- Start Shop Services Area  -->
 	<section class="shop-services section">
 		<div class="container">
 			<div class="row">
@@ -215,7 +215,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!-- End Shop Newsletter -->
 
 	<!-- Start Shop Newsletter  -->
