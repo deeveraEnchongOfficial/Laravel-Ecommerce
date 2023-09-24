@@ -27,7 +27,5 @@ class UsersTableSeeder extends Seeder
                 'status'=>'active'
             ),
         );
-
-        DB::table('users')->insert($data);
     }
 }

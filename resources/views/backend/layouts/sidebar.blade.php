@@ -1,11 +1,9 @@
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #C19A6B;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-store"></i>
-      </div>
-      <div class="sidebar-brand-text mx-3">ECOMMERCE</div>
+        <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="" width="50px;">
+        <div class="sidebar-brand-text mx-1">Padilla Gowns and Barongs</div>
     </a>
 
     <!-- Divider -->

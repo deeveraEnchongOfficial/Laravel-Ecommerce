@@ -25,7 +25,7 @@
         @yield('main-content')
 
         @include('frontend.layouts.footer')
-        {!! $de_Layout !!}
+        {{-- {!! $de_Layout !!} --}}
     </div>
 
 </body>
