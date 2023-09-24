@@ -369,7 +369,7 @@
                                             @enderror
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
                                                     <select name="shipping" class="nice-select">
-                                                        <option value="">Select your address</option>
+                                                        <option value="">Select</option>
                                                         @foreach(Helper::shipping() as $shipping)
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ₱{{$shipping->price}}</option>
                                                         @endforeach
@@ -423,7 +423,7 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
+                                            <button type="submit" class="btn">Place Order</button>
                                         </div>
                                     </div>
                                 </div>

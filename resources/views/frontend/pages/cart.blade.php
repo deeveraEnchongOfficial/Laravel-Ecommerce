@@ -102,7 +102,7 @@
 					<!-- Total Amount -->
 					<div class="total-amount">
 						<div class="row">
-							{{-- <div class="col-lg-8 col-md-5 col-12">
+							<div class="col-lg-8 col-md-5 col-12">
 								<div class="left">
 									<div class="coupon">
 									<form action="{{route('coupon-store')}}" method="POST">
@@ -118,12 +118,12 @@
 										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" onchange="showMe('shipping');"> Shipping</label>
 									</div>
 								</div>
-							</div> --}}
+							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
 										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>₱{{number_format(Helper::totalCartPrice(),2)}}</span></li>
-										{{-- <div id="shipping" style="display:none;">
+										<div id="shipping" style="display:none;">
 											<li class="shipping">
 												Shipping {{session('shipping_price')}}
 												@if(count(Helper::shipping())>0 && Helper::cartCount()>0)
@@ -142,8 +142,7 @@
 												@endif
 											</li>
 										</div>
-										 --}}
-										 {{-- {{dd(Session::get('coupon')['value'])}} --}}
+
 										@if(session()->has('coupon'))
 										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>₱{{number_format(Session::get('coupon')['value'],2)}}</span></li>
 										@endif

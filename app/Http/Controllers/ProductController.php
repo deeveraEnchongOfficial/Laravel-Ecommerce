@@ -48,7 +48,7 @@ class ProductController extends Controller
         // return $request->all();
         $this->validate($request,[
             'title'=>'string|required',
-            'summary'=>'string|required',
+            'summary'=>'string|nullable',
             'description'=>'string|nullable',
             'photo' => [
                 'required',
@@ -145,7 +145,7 @@ class ProductController extends Controller
         $product=Product::findOrFail($id);
         $this->validate($request,[
             'title'=>'string|required',
-            'summary'=>'string|required',
+            'summary'=>'string|nullable',
             'description'=>'string|nullable',
             'photo' => 'image|mimes:jpeg,png,gif',
             'size'=>'nullable',
