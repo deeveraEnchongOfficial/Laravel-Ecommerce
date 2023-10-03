@@ -128,7 +128,7 @@
                                                 </button>
                                             </div>
                                             <input type="hidden" name="slug" value="{{$product_detail->slug}}">
-                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="{{$product_detail->stock}}" value="1" id="quantity">
+                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="{{$product_detail->stock}}" value="@if ($product_detail->stock <= 1) 0 @else 1 @endif" id="quantity" @if ($product_detail->stock <= 1) readonly @endif>
                                             <div class="button plus">
                                                 <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]" @if ($product_detail->stock <= 1) disabled @endif>
                                                         <i class="ti-plus"></i>
@@ -138,7 +138,13 @@
                                         <!--/ End Input Order -->
                                     </div>
                                     <div class="add-to-cart mt-4">
-                                        <button type="submit" class="btn">Add to cart</button>
+                                        <button type="submit" class="btn" @if ($product_detail->stock <= 1) disabled @endif>
+                                        @if ($product_detail->stock <= 1)
+                                            Out of Stock
+                                        @else
+                                            Add to Cart
+                                        @endif
+                                        </button>
                                         <a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
                                     </div>
                                 </form>
@@ -545,16 +551,25 @@
         }
 
         $('#quantity').val(quantity);
-        // Enable or disable the plus button based on quantity and stock
-        if (quantity >= stock) {
+
+        // Disable both plus and minus buttons when stock is less than or equal to 0
+        if (stock <= 0) {
             $('.plus button').prop('disabled', true);
+            $('.minus button').prop('disabled', true);
         } else {
-            $('.plus button').prop('disabled', false);
+            // Enable or disable the plus button based on quantity and stock
+            $('.minus button').prop('disabled', quantity <= 1);
+            $('.plus button').prop('disabled', quantity >= stock);
         }
     }
 
     // Event listener for plus and minus buttons
     $('.plus button').on('click', function() {
+        var operation = $(this).data('type');
+        updateQuantity(operation);
+    });
+
+    $('.minus button').on('click', function() {
         var operation = $(this).data('type');
         updateQuantity(operation);
     });
