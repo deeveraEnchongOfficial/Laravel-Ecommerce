@@ -518,7 +518,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <h5 class="title">Size</h5>
-                                        <select>
+                                        <select @if ($product->stock <= 0) disabled @endif>
                                             @php
                                             $sizes=explode(',',$product->size);
                                             // dd($sizes);
@@ -544,24 +544,32 @@
                                 @csrf
                                 <div class="quantity">
                                     <!-- Input Order -->
-                                    <div class="input-group">
-                                        <div class="button minus">
-                                            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                <i class="ti-minus"></i>
-                                            </button>
+                                    @if (!($product->stock <= 0))
+                                        <div class="input-group">
+                                            <div class="button minus">
+                                                <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                                    <i class="ti-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="hidden" name="slug" value="{{$product->slug}}">
+                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
+                                            <div class="button plus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                                                    <i class="ti-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <input type="hidden" name="slug" value="{{$product->slug}}">
-                                        <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
-                                        <div class="button plus">
-                                            <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                                                <i class="ti-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    @endif
                                     <!--/ End Input Order -->
                                 </div>
                                 <div class="add-to-cart">
-                                    <button type="submit" class="btn">Add to cart</button>
+                                    <button type="submit" class="btn" @if ($product->stock <= 0) disabled @endif>
+                                    @if ($product->stock <= 0)
+                                            Out of Stock
+                                        @else
+                                            Add to Cart
+                                        @endif
+                                    </button>
                                     <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
                                 </div>
                             </form>

@@ -52,7 +52,15 @@
                                     @endphp
                                     @foreach($photo as $data)
                                     <li data-thumb="{{$data}}" rel="adjustX:10, adjustY:">
-                                        <img src="{{asset($data)}}" alt="{{$data}}">
+                                        <!-- <img src="{{asset($data)}}" alt="{{$data}}"> -->
+                                        <div style="position: relative; display: inline-block;">
+                                            <img src="{{ asset($data) }}" alt="{{ $data }}" style="max-width: 100%; height: auto;" />
+                                        @if ($product_detail->stock <= 1)
+                                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(192, 192, 192, 0.7); color: white; padding: 10px; font-weight: bold; border-radius: 50%; width: 150px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                                                Sold Out
+                                            </div>
+                                        @endif
+                                        </div>
                                     </li>
                                     @endforeach
                                 </ul>
