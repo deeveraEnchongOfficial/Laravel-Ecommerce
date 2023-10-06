@@ -61,8 +61,52 @@
 
 <!--/ End Slider Area -->
 
+<!-- Start Most Popular -->
+<div class="product-area most-popular section">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Categories</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="owl-carousel popular-slider">
+                    @php
+                    $category_lists=DB::table('categories')->where('status','active')->get();
+                    @endphp
+                    @if($category_lists)
+                    @foreach($category_lists as $cat)
+                    <!-- Start Single Product -->
+                    <div class="single-product border rounded p-3">
+                        <div class="product-img">
+                            @php
+                            $photo=explode(',',$cat->photo);
+                            // dd($photo);
+                            @endphp
+                            <img class="img-fluid default-img border border-4" src="{{$photo[0]}}" alt="{{$photo[0]}}" style="width: 400px; height: 400px;">
+                        </div>
+                        <div class="product-content">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$cat->title}}</h5>
+                                <a href="{{route('product-cat',$cat->slug)}}" class="btn btn-primary text-white">Discover Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Product -->
+                    @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Most Popular Area -->
+
 <!-- Start Small Banner  -->
-<section class="card-carousel section">
+<!-- <section class="card-carousel section">
     <div class="container">
         <div class="row">
             @php
@@ -72,7 +116,7 @@
             <div class="carousel" id="cardCarousel">
                 @foreach($category_lists as $cat)
                 @if($cat->is_parent==1)
-                <!-- Single Card  -->
+
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="card">
                         @if($cat->photo)
@@ -86,15 +130,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- /End Single Card  -->
+
                 @endif
                 @endforeach
             </div>
             @endif
         </div>
     </div>
-</section>
-
+</section> -->
 <!-- End Small Banner -->
 
 <!-- Start Product Area -->
@@ -519,13 +562,13 @@
                                     <div class="col-lg-6 col-12">
                                         <h5 class="title">Size</h5>
                                         <select @if ($product->stock <= 0) disabled @endif>
-                                            @php
-                                            $sizes=explode(',',$product->size);
-                                            // dd($sizes);
-                                            @endphp
-                                            @foreach($sizes as $size)
-                                            <option>{{$size}}</option>
-                                            @endforeach
+                                                @php
+                                                $sizes=explode(',',$product->size);
+                                                // dd($sizes);
+                                                @endphp
+                                                @foreach($sizes as $size)
+                                                <option>{{$size}}</option>
+                                                @endforeach
                                         </select>
                                     </div>
                                     {{-- <div class="col-lg-6 col-12">
@@ -544,45 +587,39 @@
                                 @csrf
                                 <div class="quantity">
                                     <!-- Input Order -->
-                                    @if (!($product->stock <= 0))
-                                        <div class="input-group">
-                                            <div class="button minus">
-                                                <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                    <i class="ti-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input type="hidden" name="slug" value="{{$product->slug}}">
-                                            <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
-                                            <div class="button plus">
-                                                <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                                                    <i class="ti-plus"></i>
-                                                </button>
-                                            </div>
+                                    @if (!($product->stock <= 0)) <div class="input-group">
+                                        <div class="button minus">
+                                            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                                <i class="ti-minus"></i>
+                                            </button>
                                         </div>
-                                    @endif
-                                    <!--/ End Input Order -->
+                                        <input type="hidden" name="slug" value="{{$product->slug}}">
+                                        <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
+                                        <div class="button plus">
+                                            <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                                                <i class="ti-plus"></i>
+                                            </button>
+                                        </div>
                                 </div>
-                                <div class="add-to-cart">
-                                    <button type="submit" class="btn" @if ($product->stock <= 0) disabled @endif>
-                                    @if ($product->stock <= 0)
-                                            Out of Stock
-                                        @else
-                                            Add to Cart
-                                        @endif
-                                    </button>
-                                    <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
-                                </div>
-                            </form>
-                            <div class="default-social">
-                                <!-- ShareThis BEGIN -->
-                                <div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
-                            </div>
+                                @endif
+                                <!--/ End Input Order -->
+                        </div>
+                        <div class="add-to-cart">
+                            <button type="submit" class="btn" @if ($product->stock <= 0) disabled @endif>
+                                    @if ($product->stock <= 0) Out of Stock @else Add to Cart @endif </button>
+                                        <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
+                        </div>
+                        </form>
+                        <div class="default-social">
+                            <!-- ShareThis BEGIN -->
+                            <div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endforeach
 @endif
