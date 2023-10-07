@@ -154,6 +154,7 @@
                                         @endif
                                         </button>
                                         <a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
+                                        <a href="{{route('add-to-like',$product_detail->slug)}}" class="btn min"><i class="ti-thumb-up"></i></a>
                                     </div>
                                 </form>
 
