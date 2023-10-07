@@ -55,7 +55,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Email Address<span>*</span></label>
-                                            <input type="email" name="email" placeholder="" value="{{old('email')}}">
+                                            <input type="email" name="email" placeholder="" value="{{Auth()->user()->email}}">
                                             @error('email')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP" selected="selected">Nepal</option>
+                                                <option value="NP">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -246,7 +246,7 @@
                                                 <option value="PG">Papua New Guinea</option>
                                                 <option value="PY">Paraguay</option>
                                                 <option value="PE">Peru</option>
-                                                <option value="PH">Philippines</option>
+                                                <option value="PH" selected="selected">Philippines</option>
                                                 <option value="PN">Pitcairn Islands</option>
                                                 <option value="PL">Poland</option>
                                                 <option value="PT">Portugal</option>
