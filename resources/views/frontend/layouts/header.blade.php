@@ -178,7 +178,7 @@
                                             <span>Total</span>
                                             <span class="total-amount">₱{{number_format(Helper::totalLikePrice(),2)}}</span>
                                         </div>
-                                        <a href="{{route('cart')}}" class="btn animate">Cart</a>
+                                        <!-- <a href="{{route('cart')}}" class="btn animate">Cart</a> -->
                                     </div>
                                 </div>
                                 @endauth
