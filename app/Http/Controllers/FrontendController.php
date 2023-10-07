@@ -469,10 +469,14 @@ class FrontendController extends Controller
     }
     public function registerSubmit(Request $request){
         // return $request->all();
-        $this->validate($request,[
-            'name'=>'string|required|min:2',
-            'email'=>'string|required|unique:users,email',
-            'password'=>'required|min:6|confirmed',
+        $this->validate($request, [
+            'name'=>'string|nullable',
+            'first_name' => 'string|required|min:2',
+            'last_name' => 'string|required|min:2',
+            'phone_number' => 'required', // Adjust min and max length as needed
+            'address' => 'string|required|min:5', // Adjust min length as needed
+            'email' => 'string|required|unique:users,email',
+            'password' => 'required|min:6|confirmed',
         ]);
         $data=$request->all();
         // dd($data);
@@ -489,8 +493,12 @@ class FrontendController extends Controller
     }
     public function create(array $data){
         return User::create([
-            'name'=>$data['name'],
+            'name'=>$data['first_name'],
+            'first_name'=>$data['first_name'],
+            'last_name'=>$data['last_name'],
             'email'=>$data['email'],
+            'phone_number'=>$data['phone_number'],
+            'address'=>$data['address'],
             'password'=>Hash::make($data['password']),
             'status'=>'active'
             ]);

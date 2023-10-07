@@ -32,12 +32,30 @@
                         <form class="form" method="post" action="{{route('register.submit')}}">
                             @csrf
                             <div class="row">
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <div class="form-group">
                                         <label>Your Name<span>*</span></label>
                                         <input type="text" name="name" placeholder="" required="required" value="{{old('name')}}">
                                         @error('name')
                                             <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name<span>*</span></label>
+                                        <input type="text" name="first_name" placeholder="" required="required" value="{{ old('first_name') }}">
+                                        @error('first_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name<span>*</span></label>
+                                        <input type="text" name="last_name" placeholder="" required="required" value="{{ old('last_name') }}">
+                                        @error('last_name')
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -52,6 +70,24 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+                                        <label>Phone Number<span>*</span></label>
+                                        <input type="number" name="phone_number" placeholder="" required="required" value="{{old('phone_number')}}">
+                                        @error('phone_number')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Address<span>*</span></label>
+                                        <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
+                                        @error('address')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
                                         <label>Your Password<span>*</span></label>
                                         <input type="password" name="password" placeholder="" required="required" value="{{old('password')}}">
                                         @error('password')
@@ -59,7 +95,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label>Confirm Password<span>*</span></label>
                                         <input type="password" name="password_confirmation" placeholder="" required="required" value="{{old('password_confirmation')}}">

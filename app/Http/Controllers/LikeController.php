@@ -25,9 +25,9 @@ class LikeController extends Controller
             return back();
         }
 
-        $already_wishlist = Like::where('user_id', auth()->user()->id)->where('cart_id',null)->where('product_id', $product->id)->first();
-        // return $already_wishlist;
-        if($already_wishlist) {
+        $already_like = Like::where('user_id', auth()->user()->id)->where('cart_id',null)->where('product_id', $product->id)->first();
+        // return $already_like;
+        if($already_like) {
             request()->session()->flash('error','You already placed in like');
             return back();
         }else{
@@ -38,14 +38,14 @@ class LikeController extends Controller
             $like->price = ($product->price-($product->price*$product->discount)/100);
             $like->quantity = 1;
             $like->amount=$like->price*$like->quantity;
-            if ($like->product->stock >= 0) return back()->with('error','Only Out of Stock can be added to Likes!.');
+            if ($like->product->stock != 0) return back()->with('error','Only Out of Stock can be added to Likes!.');
             $like->save();
         }
         request()->session()->flash('success','Product successfully added to like');
         return back();
     }
 
-    public function wishlistDelete(Request $request){
+    public function likeDelete(Request $request){
         $like = Like::find($request->id);
         if ($like) {
             $like->delete();
