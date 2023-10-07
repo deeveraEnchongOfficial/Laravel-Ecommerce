@@ -165,6 +165,7 @@
 													<option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price') selected @endif>Price</option>
 													<option value="category" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='category') selected @endif>Category</option>
 													<option value="brand" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='brand') selected @endif>Brand</option>
+                                                    <option value="review" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='review') selected @endif>Review</option>
 												</select>
 											</div>
 										</div>
