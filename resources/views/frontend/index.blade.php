@@ -410,7 +410,7 @@
 <!-- /End Cowndown Area -->
 @endforeach --}}
 <!-- Start Shop Blog  -->
-<section class="shop-blog section">
+<!-- <section class="shop-blog section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -423,7 +423,6 @@
             @if($posts)
             @foreach($posts as $post)
             <div class="col-lg-4 col-md-6 col-12">
-                <!-- Start Single Blog  -->
                 <div class="shop-single-blog">
                     <img src="{{$post->photo}}" alt="{{$post->photo}}">
                     <div class="content">
@@ -432,14 +431,12 @@
                         <a href="{{route('blog.detail',$post->slug)}}" class="more-btn">Continue Reading</a>
                     </div>
                 </div>
-                <!-- End Single Blog  -->
             </div>
             @endforeach
             @endif
-
         </div>
     </div>
-</section>
+</section> -->
 <!-- End Shop Blog  -->
 
 <!-- Start Shop Services Area -->
