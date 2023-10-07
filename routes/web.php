@@ -55,6 +55,14 @@ Route::get('/wishlist',function(){
 })->name('wishlist');
 Route::get('/wishlist/{slug}','WishlistController@wishlist')->name('add-to-wishlist')->middleware('user');
 Route::get('wishlist-delete/{id}','WishlistController@wishlistDelete')->name('wishlist-delete');
+
+// Like
+Route::get('/like',function(){
+    return view('frontend.pages.like');
+})->name('like');
+Route::get('/like/{slug}','LikeController@like')->name('add-to-like')->middleware('user');
+Route::get('like-delete/{id}','LikeController@likeDelete')->name('like-delete');
+
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
@@ -91,7 +99,6 @@ Route::post('/coupon-store','CouponController@couponStore')->name('coupon-store'
 Route::get('payment', 'PayPalController@payment')->name('payment');
 Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
 Route::get('payment/success', 'PayPalController@success')->name('payment.success');
-
 
 
 // Backend section start
@@ -144,15 +151,6 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
     Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
 });
-
-
-
-
-
-
-
-
-
 
 // User section start
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
