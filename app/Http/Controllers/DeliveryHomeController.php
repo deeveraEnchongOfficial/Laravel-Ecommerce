@@ -75,7 +75,7 @@ class DeliveryHomeController extends Controller
 
     // Order
     public function orderIndex(){
-        $orders=Order::orderBy('id','DESC')->where('user_id',auth()->user()->id)->paginate(10);
+        $orders=Order::orderBy('id','DESC')->where('deliver_by',auth()->user()->id)->paginate(10);
         return view('delivery_user.order.index')->with('orders',$orders);
     }
     public function userOrderDelete($id)
@@ -108,6 +108,48 @@ class DeliveryHomeController extends Controller
         // return $order;
         return view('delivery_user.order.show')->with('order',$order);
     }
+    public function orderEdit($id)
+    {
+        // $order=Order::find($id);
+        // // return $order;
+        // return view('delivery_user.order.show')->with('order',$order);
+        $order=Order::find($id);
+        return view('delivery_user.order.edit')->with('order',$order);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $order=Order::find($id);
+        $this->validate($request,[
+            'status'=>'required|in:new,process,delivered,cancel'
+        ]);
+        $data=$request->all();
+        // return $request->status;
+        if($request->status=='delivered'){
+            foreach($order->cart as $cart){
+                $product=$cart->product;
+                // return $product;
+                $product->stock -=$cart->quantity;
+                $product->save();
+            }
+        }
+        $status=$order->fill($data)->save();
+        if($status){
+            request()->session()->flash('success','Successfully updated order');
+        }
+        else{
+            request()->session()->flash('error','Error while updating order');
+        }
+        return redirect()->route('order.index');
+    }
+
     // Product Review
     public function productReviewIndex(){
         $reviews=ProductReview::getAllUserReview();

@@ -17,9 +17,7 @@ class CreateShippingsTable extends Migration
             $table->id();
             $table->string('type');
             $table->decimal('price');
-            $table->unsignedBigInteger('deliver_by')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
-            $table->foreign('deliver_by')->references('id')->on('users')->onDelete('SET NULL');
             $table->timestamps();
         });
     }
