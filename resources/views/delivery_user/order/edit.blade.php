@@ -1,4 +1,4 @@
-@extends('backend.layouts.master')
+@extends('delivery_user.layouts.master')
 
 @section('title','Order Detail')
 
@@ -19,21 +19,6 @@
           <option value="cancel" {{(($order->status=='cancel')? 'selected' : '')}}>Cancel</option>
         </select>
       </div>
-      @php
-      $delivery_user = DB::table('users')
-                        ->where('role', 'delivery_user')
-                        ->where('status', 'active')
-                        ->get();
-      @endphp
-        <div class="form-group">
-            <label for="status">Deliver By :</label>
-            <select name="status" id="status" class="form-control">
-                <option value="">--Select Delivery User--</option>
-                @foreach($delivery_user as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
-        </div>
       <button type="submit" class="btn btn-primary">Update</button>
     </form>
   </div>
