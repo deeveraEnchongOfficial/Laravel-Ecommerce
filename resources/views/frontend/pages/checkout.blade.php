@@ -37,7 +37,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>First Name<span>*</span></label>
-                                            <input type="text" name="first_name" placeholder="" value="{{old('first_name')}}" value="{{old('first_name')}}">
+                                            <input type="text" name="first_name" placeholder="" value="{{Auth()->user()->first_name}}">
                                             @error('first_name')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -46,7 +46,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Last Name<span>*</span></label>
-                                            <input type="text" name="last_name" placeholder="" value="{{old('lat_name')}}">
+                                            <input type="text" name="last_name" placeholder="" value="{{Auth()->user()->last_name}}">
                                             @error('last_name')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -55,7 +55,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Email Address<span>*</span></label>
-                                            <input type="email" name="email" placeholder="" value="{{old('email')}}">
+                                            <input type="email" name="email" placeholder="" value="{{Auth()->user()->email}}">
                                             @error('email')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -64,7 +64,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Phone Number <span>*</span></label>
-                                            <input type="number" name="phone" placeholder="" required value="{{old('phone')}}">
+                                            <input type="number" name="phone" placeholder="" required value="{{Auth()->user()->phone_number}}">
                                             @error('phone')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP" selected="selected">Nepal</option>
+                                                <option value="NP">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
@@ -246,7 +246,7 @@
                                                 <option value="PG">Papua New Guinea</option>
                                                 <option value="PY">Paraguay</option>
                                                 <option value="PE">Peru</option>
-                                                <option value="PH">Philippines</option>
+                                                <option value="PH" selected="selected">Philippines</option>
                                                 <option value="PN">Pitcairn Islands</option>
                                                 <option value="PL">Poland</option>
                                                 <option value="PT">Portugal</option>
@@ -325,7 +325,7 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Address Line 1<span>*</span></label>
-                                            <input type="text" name="address1" placeholder="" value="{{old('address1')}}">
+                                            <input type="text" name="address1" placeholder="" value="{{Auth()->user()->address}}">
                                             @error('address1')
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
@@ -369,7 +369,7 @@
                                             @enderror
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
                                                     <select name="shipping" class="nice-select">
-                                                        <option value="">Select your address</option>
+                                                        <option value="">Select</option>
                                                         @foreach(Helper::shipping() as $shipping)
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ₱{{$shipping->price}}</option>
                                                         @endforeach
@@ -423,7 +423,7 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
+                                            <button type="submit" class="btn">Place Order</button>
                                         </div>
                                     </div>
                                 </div>
@@ -437,7 +437,7 @@
     <!--/ End Checkout -->
 
     <!-- Start Shop Services Area  -->
-    <section class="shop-services section home">
+    {{-- <section class="shop-services section home">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12">
@@ -478,7 +478,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Shop Services -->
 
     <!-- Start Shop Newsletter  -->

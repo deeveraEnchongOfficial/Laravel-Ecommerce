@@ -1,11 +1,11 @@
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #C19A6B;">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('user')}}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" style="margin: 35px 0;" href="{{route('user')}}">
       <div class="sidebar-brand-icon rotate-n-15">
       </div>
-      <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="" width="50px;">
-      <div class="sidebar-brand-text mx-1">Padilla Gowns and Barongs</div>
+      <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="" width="100%">
+      {{-- <div class="sidebar-brand-text mx-1">Padilla Gowns and Barongs</div> --}}
     </a>
 
     <!-- Divider -->

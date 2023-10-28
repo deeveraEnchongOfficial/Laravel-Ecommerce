@@ -103,7 +103,7 @@
 								<!--/ End Shop By Price -->
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
-                                    <h3 class="title">Recent post</h3>
+                                    <h3 class="title">New Arrival</h3>
                                     {{-- {{dd($recent_products)}} --}}
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
@@ -165,6 +165,7 @@
 													<option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price') selected @endif>Price</option>
 													<option value="category" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='category') selected @endif>Category</option>
 													<option value="brand" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='brand') selected @endif>Brand</option>
+                                                    <option value="review" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='review') selected @endif>Review</option>
 												</select>
 											</div>
 										</div>
@@ -195,7 +196,10 @@
 															</a>
 															<div class="button-head">
 																<div class="product-action">
-																	<a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                                    @if (!($product->stock <= 0))
+                                                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                                    @endif
+																	<!-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a> -->
 																	<a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																</div>
 																<div class="product-action-2">

@@ -96,7 +96,7 @@
                                     <!--/ End Shop By Price -->
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
-                                    <h3 class="title">Recent post</h3>
+                                    <h3 class="title">New Arrival</h3>
                                     {{-- {{dd($recent_products)}} --}}
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
@@ -189,7 +189,10 @@
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                        @if (!($product->stock <= 0))
+                                                             <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                        @endif
+                                                        <!-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a> -->
                                                         <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                     </div>
                                                     <div class="product-action-2">
