@@ -188,7 +188,7 @@ class OrderController extends Controller
     {
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,process,delivered,cancel'
+            'status'=>'required|in:new,processing,shipped,delivered,cancel'
         ]);
         $data=$request->all();
         // return $request->status;
@@ -248,7 +248,7 @@ class OrderController extends Controller
             return redirect()->route('home');
 
             }
-            elseif($order->status=="process"){
+            elseif($order->status=="processing"){
                 request()->session()->flash('success','Your order is under processing please wait.');
                 return redirect()->route('home');
 

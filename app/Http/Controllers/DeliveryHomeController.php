@@ -83,7 +83,7 @@ class DeliveryHomeController extends Controller
     {
         $order=Order::find($id);
         if($order){
-           if($order->status=="process" || $order->status=='delivered' || $order->status=='cancel'){
+           if($order->status=="processing" || $order->status=='delivered' || $order->status=='cancel'){
                 return redirect()->back()->with('error','You can not delete this order now');
            }
            else{
@@ -130,7 +130,7 @@ class DeliveryHomeController extends Controller
     {
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,process,delivered,cancel'
+            'status'=>'required|in:new,processing,shipped,delivered,cancel'
         ]);
         $data=$request->all();
         // return $request->status;

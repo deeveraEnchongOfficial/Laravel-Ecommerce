@@ -131,7 +131,9 @@
                     <td>
                         @if($order->status=='new')
                           <span class="badge badge-primary">{{$order->status}}</span>
-                        @elseif($order->status=='process')
+                        @elseif($order->status=='processing')
+                          <span class="badge badge-warning">{{$order->status}}</span>
+                        @elseif($order->status=='shipped')
                           <span class="badge badge-warning">{{$order->status}}</span>
                         @elseif($order->status=='delivered')
                           <span class="badge badge-success">{{$order->status}}</span>
@@ -151,7 +153,7 @@
                 </tr>
               @endforeach
               @else
-                <td colspan="8" class="text-center"><h4 class="my-4">gggg</h4></td>
+                <td colspan="8" class="text-center"><h4 class="my-4">No Record</h4></td>
               @endif
           </tbody>
         </table>

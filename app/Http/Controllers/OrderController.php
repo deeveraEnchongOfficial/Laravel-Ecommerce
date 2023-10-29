@@ -340,7 +340,7 @@ class OrderController extends Controller
             $data[$weekRange] = (!empty($result[$i])) ? number_format((float)($result[$i]), 2, '.', '') : 0.0;
         }
 
-        return $data;
+        return response()->json($data);
     }
 
     public function yearlyEarningsChart(Request $request)
