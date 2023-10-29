@@ -78,6 +78,7 @@ class DeliveryHomeController extends Controller
         $orders=Order::orderBy('id','DESC')->where('deliver_by',auth()->user()->id)->paginate(10);
         return view('delivery_user.order.index')->with('orders',$orders);
     }
+
     public function userOrderDelete($id)
     {
         $order=Order::find($id);
@@ -108,6 +109,7 @@ class DeliveryHomeController extends Controller
         // return $order;
         return view('delivery_user.order.show')->with('order',$order);
     }
+
     public function orderEdit($id)
     {
         // $order=Order::find($id);
@@ -124,7 +126,7 @@ class DeliveryHomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function orderUpdate(Request $request, $id)
     {
         $order=Order::find($id);
         $this->validate($request,[
@@ -147,7 +149,7 @@ class DeliveryHomeController extends Controller
         else{
             request()->session()->flash('error','Error while updating order');
         }
-        return redirect()->route('order.index');
+        return redirect()->route('delivery_user.order.index');
     }
 
     // Product Review
@@ -214,6 +216,7 @@ class DeliveryHomeController extends Controller
         $comments=PostComment::getAllUserComments();
         return view('delivery_user.comment.index')->with('comments',$comments);
     }
+
     public function userCommentDelete($id){
         $comment=PostComment::find($id);
         if($comment){
@@ -231,6 +234,7 @@ class DeliveryHomeController extends Controller
             return redirect()->back();
         }
     }
+
     public function userCommentEdit($id)
     {
         $comments=PostComment::find($id);
@@ -275,6 +279,7 @@ class DeliveryHomeController extends Controller
     public function changePassword(){
         return view('delivery_user.layouts.userPasswordChange');
     }
+
     public function changPasswordStore(Request $request)
     {
         $request->validate([

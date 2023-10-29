@@ -27,9 +27,10 @@
       @endphp
         <div class="form-group">
             <label for="status">Deliver By :</label>
-            <select name="status" id="status" class="form-control">
-                <option value="">--Select Delivery User--</option>
+            <select name="deliver_by" id="status" class="form-control">
+                {{-- <option value="">--Select Delivery User--</option> --}}
                 @foreach($delivery_user as $user)
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>

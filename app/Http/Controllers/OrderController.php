@@ -186,9 +186,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,process,delivered,cancel'
+            'status'=>'required|in:new,process,delivered,cancel',
+            'deliver_by'=> 'required',
         ]);
         $data=$request->all();
         // return $request->status;
@@ -304,5 +306,99 @@ class OrderController extends Controller
             $data[$monthName] = (!empty($result[$i]))? number_format((float)($result[$i]), 2, '.', '') : 0.0;
         }
         return $data;
+    }
+
+    public function weeklyIncomeChart(Request $request)
+    {
+        $year = \Carbon\Carbon::now()->year;
+        $weekStart = now()->startOfWeek()->format('Y-m-d');
+        $weekEnd = now()->endOfWeek()->format('Y-m-d');
+
+        $items = Order::with(['cart_info'])
+            ->whereYear('created_at', $year)
+            ->whereBetween('created_at', [$weekStart, $weekEnd])
+            ->where('status', 'delivered')
+            ->get()
+            ->groupBy(function ($d) {
+                return \Carbon\Carbon::parse($d->created_at)->format('W'); // Group by week
+            });
+
+        $result = [];
+        foreach ($items as $week => $itemCollections) {
+            foreach ($itemCollections as $item) {
+                $amount = $item->cart_info->sum('amount');
+                $weekNumber = intval($week);
+                isset($result[$weekNumber]) ? $result[$weekNumber] += $amount : $result[$weekNumber] = $amount;
+            }
+        }
+
+        $data = [];
+        for ($i = 1; $i <= 52; $i++) {
+            $weekStart = \Carbon\Carbon::now()->setISODate($year, $i)->startOfWeek()->format('F d');
+            $weekEnd = \Carbon\Carbon::now()->setISODate($year, $i)->endOfWeek()->format('F d');
+            $weekRange = $weekStart . ' - ' . $weekEnd;
+            $data[$weekRange] = (!empty($result[$i])) ? number_format((float)($result[$i]), 2, '.', '') : 0.0;
+        }
+
+        return $data;
+    }
+
+    public function yearlyEarningsChart(Request $request)
+    {
+        $year = \Carbon\Carbon::now()->year;
+
+        $items = Order::with(['cart_info'])
+            ->whereYear('created_at', $year)
+            ->where('status', 'delivered')
+            ->get()
+            ->groupBy(function ($d) {
+                return \Carbon\Carbon::parse($d->created_at)->format('F Y'); // Group by month and year
+            });
+
+        $result = [];
+        foreach ($items as $monthYear => $itemCollections) {
+            foreach ($itemCollections as $item) {
+                $amount = $item->cart_info->sum('amount');
+                isset($result[$monthYear]) ? $result[$monthYear] += $amount : $result[$monthYear] = $amount;
+            }
+        }
+
+        $data = [];
+        $months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        foreach ($months as $month) {
+            $monthYear = $month . ' ' . $year;
+            $data[$monthYear] = (!empty($result[$monthYear])) ? number_format((float)($result[$monthYear]), 2, '.', '') : 0.0;
+        }
+
+        return $data;
+    }
+
+    public function dailyEarningsChart(Request $request)
+    {
+        $year = \Carbon\Carbon::now()->year;
+        $month = \Carbon\Carbon::now()->month;
+
+        $items = Order::with(['cart_info'])
+            ->whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->where('status', 'delivered')
+            ->get()
+            ->groupBy(function ($d) {
+                return \Carbon\Carbon::parse($d->created_at)->format('Y-m-d'); // Group by day
+            });
+
+        $result = [];
+        foreach ($items as $day => $itemCollections) {
+            foreach ($itemCollections as $item) {
+                $amount = $item->cart_info->sum('amount');
+                $result[$day] = $amount;
+            }
+        }
+
+        return $result;
     }
 }
