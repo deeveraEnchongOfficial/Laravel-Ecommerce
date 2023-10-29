@@ -88,17 +88,14 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <!-- Earnings Overview Chart -->
+            <div class="col-xl-8 col-lg-7 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-
                     </div>
-                    <!-- Card Body -->
                     <div class="card-body">
                         <div class="chart-area">
                             <canvas id="myAreaChart"></canvas>
@@ -107,26 +104,22 @@
                 </div>
             </div>
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <!-- Users Pie Chart -->
+            <div class="col-xl-4 col-lg-5 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Users</h6>
                     </div>
-                    <!-- Card Body -->
-                    <div class="card-body" style="overflow:hidden">
-                        <div id="pie_chart" style="width:350px; height:320px;">
-                        </div>
+                    <div class="card-body">
+                        <div id="pie_chart" style="height: 320px;"></div>
                     </div>
                 </div>
             </div>
-            <!-- Content Row -->
 
-            <!-- Bar Chart -->
-            <div class="col-xl-6 col-lg-6">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <!-- Weekly Sales Chart -->
+            <div class="col-xl-6 col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Weekly Sales</h6>
                     </div>
                     <div class="card-body">
@@ -137,27 +130,21 @@
                 </div>
             </div>
 
-            <!-- Yearly Content -->
-            <div class="row">
-                <!-- Yearly Earnings Chart -->
-                <div class="col-xl-12">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Daily Earnings Overview</h6>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-area">
-                                <canvas id="myDailyEarningsChart" style="width:560px; height:320px;"></canvas>
-                            </div>
+            <!-- Daily Earnings Chart -->
+            <div class="col-xl-6 col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Daily Earnings Overview</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myDailyEarningsChart" style="height: 320px;"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
+
     @endsection
 
     @push('scripts')
