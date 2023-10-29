@@ -66,7 +66,10 @@ Route::get('like-delete/{id}','LikeController@likeDelete')->name('like-delete');
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
-// Route::get('/user/chart','AdminController@userPieChart')->name('user.piechart');
+Route::get('/weekly-income', 'OrderController@weeklyIncomeChart')->name('weekly.income');
+Route::get('/yearly-earnings', 'OrderController@yearlyEarningsChart')->name('yearly.earnings');
+Route::get('/daily-earnings', 'OrderController@dailyEarningsChart')->name('daily.earnings');
+Route::get('/user/chart','AdminController@userPieChart')->name('user.piechart');
 Route::get('/product-grids','FrontendController@productGrids')->name('product-grids');
 Route::get('/product-lists','FrontendController@productLists')->name('product-lists');
 Route::get('/product-high-reviews','FrontendController@productHighReviews')->name('product-high-reviews');
@@ -189,6 +192,7 @@ Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],functi
     Route::get('/order',"DeliveryHomeController@orderIndex")->name('delivery_user.order.index');
     Route::get('/order/show/{id}',"DeliveryHomeController@orderShow")->name('delivery_user.order.show');
     Route::get('/order/edit/{id}',"DeliveryHomeController@orderEdit")->name('delivery_user.order.edit');
+    Route::patch('/order/update/{id}',"DeliveryHomeController@orderUpdate")->name('delivery_user.order.orderUpdate');
     Route::delete('/order/delete/{id}','DeliveryHomeController@userOrderDelete')->name('delivery_user.order.delete');
     // Product Review
     Route::get('/user-review','DeliveryHomeController@productReviewIndex')->name('delivery_user.productreview.index');
