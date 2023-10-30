@@ -42,7 +42,7 @@
           @enderror
         </div>
         @php
-        $roles=DB::table('users')->select('role')->get();
+        $roles = DB::table('users')->select('role')->distinct()->get();
         @endphp
         <div class="form-group">
             <label for="role" class="col-form-label">Role</label>
