@@ -43,7 +43,7 @@ class Product extends Model
     }
 
     public function likes(){
-        return $this->hasMany(Like::class)->whereNotNull('cart_id');
+        return $this->hasMany(Like::class)->whereNotNull('product_id');
     }
 
 }
