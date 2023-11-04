@@ -40,4 +40,12 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
+
+    public function deliver(){
+        return $this->hasMany('App\Models\Order');
+    }
+
+    public function notification(){
+        return $this->hasMany('App\Models\Notification', 'notifiable_id');
+    }
 }

@@ -43,7 +43,7 @@ class UsersController extends Controller
             'name'=>'string|required|max:30',
             'email'=>'string|required|unique:users',
             'password'=>'string|required',
-            'role'=>'required|in:admin,user',
+            'role'=>'required|in:admin,user,delivery_user',
             'status'=>'required|in:active,inactive',
             'photo' => [
                 'required',
@@ -113,7 +113,7 @@ class UsersController extends Controller
         [
             'name'=>'string|required|max:30',
             'email'=>'string|required',
-            'role'=>'required|in:admin,user',
+            'role'=>'required|in:admin,user,delivery_user',
             'status'=>'required|in:active,inactive',
             'photo' => 'image|mimes:jpeg,png,gif',
         ]);

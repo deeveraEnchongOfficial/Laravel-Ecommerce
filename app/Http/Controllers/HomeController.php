@@ -10,6 +10,7 @@ use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Notification;
 
 
 class HomeController extends Controller
@@ -78,11 +79,12 @@ class HomeController extends Controller
         $orders=Order::orderBy('id','DESC')->where('user_id',auth()->user()->id)->paginate(10);
         return view('user.order.index')->with('orders',$orders);
     }
+
     public function userOrderDelete($id)
     {
         $order=Order::find($id);
         if($order){
-           if($order->status=="process" || $order->status=='delivered' || $order->status=='cancel'){
+           if($order->status=="processing" || $order->status=='delivered' || $order->status=='cancel'){
                 return redirect()->back()->with('error','You can not delete this order now');
            }
            else{
@@ -172,6 +174,7 @@ class HomeController extends Controller
         $comments=PostComment::getAllUserComments();
         return view('user.comment.index')->with('comments',$comments);
     }
+
     public function userCommentDelete($id){
         $comment=PostComment::find($id);
         if($comment){
@@ -233,6 +236,7 @@ class HomeController extends Controller
     public function changePassword(){
         return view('user.layouts.userPasswordChange');
     }
+
     public function changPasswordStore(Request $request)
     {
         $request->validate([
@@ -246,5 +250,34 @@ class HomeController extends Controller
         return redirect()->route('user')->with('success','Password successfully changed');
     }
 
+    public function notificationIndex(){
+        return view('user.notification.index');
+    }
 
+    public function notificationShow(Request $request){
+        $notification=Auth()->user()->notifications()->where('id',$request->id)->first();
+        if($notification){
+            $notification->markAsRead();
+            return redirect($notification->data['actionURL']);
+        }
+    }
+
+    public function notificationDelete($id){
+        $notification=Notification::find($id);
+        if($notification){
+            $status=$notification->delete();
+            if($status){
+                request()->session()->flash('success','Notification successfully deleted');
+                return back();
+            }
+            else{
+                request()->session()->flash('error','Error please try again');
+                return back();
+            }
+        }
+        else{
+            request()->session()->flash('error','Notification not found');
+            return back();
+        }
+    }
 }

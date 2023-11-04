@@ -66,7 +66,10 @@ Route::get('like-delete/{id}','LikeController@likeDelete')->name('like-delete');
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
-// Route::get('/user/chart','AdminController@userPieChart')->name('user.piechart');
+Route::get('/weekly-income', 'OrderController@weeklyIncomeChart')->name('weekly.income');
+Route::get('/yearly-earnings', 'OrderController@yearlyEarningsChart')->name('yearly.earnings');
+Route::get('/daily-earnings', 'OrderController@dailyEarningsChart')->name('daily.earnings');
+Route::get('/user/chart','AdminController@userPieChart')->name('user.piechart');
 Route::get('/product-grids','FrontendController@productGrids')->name('product-grids');
 Route::get('/product-lists','FrontendController@productLists')->name('product-lists');
 Route::get('/product-high-reviews','FrontendController@productHighReviews')->name('product-high-reviews');
@@ -177,6 +180,45 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     // Password Change
     Route::get('change-password', 'HomeController@changePassword')->name('user.change.password.form');
     Route::post('change-password', 'HomeController@changPasswordStore')->name('change.password');
+
+    // Notification
+    Route::get('/notification/{id}','HomeController@notificationShow')->name('user.notification');
+    Route::get('/notifications','HomeController@notificationIndex')->name('user.all.notification');
+    Route::delete('/notification/{id}','HomeController@notificationDelete')->name('user.notification.delete');
+
+});
+
+Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){
+    Route::get('/','DeliveryHomeController@index')->name('delivery_user');
+     // Profile
+     Route::get('/profile','DeliveryHomeController@profile')->name('user-profile');
+     Route::post('/profile/{id}','DeliveryHomeController@profileUpdate')->name('user-profile-update');
+    //  Order
+    Route::get('/order',"DeliveryHomeController@orderIndex")->name('delivery_user.order.index');
+    Route::get('/order/show/{id}',"DeliveryHomeController@orderShow")->name('delivery_user.order.show');
+    Route::get('/order/edit/{id}',"DeliveryHomeController@orderEdit")->name('delivery_user.order.edit');
+    Route::patch('/order/update/{id}',"DeliveryHomeController@orderUpdate")->name('delivery_user.order.orderUpdate');
+    Route::delete('/order/delete/{id}','DeliveryHomeController@userOrderDelete')->name('delivery_user.order.delete');
+    // Product Review
+    Route::get('/user-review','DeliveryHomeController@productReviewIndex')->name('delivery_user.productreview.index');
+    Route::delete('/user-review/delete/{id}','DeliveryHomeController@productReviewDelete')->name('delivery_user.productreview.delete');
+    Route::get('/user-review/edit/{id}','DeliveryHomeController@productReviewEdit')->name('delivery_user.productreview.edit');
+    Route::patch('/user-review/update/{id}','DeliveryHomeController@productReviewUpdate')->name('delivery_user.productreview.update');
+
+    // Post comment
+    Route::get('user-post/comment','DeliveryHomeController@userComment')->name('delivery_user.post-comment.index');
+    Route::delete('user-post/comment/delete/{id}','DeliveryHomeController@userCommentDelete')->name('delivery_user.post-comment.delete');
+    Route::get('user-post/comment/edit/{id}','DeliveryHomeController@userCommentEdit')->name('delivery_user.post-comment.edit');
+    Route::patch('user-post/comment/udpate/{id}','DeliveryHomeController@userCommentUpdate')->name('delivery_user.post-comment.update');
+
+    // Password Change
+    Route::get('change-password', 'DeliveryHomeController@changePassword')->name('delivery_user.change.password.form');
+    Route::post('change-password', 'DeliveryHomeController@changPasswordStore')->name('change.password');
+
+    // Notification
+    // Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
+    // Route::get('/notifications','NotificationController@index')->name('all.notification');
+    // Route::delete('/notification/{id}','NotificationController@delete')->name('notification.delete');
 
 });
 
