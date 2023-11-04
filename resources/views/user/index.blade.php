@@ -106,7 +106,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
+          {{-- <tfoot>
             <tr>
               <th>S.N.</th>
               <th>Order No.</th>
@@ -117,7 +117,7 @@
               <th>Status</th>
               <th>Action</th>
               </tr>
-          </tfoot>
+          </tfoot> --}}
           <tbody>
             @if(count($orders)>0)
               @foreach($orders as $order)
