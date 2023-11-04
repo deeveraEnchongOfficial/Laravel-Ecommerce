@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function deliver(){
         return $this->hasMany('App\Models\Order');
     }
+
+    public function notification(){
+        return $this->hasMany('App\Models\Notification', 'notifiable_id');
+    }
 }

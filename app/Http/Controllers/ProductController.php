@@ -7,8 +7,10 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
-
+use App\Notifications\StatusNotification;
+use Notification;
 use Illuminate\Support\Str;
+use App\User;
 
 class ProductController extends Controller
 {
@@ -184,6 +186,33 @@ class ProductController extends Controller
         }
 
         $status=$product->fill($data)->save();
+
+        if($product->likes && $product['stock'] > 0){
+            // dd($product['stock']);
+            // dd($product->likes);
+
+            if ($product->likes->isNotEmpty()) {
+                foreach ($product->likes as $like) {
+                    $userId = $like->user_id; // Access the user_id property of each Like model
+
+                    // Check if the user with the retrieved user_id exists
+                    $user = User::find($userId);
+
+                    // dd($user->notifications->pluck('id')->toArray());
+
+                    if ($user) {
+                        $details = [
+                            'title' => 'Your Like has stock',
+                            'actionURL' => route('like'),
+                            'fas' => 'fa-file-alt'
+                        ];
+
+                        Notification::send($user, new StatusNotification($details));
+                    }
+                }
+            }
+        }
+
         if($status){
             request()->session()->flash('success','Product Successfully updated');
         }

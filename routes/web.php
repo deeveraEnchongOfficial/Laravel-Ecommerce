@@ -181,6 +181,11 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('change-password', 'HomeController@changePassword')->name('user.change.password.form');
     Route::post('change-password', 'HomeController@changPasswordStore')->name('change.password');
 
+    // Notification
+    Route::get('/notification/{id}','HomeController@notificationShow')->name('user.notification');
+    Route::get('/notifications','HomeController@notificationIndex')->name('user.all.notification');
+    Route::delete('/notification/{id}','HomeController@notificationDelete')->name('user.notification.delete');
+
 });
 
 Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){
@@ -209,6 +214,11 @@ Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],functi
     // Password Change
     Route::get('change-password', 'DeliveryHomeController@changePassword')->name('delivery_user.change.password.form');
     Route::post('change-password', 'DeliveryHomeController@changPasswordStore')->name('change.password');
+
+    // Notification
+    // Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
+    // Route::get('/notifications','NotificationController@index')->name('all.notification');
+    // Route::delete('/notification/{id}','NotificationController@delete')->name('notification.delete');
 
 });
 
