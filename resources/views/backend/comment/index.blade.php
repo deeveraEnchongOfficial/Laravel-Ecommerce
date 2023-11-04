@@ -26,7 +26,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
+          {{-- <tfoot>
             <tr>
               <th>S.N.</th>
               <th>Author</th>
@@ -36,7 +36,7 @@
               <th>Status</th>
               <th>Action</th>
             </tr>
-          </tfoot>
+          </tfoot> --}}
           <tbody>
             @foreach($comments as $comment)
             {{-- {{$comment}}   --}}
