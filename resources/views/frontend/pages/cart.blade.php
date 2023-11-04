@@ -27,6 +27,7 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
+                                {{-- <th><input type="checkbox" id="select-all"></th> <!-- New checkbox header --> --}}
 								<th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">UNIT PRICE</th>
@@ -41,6 +42,10 @@
 								@if(Helper::getAllProductFromCart())
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
+                                            <td class="checkbox">
+                                                {{-- <input type="checkbox" name="selected_items[]" value="{{ $cart->id }}"> --}}
+                                                <input type="checkbox" class="cart-item-checkbox" name="selected_items[]" value="{{$cart->id}}">
+                                            </td>
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
@@ -399,6 +404,25 @@
 			});
 
 		});
+
+        // JavaScript/jQuery code
+        $(document).ready(function() {
+            // When the form is submitted
+            $('form').submit(function(event) {
+                // Prevent the form from submitting immediately
+                event.preventDefault();
+
+                // Get an array of selected item IDs
+                var selectedItems = [];
+                $('.cart-item-checkbox:checked').each(function() {
+                    selectedItems.push($(this).val());
+                });
+
+                // Now 'selectedItems' array contains the IDs of selected items.
+                // You can do further processing, such as sending the selected items via AJAX or
+                // redirecting to a new page with the selected item IDs in the URL parameters.
+            });
+        });
 
 	</script>
 
