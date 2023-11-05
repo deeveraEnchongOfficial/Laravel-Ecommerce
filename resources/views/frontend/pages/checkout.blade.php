@@ -626,7 +626,7 @@
                                     <h2>CART  TOTALS</h2>
                                     <div class="content">
                                         <ul>
-										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>₱{{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice2nd($selectedItemsArray)}}">Cart Subtotal<span>₱{{number_format(Helper::totalCartPrice2nd($selectedItemsArray),2)}}</span></li>
                                             <li class="shipping">
                                                 Shipping Cost
                                                 @error('shipping')
