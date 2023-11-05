@@ -28,7 +28,8 @@
 						<thead>
 							<tr class="main-hading">
                                 {{-- <th><input type="checkbox" id="select-all"></th> <!-- New checkbox header --> --}}
-								<th>PRODUCT</th>
+								<th>SELECT</th>
+                                <th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">UNIT PRICE</th>
 								<th class="text-center">QUANTITY</th>
@@ -402,27 +403,7 @@
 				// alert(coupon);
 				$('#order_total_price span').text('₱'+(subtotal + cost-coupon).toFixed(2));
 			});
-
 		});
-
-        // JavaScript/jQuery code
-        $(document).ready(function() {
-            // When the form is submitted
-            $('form').submit(function(event) {
-                // Prevent the form from submitting immediately
-                event.preventDefault();
-
-                // Get an array of selected item IDs
-                var selectedItems = [];
-                $('.cart-item-checkbox:checked').each(function() {
-                    selectedItems.push($(this).val());
-                });
-
-                // Now 'selectedItems' array contains the IDs of selected items.
-                // You can do further processing, such as sending the selected items via AJAX or
-                // redirecting to a new page with the selected item IDs in the URL parameters.
-            });
-        });
 
 	</script>
 

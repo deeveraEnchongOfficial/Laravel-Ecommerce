@@ -191,8 +191,8 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
 Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){
     Route::get('/','DeliveryHomeController@index')->name('delivery_user');
      // Profile
-     Route::get('/profile','DeliveryHomeController@profile')->name('user-profile');
-     Route::post('/profile/{id}','DeliveryHomeController@profileUpdate')->name('user-profile-update');
+     Route::get('/profile','DeliveryHomeController@profile')->name('delivery_user-profile');
+     Route::post('/profile/{id}','DeliveryHomeController@profileUpdate')->name('delivery_user-profile-update');
     //  Order
     Route::get('/order',"DeliveryHomeController@orderIndex")->name('delivery_user.order.index');
     Route::get('/order/show/{id}',"DeliveryHomeController@orderShow")->name('delivery_user.order.show');
