@@ -648,7 +648,15 @@
                                             <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>₱{{number_format(session('coupon')['value'],2)}}</span></li>
                                             @endif
                                             @php
+                                                // dd($selectedItemsArray);
                                                 $total_amount=Helper::totalCartPrice();
+                                                if (!$selectedItemsArray[0] == '') {
+                                                    $total_amount=Helper::totalCartPrice2nd($selectedItemsArray);
+                                                    // dd($total_amount);
+                                                } else {
+                                                    $total_amount=Helper::totalCartPrice();
+                                                }
+                                                // dd($total_amount);
                                                 if(session('coupon')){
                                                     $total_amount=$total_amount-session('coupon')['value'];
                                                 }

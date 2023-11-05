@@ -202,6 +202,19 @@ class Helper{
     public static function shipping(){
         return Shipping::orderBy('id','DESC')->get();
     }
+
+    public static function totalCartPrice2nd(array $selectedItemsArray){
+        // dd($selectedItemsArray);
+        if(Auth::check()){
+            $user_id=auth()->user()->id;
+            $totalAmount = Cart::where('user_id', $user_id)
+                ->where('order_id', null)
+                ->whereIn('id', $selectedItemsArray)
+                ->sum('amount');
+
+            return $totalAmount;
+        }
+    }
 }
 
 ?>

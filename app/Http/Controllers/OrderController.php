@@ -477,22 +477,22 @@ class OrderController extends Controller
     }
 
     public function totalCartPrice( array $selectedItemsArray)
-{
-    // Check if the user is authenticated
-    if (auth()->check()) {
+    {
+        // Check if the user is authenticated
+        if (auth()->check()) {
 
-        $user_id = auth()->user()->id;
+            $user_id = auth()->user()->id;
 
-        // Calculate the total cart price based on selected items array and user ID
-        $totalAmount = Cart::where('user_id', $user_id)
-            ->where('order_id', null)
-            ->whereIn('id', $selectedItemsArray)
-            ->sum('amount');
+            // Calculate the total cart price based on selected items array and user ID
+            $totalAmount = Cart::where('user_id', $user_id)
+                ->where('order_id', null)
+                ->whereIn('id', $selectedItemsArray)
+                ->sum('amount');
 
-        return $totalAmount;
-    } else {
-        // User is not authenticated, return 0 or handle the logic accordingly
-        return 0;
+            return $totalAmount;
+        } else {
+            // User is not authenticated, return 0 or handle the logic accordingly
+            return 0;
+        }
     }
-}
 }
