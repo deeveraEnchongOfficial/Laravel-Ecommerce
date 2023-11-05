@@ -165,7 +165,16 @@
 										@endif
 									</ul>
 									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">Checkout</a>
+										{{-- <a href="{{route('checkout')}}" class="btn">Checkout</a> --}}
+                                        <form action="{{ route('checkout') }}" method="GET">
+                                            @csrf
+                                            <input type="hidden" name="selected_items" value="">
+                                            <button type="submit" class="btn checkout-btn">Checkout</button>
+                                        </form>
+                                        {{-- <form action="{{ route('checkout') }}" method="GET">
+                                            <input type="hidden" name="selected_items" value="{{ implode(',', $selectedItemsArray) }}">
+                                            <button type="submit" class="btn checkout-btn">Checkout</button>
+                                        </form> --}}
 										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a>
 									</div>
 								</div>
@@ -406,5 +415,20 @@
 		});
 
 	</script>
+    <script>
+        $(document).ready(function() {
+            $('.cart-item-checkbox').change(function() {
+                updateSelectedItems();
+            });
+
+            function updateSelectedItems() {
+                var selectedItems = [];
+                $('.cart-item-checkbox:checked').each(function() {
+                    selectedItems.push($(this).val());
+                });
+                $('input[name="selected_items"]').val(selectedItems.join(','));
+            }
+        });
+    </script>
 
 @endpush

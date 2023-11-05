@@ -24,6 +24,9 @@
     <!-- Start Checkout -->
     <section class="shop checkout section">
         <div class="container">
+            {{-- @php
+                dd($selectedItemsArray);
+            @endphp --}}
                 <form class="form" method="POST" action="{{route('cart.order')}}">
                     @csrf
                     <div class="row">
@@ -34,6 +37,7 @@
                                 <p>Please register in order to checkout more quickly</p>
                                 <!-- Form -->
                                 <div class="row">
+                                    <input type="hidden" name="selected_items" value="{{ implode(',', $selectedItemsArray) }}">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>First Name<span>*</span></label>

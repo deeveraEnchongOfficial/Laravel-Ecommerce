@@ -45,6 +45,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $selectedItemsArray = explode(',', $request->input('selected_items'));
         $this->validate($request, [
             'first_name' => 'string|required',
             'last_name' => 'string|required',
@@ -56,7 +57,11 @@ class OrderController extends Controller
             'email' => 'string|required',
             'shipping' => 'required'
         ]);
+        // dd(!$selectedItemsArray[0] == '');
         // return $request->all();
+
+        // dd($selectedItemsArray);
+        // empty($selectedItemsArray)
 
         if (empty(Cart::where('user_id', auth()->user()->id)->where('order_id', null)->first())) {
             request()->session()->flash('error', 'Cart is Empty !');
@@ -90,6 +95,8 @@ class OrderController extends Controller
         //         }
         // }
 
+        // dd($selectedItemsArray);
+
         $order = new Order();
         $order_data = $request->all();
         $order_data['order_number'] = 'ORD-' . strtoupper(Str::random(10));
@@ -97,22 +104,37 @@ class OrderController extends Controller
         $order_data['shipping_id'] = $request->shipping;
         $shipping = Shipping::where('id', $order_data['shipping_id'])->pluck('price');
         // return session('coupon')['value'];
-        $order_data['sub_total'] = Helper::totalCartPrice();
+        // $order_data['sub_total'] = Helper::totalCartPrice();
+        // dd($order_data['sub_total']);
+        $order_data['sub_total'] = !$selectedItemsArray[0] == '' ? $this->totalCartPrice($selectedItemsArray) : Helper::totalCartPrice();
+        // dd($order_data['sub_total']);
         $order_data['quantity'] = Helper::cartCount();
         if (session('coupon')) {
             $order_data['coupon'] = session('coupon')['value'];
         }
         if ($request->shipping) {
             if (session('coupon')) {
-                $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+                // $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+                $order_data['total_amount'] = !$selectedItemsArray[0] == ''
+                                                ? $this->totalCartPrice($selectedItemsArray) + $shipping[0] - session('coupon')['value']
+                                                : Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
             } else {
-                $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0];
+                // $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0];
+                $order_data['total_amount'] = !$selectedItemsArray[0] == ''
+                                                ? $this->totalCartPrice($selectedItemsArray) + $shipping[0]
+                                                : Helper::totalCartPrice() + $shipping[0];
             }
         } else {
             if (session('coupon')) {
-                $order_data['total_amount'] = Helper::totalCartPrice() - session('coupon')['value'];
+                // $order_data['total_amount'] = Helper::totalCartPrice() - session('coupon')['value'];
+                $order_data['total_amount'] = !$selectedItemsArray[0] == ''
+                                                ? $this->totalCartPrice($selectedItemsArray) - session('coupon')['value']
+                                                : Helper::totalCartPrice() - session('coupon')['value'];
             } else {
-                $order_data['total_amount'] = Helper::totalCartPrice();
+                // $order_data['total_amount'] = Helper::totalCartPrice();
+                $order_data['total_amount'] = !$selectedItemsArray[0] == ''
+                                                ? $this->totalCartPrice($selectedItemsArray)
+                                                : Helper::totalCartPrice();
             }
         }
         // return $order_data['total_amount'];
@@ -141,7 +163,18 @@ class OrderController extends Controller
             session()->forget('cart');
             session()->forget('coupon');
         }
-        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+        // dd($selectedItemsArray[0]);
+        // dd($selectedItemsArray[0] == '');
+        if (!$selectedItemsArray[0] == '') {
+            Cart::where('user_id', auth()->user()->id)->where('order_id', null)->whereIn('id', $selectedItemsArray)->update(['order_id' => $order->id]);
+        } else {
+            Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+        }
+        // Cart::where('user_id', auth()->user()->id)->where('order_id', null)->whereIn('id', $selectedItemsArray)->update(['order_id' => $order->id]);
+        // $totalAmount = Cart::where('user_id', $user_id)
+        //     ->where('order_id', null)
+        //     ->whereIn('id', $selectedItemsArray)
+        //     ->sum('amount');
 
         // dd($users);
         request()->session()->flash('success', 'Your product successfully placed in order');
@@ -442,4 +475,24 @@ class OrderController extends Controller
 
         return $result;
     }
+
+    public function totalCartPrice( array $selectedItemsArray)
+{
+    // Check if the user is authenticated
+    if (auth()->check()) {
+
+        $user_id = auth()->user()->id;
+
+        // Calculate the total cart price based on selected items array and user ID
+        $totalAmount = Cart::where('user_id', $user_id)
+            ->where('order_id', null)
+            ->whereIn('id', $selectedItemsArray)
+            ->sum('amount');
+
+        return $totalAmount;
+    } else {
+        // User is not authenticated, return 0 or handle the logic accordingly
+        return 0;
+    }
+}
 }
