@@ -40,8 +40,8 @@ class BannerController extends Controller
     {
         // return $request->all();
         $this->validate($request,[
-            'title'=>'string|required|max:50',
-            'description'=>'string|nullable',
+            // 'title'=>'string|required|max:50',
+            // 'description'=>'string|nullable',
             'photo' => [
                 'required',
                 'file',
@@ -59,7 +59,7 @@ class BannerController extends Controller
             $data['photo']=$filePath;
         }
 
-        $slug=Str::slug($request->title);
+        $slug=Str::slug($request->id);
         $count=Banner::where('slug',$slug)->count();
         if($count>0){
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
@@ -111,8 +111,8 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $this->validate($request, [
-            'title' => 'string|required|max:50',
-            'description' => 'string|nullable',
+            // 'title' => 'string|required|max:50',
+            // 'description' => 'string|nullable',
             'photo' => 'image|mimes:jpeg,png,gif',
             'status' => 'required|in:active,inactive',
         ]);
