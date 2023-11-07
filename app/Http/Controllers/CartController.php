@@ -55,6 +55,7 @@ class CartController extends Controller
     }
 
     public function singleAddToCart(Request $request){
+        // dd($request->all());
         $request->validate([
             'slug'      =>  'required',
             'quant'      =>  'required',
@@ -92,6 +93,7 @@ class CartController extends Controller
             $cart->price = ($product->price-($product->price*$product->discount)/100);
             $cart->quantity = $request->quant[1];
             $cart->amount=($product->price * $request->quant[1]);
+            $cart->size = $request->size;
             if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
             // return $cart;
             $cart->save();
