@@ -74,6 +74,26 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
+                                            @php
+                                            // dd($cart->product->size);
+                                            @endphp
+                                            <td class="" data-title=""><!-- Input Order -->
+												<div class="input-group">
+                                                    {{-- <p>{{ $cart->size }}</p>
+                                                    <label for="size-select">Size:</label> --}}
+													<select name="size" id="size-select" class="form-control">
+                                                        {{-- <option value="" disabled selected>Select Size</option> --}}
+                                                        <option value="{{ $cart->size }}">{{ $cart->size }}</option>
+                                                        @php
+                                                            $sizes = explode(',', $cart->product->size);
+                                                        @endphp
+                                                        @foreach ($sizes as $size)
+                                                            <option value="{{ $size }}">{{ $size }}</option>
+                                                        @endforeach
+                                                    </select>
+												</div>
+												<!--/ End Input Order -->
+											</td>
 											<td class="total-amount cart_single_price" data-title="Total"><span class="money">₱{{$cart['amount']}}</span></td>
                                             <td class="total-amount cart_single_price" data-title="Total"><span class="money">{{$cart['size']}}</span></td>
 

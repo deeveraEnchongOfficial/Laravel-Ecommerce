@@ -138,6 +138,7 @@ class CartController extends Controller
                     if ($cart->product->stock <=0) continue;
                     $after_price=($cart->product->price-($cart->product->price*$cart->product->discount)/100);
                     $cart->amount = $after_price * $quant;
+                    $cart->size = $request->size;
                     // return $cart->price;
                     $cart->save();
                     $success = 'Cart successfully updated!';
