@@ -217,8 +217,9 @@ class OrderController extends Controller
     {
         // dd($request->all());
         $order = Order::find($id);
+        // dd($order->user);
         $this->validate($request, [
-            'status' => 'required|in:new,process,delivered,cancel',
+            'status' => 'required|in:new,processing,shipped,delivered,cancel',
             'deliver_by' => 'required',
         ]);
         $data = $request->all();
@@ -231,6 +232,16 @@ class OrderController extends Controller
                 $product->save();
             }
         }
+
+        if ($request->status != 'new') {
+            $details=[
+                'title' => 'The status of your order is ' . $request->status,
+                'actionURL'=>route('user.order.show',$order->id),
+                'fas'=>'fa-file-alt'
+            ];
+            Notification::send($order->user, new StatusNotification($details));
+        }
+
         $status = $order->fill($data)->save();
         if ($status) {
             request()->session()->flash('success', 'Successfully updated order');

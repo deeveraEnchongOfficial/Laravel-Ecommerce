@@ -10,6 +10,8 @@ use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
 use Illuminate\Support\Facades\Storage;
+use Notification;
+use App\Notifications\StatusNotification;
 
 
 class DeliveryHomeController extends Controller
@@ -142,6 +144,16 @@ class DeliveryHomeController extends Controller
                 $product->save();
             }
         }
+
+        if ($request->status != 'new') {
+            $details=[
+                'title' => 'The status of your order is ' . $request->status,
+                'actionURL'=>route('user.order.show',$order->id),
+                'fas'=>'fa-file-alt'
+            ];
+            Notification::send($order->user, new StatusNotification($details));
+        }
+
         $status=$order->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated order');
