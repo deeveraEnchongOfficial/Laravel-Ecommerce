@@ -120,14 +120,14 @@
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
 
-      $('#user-dataTable').DataTable( {
-            "columnDefs":[
-                {
-                    "orderable":false,
-                    "targets":[6,7]
-                }
-            ]
-        } );
+    //   $('#user-dataTable').DataTable( {
+    //         "columnDefs":[
+    //             {
+    //                 "orderable":false,
+    //                 "targets":[6,7]
+    //             }
+    //         ]
+    //     } );
 
         // Sweet alert
 
