@@ -2,7 +2,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" style="margin: 35px 0;" href="{{route('admin')}}">
-        <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="" width="100%">
+        <img src="{{ asset('images/icon/Padilla_gowns_new.png') }}" alt="" width="100%">
         {{-- <div class="sidebar-brand-text mx-1">Padilla Gowns and Barongs</div> --}}
     </a>
 

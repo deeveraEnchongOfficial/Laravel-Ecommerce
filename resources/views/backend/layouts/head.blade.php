@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ URL::asset('/images/icon/Padilla_gowns.jpg') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ URL::asset('/images/icon/Padilla_gowns_new.png') }}" type="image/x-icon"/>
     <title>Padilla Gowns and Barongs || DASHBOARD</title>
 
     <!-- Custom fonts for this template-->

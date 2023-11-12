@@ -44,7 +44,7 @@
 							{{-- <div class="button">
 								<a href="#" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
 							</div> --}}
-                            <img src="{{ asset('images/icon/Padilla_gowns.jpg') }}" alt="">
+                            <img src="{{ asset('images/icon/Padilla_gowns_new.png') }}" alt="">
 							{{-- <img src="@foreach($settings as $data) {{$data->photo}} @endforeach" alt="@foreach($settings as $data) {{$data->photo}} @endforeach"> --}}
 						</div>
 					</div>

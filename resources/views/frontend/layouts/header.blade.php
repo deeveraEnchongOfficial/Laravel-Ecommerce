@@ -45,7 +45,7 @@
                         @php
                             $settings = DB::table('settings')->get();
                         @endphp
-                        <a href="{{ route('home') }}"><img src="{{ asset('images/icon/Padilla_gowns.jpg') }}"
+                        <a href="{{ route('home') }}"><img src="{{ asset('images/icon/Padilla_gowns_new.png') }}"
                                 alt="logo" width="80" height="80" style="border-radius: 10px;"></a>
                     </div>
                     <!--/ End Logo -->
