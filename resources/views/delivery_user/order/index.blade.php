@@ -25,6 +25,7 @@
               <th>Charge</th>
               <th>Total Amount</th>
               <th>Status</th>
+              <th>Location Info</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -67,6 +68,7 @@
                           <span class="badge badge-danger">{{$order->status}}</span>
                         @endif
                     </td>
+                    <td>{{$order->location_info}}</td>
                     <td>
                         <a href="{{route('delivery_user.order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
                         <a href="{{route('delivery_user.order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>

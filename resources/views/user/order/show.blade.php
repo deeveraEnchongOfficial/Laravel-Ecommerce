@@ -20,6 +20,7 @@
             <th>Charge</th>
             <th>Total Amount</th>
             <th>Status</th>
+            <th>Location Info</th>
             <th>Action</th>
         </tr>
       </thead>
@@ -48,6 +49,7 @@
                   <span class="badge badge-danger">{{$order->status}}</span>
                 @endif
             </td>
+            <td>{{$order->location_info}}</td>
             <td>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
                   @csrf

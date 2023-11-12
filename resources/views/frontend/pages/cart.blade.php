@@ -64,7 +64,10 @@
 															<i class="ti-minus"></i>
 														</button>
 													</div>
-													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
+                                                    {{-- @php
+                                                dd($cart->product->stock);
+                                                @endphp --}}
+													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="{{$cart->product->stock}}" value="{{$cart->quantity}}">
 													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
 													<div class="button plus">
 														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
@@ -72,11 +75,34 @@
 														</button>
 													</div>
 												</div>
+                                                {{-- @php
+                                                $product_detail = $cart->product;
+                                                @endphp
+                                                <div class="input-group">
+                                                    <div class="button minus">
+                                                        <button type="button" class="btn btn-primary btn-number"
+                                                            disabled="disabled" data-type="minus" data-field="quant[1]">
+                                                            <i class="ti-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input type="hidden" name="slug"
+                                                        value="{{ $product_detail->slug }}">
+                                                    <input type="text" name="quant[1]" class="input-number"
+                                                        data-min="1" data-max="{{ $product_detail->stock }}"
+                                                        value="@if ($product_detail->stock <= 0) 0 @else 1 @endif"
+                                                        id="quantity" @if ($product_detail->stock <= 1) readonly @endif>
+                                                    <div class="button plus">
+                                                        <button type="button" class="btn btn-primary btn-number"
+                                                            data-type="plus" data-field="quant[1]"
+                                                            @if ($product_detail->stock <= 1) disabled @endif>
+                                                            <i class="ti-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> --}}
 												<!--/ End Input Order -->
 											</td>
-                                            @php
-                                            // dd($cart->product->size);
-                                            @endphp
+
+											<td class="total-amount cart_single_price" data-title="Total"><span class="money">₱{{$cart['amount']}}</span></td>
                                             <td class="" data-title=""><!-- Input Order -->
 												<div class="input-group">
                                                     {{-- <p>{{ $cart->size }}</p>
@@ -94,7 +120,6 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
-											<td class="total-amount cart_single_price" data-title="Total"><span class="money">₱{{$cart['amount']}}</span></td>
                                             <td class="total-amount cart_single_price" data-title="Total"><span class="money">{{$cart['size']}}</span></td>
 
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>

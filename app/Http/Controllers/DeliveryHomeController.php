@@ -130,6 +130,7 @@ class DeliveryHomeController extends Controller
      */
     public function orderUpdate(Request $request, $id)
     {
+        // dd($request->all());
         $order=Order::find($id);
         $this->validate($request,[
             'status'=>'required|in:new,processing,shipped,delivered,cancel'
