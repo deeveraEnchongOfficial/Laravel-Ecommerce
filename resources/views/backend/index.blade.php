@@ -143,6 +143,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Yearly Earnings Overview</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myYearlyEarningsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     @endsection

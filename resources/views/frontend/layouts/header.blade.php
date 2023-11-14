@@ -17,14 +17,14 @@
                             {{-- <li><i class="ti-location-pin"></i> <a href="{{ route('order.track') }}">Track Order</a></li> --}}
                             {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
                             @auth
-                                                @if (Auth::user()->role == 'admin')
+                                                    @if (Auth::user()->role == 'admin')
     <li><i class="ti-user"></i> <a href="{{ route('admin') }}" target="_blank">Dashboard</a></li>
 @elseif(Auth::user()->role == 'delivery_user')
     <li><i class="ti-user"></i> <a href="{{ route('delivery_user') }}" target="_blank">Editor Dashboard</a></li>
 @else
     <li><i class="ti-user"></i> <a href="{{ route('user') }}" target="_blank">Dashboard</a></li>
     @endif
-                                                <li><i class="ti-power-off"></i> <a href="{{ route('user.logout') }}">Logout</a></li>
+                                                    <li><i class="ti-power-off"></i> <a href="{{ route('user.logout') }}">Logout</a></li>
 @else
     <li><i class="ti-power-off"></i><a href="{{ route('login.form') }}">Login /</a> <a href="{{ route('register.form') }}">Register</a></li>
                             @endauth
@@ -94,7 +94,8 @@
                                     @elseif(Auth::user()->role == 'user')
                                         <a href="{{ route('user.all.notification') }}" class="single-icon"><i
                                                 class="fa fa-bell-o"></i>
-                                            <span class="total-count">0</span></a>
+                                            <span
+                                                class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a>
                                     @endif
                                 @endif
                                 {{-- @if (Auth::user()->role == 'admin')
@@ -155,7 +156,7 @@
                                                 <div class="small text-gray-500">
                                                     {{ $notification->created_at->format('F d, Y h:i A') }}</div>
                                                 <span
-                                                    class="@if ($notification->unread()) font-weight-bold @else small text-gray-500 @endif">{{ $notification->data['title'] }}</span>
+                                                    class="small text-gray-500">{{ $notification->data['title'] }}</span>
                                             </div>
                                             </a>
                                             @if ($loop->index + 1 == 5)

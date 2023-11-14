@@ -66,6 +66,7 @@ Route::get('like-delete/{id}','LikeController@likeDelete')->name('like-delete');
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
+Route::get('/yearly-earnings', 'OrderController@yearlyEarningsChart')->name('yearly.earnings');
 Route::get('/weekly-income', 'OrderController@weeklyIncomeChart')->name('weekly.income');
 Route::get('/yearly-earnings', 'OrderController@yearlyEarningsChart')->name('yearly.earnings');
 Route::get('/daily-earnings', 'OrderController@dailyEarningsChart')->name('daily.earnings');

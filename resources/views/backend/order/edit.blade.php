@@ -11,7 +11,7 @@
       @method('PATCH')
       <div class="form-group">
         <label for="status">Status :</label>
-        <select name="status" id="" class="form-control" {{ ($order->status == 'delivered') ? 'disabled' : '' }}>
+        <select name="status" id="" class="form-control" {{ ($order->status == 'delivered') ? 'disabled' : '' }} disabled>
             <option value="">--Select Status--</option>
             <option value="new" {{ ($order->status == 'new') ? 'selected' : '' }}>New</option>
             <option value="processing" {{ ($order->status == 'processing') ? 'selected' : '' }}>Processing</option>

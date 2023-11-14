@@ -341,6 +341,33 @@ class OrderController extends Controller
         return $data;
     }
 
+    public function yearlyEarningsChart(Request $request)
+    {
+        $yearlyItems = Order::with(['cart_info'])
+            // ->whereYear('created_at', now()->year)
+            ->where('status', 'delivered')
+            ->get()
+            ->groupBy(function ($d) {
+                return \Carbon\Carbon::parse($d->created_at)->format('Y');
+            });
+
+        $yearlyResult = [];
+        foreach ($yearlyItems as $year => $yearlyCollections) {
+            foreach ($yearlyCollections as $item) {
+                $amount = $item->cart_info->sum('amount');
+                isset($yearlyResult[$year]) ? $yearlyResult[$year] += $amount : $yearlyResult[$year] = $amount;
+            }
+        }
+
+        $yearlyData = [];
+        foreach ($yearlyResult as $year => $earnings) {
+            $yearlyData[$year] = number_format($earnings, 2, '.', '');
+        }
+
+        return $yearlyData;
+    }
+
+
     // public function weeklyIncomeChart(Request $request)
     // {
     //     $startOfWeek = now()->startOfWeek();
@@ -428,39 +455,39 @@ class OrderController extends Controller
         return $data;
     }
 
-    public function yearlyEarningsChart(Request $request)
-    {
-        $year = \Carbon\Carbon::now()->year;
+    // public function yearlyEarningsChart(Request $request)
+    // {
+    //     $year = \Carbon\Carbon::now()->year;
 
-        $items = Order::with(['cart_info'])
-            ->whereYear('created_at', $year)
-            ->where('status', 'delivered')
-            ->get()
-            ->groupBy(function ($d) {
-                return \Carbon\Carbon::parse($d->created_at)->format('F Y'); // Group by month and year
-            });
+    //     $items = Order::with(['cart_info'])
+    //         ->whereYear('created_at', $year)
+    //         ->where('status', 'delivered')
+    //         ->get()
+    //         ->groupBy(function ($d) {
+    //             return \Carbon\Carbon::parse($d->created_at)->format('F Y'); // Group by month and year
+    //         });
 
-        $result = [];
-        foreach ($items as $monthYear => $itemCollections) {
-            foreach ($itemCollections as $item) {
-                $amount = $item->cart_info->sum('amount');
-                isset($result[$monthYear]) ? $result[$monthYear] += $amount : $result[$monthYear] = $amount;
-            }
-        }
+    //     $result = [];
+    //     foreach ($items as $monthYear => $itemCollections) {
+    //         foreach ($itemCollections as $item) {
+    //             $amount = $item->cart_info->sum('amount');
+    //             isset($result[$monthYear]) ? $result[$monthYear] += $amount : $result[$monthYear] = $amount;
+    //         }
+    //     }
 
-        $data = [];
-        $months = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
+    //     $data = [];
+    //     $months = [
+    //         'January', 'February', 'March', 'April', 'May', 'June',
+    //         'July', 'August', 'September', 'October', 'November', 'December'
+    //     ];
 
-        foreach ($months as $month) {
-            $monthYear = $month . ' ' . $year;
-            $data[$monthYear] = (!empty($result[$monthYear])) ? number_format((float)($result[$monthYear]), 2, '.', '') : 0.0;
-        }
+    //     foreach ($months as $month) {
+    //         $monthYear = $month . ' ' . $year;
+    //         $data[$monthYear] = (!empty($result[$monthYear])) ? number_format((float)($result[$monthYear]), 2, '.', '') : 0.0;
+    //     }
 
-        return $data;
-    }
+    //     return $data;
+    // }
 
     public function dailyEarningsChart(Request $request)
     {
