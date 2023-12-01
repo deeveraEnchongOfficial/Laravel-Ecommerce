@@ -70,25 +70,7 @@
                 </div>
             </div>
 
-            <!--Posts-->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning bg-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Post</div>
-                                <div class="h5 mb-0 font-weight-bold text-white">{{ \App\Models\Post::countActivePost() }}
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-folder fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+           
         <div class="row">
             <!-- Earnings Overview Chart -->
             <div class="col-xl-8 col-lg-7 mb-4">

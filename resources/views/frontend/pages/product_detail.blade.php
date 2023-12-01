@@ -56,7 +56,7 @@
                                                 <div style="position: relative; display: inline-block;">
                                                     <img src="{{ asset($data) }}" alt="{{ $data }}"
                                                         style="max-width: 100%; height: auto;" />
-                                                    @if ($product_detail->stock <= 1)
+                                                    @if ($product_detail->stock <= 0)
                                                         <div
                                                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(192, 192, 192, 0.7); color: white; padding: 10px; font-weight: bold; border-radius: 50%; width: 150px; height: 80px; display: flex; align-items: center; justify-content: center;">
                                                             Sold Out
@@ -112,35 +112,21 @@
 												</ul>
 											</div> --}}
                                 <!--/ End Color -->
-                                <!-- Size -->
-                                @if ($product_detail->size)
-                                    <div class="size mt-4">
-                                        <h4>Size</h4>
-                                        <ul>
-                                            @php
-                                                $sizes = explode(',', $product_detail->size);
-                                                // dd($sizes);
-                                            @endphp
-                                            @foreach ($sizes as $size)
-                                                <li><a href="#" class="one">{{ $size }}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                <!--/ End Size -->
+                                
                                 <!-- Product Buy -->
                                 <div class="product-buy">
                                     <form action="{{ route('single-add-to-cart') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
+                                        <p>Size:</p>
                                             {{-- <label for="size-select">Size:</label> --}}
                                             <select name="size" id="size-select" class="form-control">
-                                                <option value="" disabled selected>Select Size</option>
+                                                
                                                 @php
                                                     $sizes = explode(',', $product_detail->size);
                                                 @endphp
                                                 @foreach ($sizes as $size)
-                                                    <option value="{{ $size }}">{{ $size }}</option>
+                                                    <option value="{{ $size }}" selected>{{ $size }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -166,11 +152,11 @@
                                                     <input type="text" name="quant[1]" class="input-number"
                                                         data-min="1" data-max="{{ $product_detail->stock }}"
                                                         value="@if ($product_detail->stock <= 1) 0 @else 1 @endif"
-                                                        id="quantity" @if ($product_detail->stock <= 1) readonly @endif>
+                                                        id="quantity" @if ($product_detail->stock <= 0) readonly @endif>
                                                     <div class="button plus">
                                                         <button type="button" class="btn btn-primary btn-number"
                                                             data-type="plus" data-field="quant[1]"
-                                                            @if ($product_detail->stock <= 1) disabled @endif>
+                                                            @if ($product_detail->stock <= 0) disabled @endif>
                                                             <i class="ti-plus"></i>
                                                         </button>
                                                     </div>
@@ -181,8 +167,8 @@
 
                                         <div class="add-to-cart mt-4">
                                             <button type="submit" class="btn"
-                                                @if ($product_detail->stock <= 1) disabled @endif>
-                                                @if ($product_detail->stock <= 1)
+                                                @if ($product_detail->stock <= 0) disabled @endif>
+                                                @if ($product_detail->stock <= 0)
                                                     Out of Stock
                                                 @else
                                                     Add to Cart
@@ -432,19 +418,6 @@
                                             <span class="price-dec">{{ $data->discount }} % Off</span>
                                             {{-- <span class="out-of-stock">Hot</span> --}}
                                         </a>
-                                        <div class="button-head">
-                                            <div class="product-action">
-                                                <a data-toggle="modal" data-target="#modelExample" title="Quick View"
-                                                    href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-                                                        Wishlist</span></a>
-                                                <a title="Compare" href="#"><i
-                                                        class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                                            </div>
-                                            <div class="product-action-2">
-                                                <a title="Add to cart" href="#">Add to cart</a>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="product-content">
                                         <h3><a href="{{ route('product-detail', $data->slug) }}">{{ $data->title }}</a>
@@ -453,8 +426,8 @@
                                             @php
                                                 $after_discount = $data->price - ($data->discount * $data->price) / 100;
                                             @endphp
-                                            <span class="old">₱{{ number_format($data->price, 2) }}</span>
                                             <span>₱{{ number_format($after_discount, 2) }}</span>
+                                            <span class="old">₱{{ number_format($data->price, 2) }}</span>
                                         </div>
 
                                     </div>

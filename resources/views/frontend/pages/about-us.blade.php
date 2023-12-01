@@ -34,7 +34,6 @@
                             <p>Padilla Gowns and Barongs, nestled in the heart of San Carlos City, Pangasinan, stands as a premier destination for those in search of impeccable attire. This revered establishment has earned its reputation as one of the finest rental shops in the region, offering an extensive collection of barongs and gowns that seamlessly blend tradition and modernity. Whether it's a traditional Filipino celebration or a grand formal event, Padilla's commitment to quality and style ensures that every customer finds their perfect ensemble. The warm hospitality and personalized service provided by the Padilla family make this boutique a cherished gem, leaving visitors with unforgettable memories and a sense of sartorial satisfaction. For those seeking elegance and sophistication in San Carlos City, Padilla Gowns and Barongs remains the ultimate choice.</p>
 							{{-- <p>@foreach($settings as $data) {{$data->description}} @endforeach</p> --}}
 							<div class="button">
-								<a href="{{route('product-high-reviews')}}" class="btn">Top Reviews</a>
 								<a href="{{route('contact')}}" class="btn primary">Contact Us</a>
 							</div>
 						</div>

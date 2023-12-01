@@ -120,7 +120,7 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
-                                            <td class="total-amount cart_single_price" data-title="Total"><span class="money">{{$cart['size']}}</span></td>
+                                           
 
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
@@ -131,9 +131,6 @@
 										<td></td>
 										<td></td>
 										<td></td>
-										<td class="float-right">
-											<button class="btn float-right" type="submit">Update</button>
-										</td>
 									</track>
 								@else
 										<tr>
