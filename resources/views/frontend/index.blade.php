@@ -39,11 +39,11 @@
     <div class="carousel-inner" role="listbox">
         @foreach($banners as $key=>$banner)
         <div class="carousel-item {{(($key==0)? 'active' : '')}}">
-            <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
+            <img class="first-slide" src="{{$banner->photo}}" alt="First slide" style="height:580px;opacity:1">
             <div class="carousel-caption d-none d-md-block text-left">
                 <h1 class="wow fadeInDown">{{$banner->title}}</h1>
                 <p>{!! html_entity_decode($banner->description) !!}</p>
-                <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{route('product-grids')}}" role="button">Shop Now<i class="far fa-arrow-alt-circle-right"></i></i></a>
+                
             </div>
         </div>
         @endforeach
@@ -104,11 +104,11 @@
                         <div class="product-content">
                             <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
                             <div class="product-price">
-                                <span class="old">₱{{number_format($product->price,2)}}</span>
                                 @php
                                 $after_discount=($product->price-($product->price*$product->discount)/100)
                                 @endphp
                                 <span>₱{{number_format($after_discount,2)}}</span>
+                                <span class="old">₱{{number_format($product->price,2)}}</span>
                             </div>
                         </div>
                     </div>
@@ -365,11 +365,12 @@
                         <div class="product-content">
                             <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
                             <div class="product-price">
-                                <span class="old">₱{{number_format($product->price,2)}}</span>
+                                
                                 @php
                                 $after_discount=($product->price-($product->price*$product->discount)/100)
                                 @endphp
                                 <span>₱{{number_format($after_discount,2)}}</span>
+                                <span class="old">₱{{number_format($product->price,2)}}</span>
                             </div>
                         </div>
                     </div>
