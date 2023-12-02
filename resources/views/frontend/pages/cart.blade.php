@@ -131,6 +131,9 @@
 										<td></td>
 										<td></td>
 										<td></td>
+										<td class="float-right">
+											<button class="btn float-right" type="submit">Update</button>
+										</td>
 									</track>
 								@else
 										<tr>
