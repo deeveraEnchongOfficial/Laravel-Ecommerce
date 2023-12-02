@@ -17,11 +17,12 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
+            <th>Sub Total</th>
             <th>Charge</th>
             <th>Total Amount</th>
             <th>Status</th>
             <th>Location Info</th>
-            <th>Action</th>
+            {{-- <th>Action</th> --}}
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
+            <td>{{$order->sub_total}}</td>
             <td>@foreach($shipping_charge as $data) ₱ {{number_format($data,2)}} @endforeach</td>
             <td>₱{{number_format($order->total_amount,2)}}</td>
             <td>
@@ -50,13 +52,13 @@
                 @endif
             </td>
             <td>{{$order->location_info}}</td>
-            <td>
+            {{-- <td>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
                   @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                 </form>
-            </td>
+            </td> --}}
 
         </tr>
       </tbody>
@@ -104,6 +106,15 @@
                         <td>Payment Status</td>
                         <td> : {{$order->payment_status}}</td>
                     </tr>
+                  <tr>
+                    <td>Product Ordered</td>
+                    <td>
+                        @foreach ($order->cart as $cartItem)
+                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}}
+                            <br>
+                        @endforeach
+                    </td>
+                </tr>
               </table>
             </div>
           </div>

@@ -16,8 +16,8 @@
             <option value="new" {{ ($order->status == 'new') ? 'selected' : '' }}>New</option>
             <option value="processing" {{ ($order->status == 'processing') ? 'selected' : '' }}>Processing</option>
             <option value="shipped" {{ ($order->status == 'shipped') ? 'selected' : '' }}>Shipped</option>
-            <option value="delivered" {{ ($order->status == 'delivered') ? 'selected' : '' }}>Delivered</option>
-            <option value="cancel" {{ ($order->status == 'cancel') ? 'selected' : '' }}>Cancel</option>
+            {{-- <option value="delivered" {{ ($order->status == 'delivered') ? 'selected' : '' }}>Delivered</option> --}}
+            {{-- <option value="cancel" {{ ($order->status == 'cancel') ? 'selected' : '' }}>Cancel</option> --}}
         </select>
     </div>
       @php
