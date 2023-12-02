@@ -13,6 +13,8 @@ use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
 use Carbon\Carbon;
+use App\Models\Coupon;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -178,6 +180,22 @@ class OrderController extends Controller
         //     ->where('order_id', null)
         //     ->whereIn('id', $selectedItemsArray)
         //     ->sum('amount');
+
+        $orders = Order::where('user_id', auth()->user()->id)
+        ->orderBy('user_id')
+        ->get();
+        $totalAmount = $orders->sum('total_amount');
+
+        if ($orders->count() > 3 || $totalAmount > 15000) {
+            $randomCode = Coupon::inRandomOrder()->limit(1)->value('code');
+            $details = [
+                'title' => 'Claim your Coupon ' . $randomCode,
+                'actionURL' => "",
+                'fas' => 'fa-file-alt'
+            ];
+            $user = Auth::user();
+            Notification::send($user, new StatusNotification($details));
+        }
 
         // dd($users);
         request()->session()->flash('success', 'Your product successfully placed in order');
