@@ -479,6 +479,12 @@ class FrontendController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
         $data=$request->all();
+        // $data = [
+        //     'municipality_name' => (string)$request->input('municipality_name'),
+        //     'name' => (string)$request->input('municipality_name'),
+        //     'price' => $request->input('price'),
+        //     'status' => $request->input('status'),
+        // ];
         // dd($data);
         $check=$this->create($data);
         Session::put('user',$data['email']);
@@ -493,14 +499,15 @@ class FrontendController extends Controller
     }
     public function create(array $data){
         return User::create([
-            'name'=>$data['first_name'],
+            'name'=>$data['name'],
             'first_name'=>$data['first_name'],
             'last_name'=>$data['last_name'],
             'email'=>$data['email'],
             'phone_number'=>$data['phone_number'],
             'address'=>$data['address'],
             'password'=>Hash::make($data['password']),
-            'status'=>'active'
+            'status'=>'active',
+            'municipality_name'=>$data['municipality_name'],
             ]);
     }
     // Reset password

@@ -95,7 +95,7 @@ class OrderController extends Controller
         //         }
         // }
 
-        // dd($selectedItemsArray);
+        // dd($request->shipping);
 
         $order = new Order();
         $order_data = $request->all();

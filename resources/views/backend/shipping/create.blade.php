@@ -8,8 +8,8 @@
       <form method="post" action="{{route('shipping.store')}}">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Type <span class="text-danger">*</span></label>
-        <input id="inputTitle" type="text" name="type" placeholder="Enter title"  value="{{old('type')}}" class="form-control">
+          <label for="inputTitle" class="col-form-label">Municipality Name <span class="text-danger">*</span></label>
+        <input id="inputTitle" type="text" name="municipality_name" placeholder="Enter Municipality Name"  value="{{old('type')}}" class="form-control">
         @error('type')
         <span class="text-danger">{{$message}}</span>
         @enderror
@@ -22,7 +22,7 @@
         <span class="text-danger">{{$message}}</span>
         @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">

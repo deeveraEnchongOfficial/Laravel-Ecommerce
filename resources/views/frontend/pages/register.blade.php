@@ -59,7 +59,16 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>User Name<span>*</span></label>
+                                        <input type="text" name="name" placeholder="" required="required" value="{{old('name')}}">
+                                        @error('name')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label>Your Email<span>*</span></label>
                                         <input type="text" name="email" placeholder="" required="required" value="{{old('email')}}">
@@ -77,7 +86,37 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Address<span>*</span></label>
+                                        <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
+                                        @error('address')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <label for="municipality_name" class="form-label">Municipality<span>*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="municipality_name" id="municipality_name" required="required">
+                                            <option value="" selected disabled>Select a municipality</option>
+
+                                            @php
+                                                $shippings = \App\Models\Shipping::all();
+                                            @endphp
+
+                                            @foreach($shippings as $shipping)
+                                                <option value="{{ $shipping->id }}" @if(old('municipality_name') == $shipping->id) selected @endif>
+                                                    {{ $shipping->municipality_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('municipality_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label>Address<span>*</span></label>
                                         <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">

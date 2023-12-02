@@ -627,23 +627,28 @@
                                     <div class="content">
                                         <ul>
 										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice2nd($selectedItemsArray)}}">Cart Subtotal<span>₱{{number_format(Helper::totalCartPrice2nd($selectedItemsArray),2)}}</span></li>
+                                            {{-- {{Auth()->user()->address}} --}}
                                             <li class="shipping">
                                                 Shipping Cost
                                                 @error('shipping')
-                                                <span class='text-danger'>{{$message}}</span>
-                                            @enderror
-                                                @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
+                                                    <span class='text-danger'>{{$message}}</span>
+                                                @enderror
+                                                @if(count(Helper::shipping()) > 0 && Helper::cartCount() > 0)
                                                     <select name="shipping" class="nice-select">
                                                         <option value="">Select</option>
                                                         @foreach(Helper::shipping() as $shipping)
-                                                        <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}" selected>{{$shipping->type}}: ₱{{$shipping->price}}</option>
+                                                            @php
+                                                                $selected = Auth()->user()->municipality_name == $shipping->id ? 'selected' : '';
+                                                            @endphp
+                                                            <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}" {{$selected}}>
+                                                                {{$shipping->type}}: ₱{{$shipping->price}}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 @else
                                                     <span>Free</span>
                                                 @endif
                                             </li>
-
                                             @if(session('coupon'))
                                             <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>₱{{number_format(session('coupon')['value'],2)}}</span></li>
                                             @endif
