@@ -9,8 +9,8 @@
         @csrf 
         @method('PATCH')
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Type <span class="text-danger">*</span></label>
-        <input id="inputTitle" type="text" name="type" placeholder="Enter type"  value="{{$shipping->type}}" class="form-control">
+          <label for="inputTitle" class="col-form-label">Municipality Name <span class="text-danger">*</span></label>
+        <input id="inputTitle" type="text" name="municipality_name" placeholder="Enter Municipality Name"  value="{{$shipping->municipality_name}}" class="form-control">
         @error('title')
         <span class="text-danger">{{$message}}</span>
         @enderror

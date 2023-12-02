@@ -97,11 +97,17 @@ class ShippingController extends Controller
     {
         $shipping=Shipping::find($id);
         $this->validate($request,[
-            'type'=>'string|required',
+            'municipality_name'=>'string|required',
             'price'=>'nullable|numeric',
             'status'=>'required|in:active,inactive'
         ]);
-        $data=$request->all();
+        // $data=$request->all();
+        $data = [
+            'municipality_name' => (string)$request->input('municipality_name'),
+            'type' => (string)$request->input('municipality_name'),
+            'price' => $request->input('price'),
+            'status' => $request->input('status'),
+        ];
         // return $data;
         $status=$shipping->fill($data)->save();
         if($status){
