@@ -45,6 +45,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $selectedItemsArray = explode(',', $request->input('selected_items'));
         $this->validate($request, [
             'first_name' => 'string|required',
@@ -111,6 +112,7 @@ class OrderController extends Controller
         $order_data['quantity'] = Helper::cartCount();
         if (session('coupon')) {
             $order_data['coupon'] = session('coupon')['value'];
+            $order_data['coupon_id'] = session('coupon')['id'];
         }
         if ($request->shipping) {
             if (session('coupon')) {
@@ -146,6 +148,7 @@ class OrderController extends Controller
             $order_data['payment_method'] = 'cod';
             $order_data['payment_status'] = 'Unpaid';
         }
+        // dd($order_data);
         $order->fill($order_data);
         $status = $order->save();
         if ($order)

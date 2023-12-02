@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Order;
+use Auth;
+
 class CouponController extends Controller
 {
     /**
@@ -61,6 +64,12 @@ class CouponController extends Controller
      */
     public function show($id)
     {
+        $coupon = Coupon::find($id);
+        $auth_user_id = Auth::user()->id;
+        $orders = Order::where('coupon_id', $coupon->id)
+                ->get();
+        // return $order;
+        return view('backend.coupon.show')->with('coupon', $coupon)->with('orders', $orders);
     }
 
     /**
@@ -137,7 +146,21 @@ class CouponController extends Controller
     public function couponStore(Request $request){
         // return $request->all();
         $coupon=Coupon::where('code',$request->code)->first();
-        // dd($coupon);
+
+        // get the coupon_id and store it to order
+
+        $auth_user_id = Auth::user()->id;
+
+        // $orders = Order::where('user_id',$auth_user_id)->get();
+        $orders = Order::where('user_id', $auth_user_id)
+                ->where('coupon_id', $coupon->id)
+                ->get();
+
+        if ($orders->count() > 0) {
+            request()->session()->flash('error','You already use the coupon code, Please try other coupon');
+            return back();
+        }
+
         if(!$coupon){
             request()->session()->flash('error','Invalid coupon code, Please try again');
             return back();

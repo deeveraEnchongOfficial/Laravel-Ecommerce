@@ -24,6 +24,7 @@ class Order extends Model
         'payment_method',
         'payment_status',
         'shipping_id',
+        'coupon_id',
         'coupon',
         'deliver_by',
         'location_info',
@@ -57,6 +58,10 @@ class Order extends Model
     public function deliverBy()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+    
+    public function coupon(){
+        return $this->belongsTo(Coupon::class,'coupon_id');
     }
 
 }

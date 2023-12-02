@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('deliver_by')->nullable();
             $table->float('sub_total');
             $table->unsignedBigInteger('shipping_id')->nullable();
+            $table->unsignedBigInteger('coupon_id')->nullable();
             $table->float('coupon')->nullable();
             $table->float('total_amount');
             $table->integer('quantity');
@@ -29,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->foreign('deliver_by')->references('id')->on('users')->onDelete('SET NULL');
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('SET NULL');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('SET NULL');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');

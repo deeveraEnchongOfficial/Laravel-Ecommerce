@@ -38,6 +38,7 @@
                                 <!-- Form -->
                                 <div class="row">
                                     <input type="hidden" name="selected_items" value="{{ implode(',', $selectedItemsArray) }}">
+                                    <input type="hidden" name="coupon" value="{{number_format(session('coupon')['id'])}}">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>First Name<span>*</span></label>
@@ -650,6 +651,7 @@
                                                 @endif
                                             </li>
                                             @if(session('coupon'))
+                                            {{-- <li class="coupon_price" data-price="{{ session('coupon')['value'] }}">You {{number_format(session('coupon')['id'])}} Save<span>₱{{number_format(session('coupon')['value'],2)}}</span></li> --}}
                                             <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>₱{{number_format(session('coupon')['value'],2)}}</span></li>
                                             @endif
                                             @php

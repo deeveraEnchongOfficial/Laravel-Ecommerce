@@ -114,7 +114,7 @@
                             <br>
                         @endforeach
                     </td>
-                </tr>
+                  </tr>
               </table>
             </div>
           </div>

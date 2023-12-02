@@ -237,6 +237,19 @@
                                             <div class="row">
                                                 <div class="col-12">
 
+                                                @php
+                                                $canReview = false;
+                                                $authenticatedUserId = Auth::check() == true ? Auth()->user()->id : null;
+                                                @endphp
+
+                                                @foreach($product_detail->carts as $i)
+                                                @if($i->user_id == $authenticatedUserId)
+                                                    @php
+                                                        $canReview = true;
+                                                    @endphp
+                                                @endif
+                                                @endforeach
+
                                                     <!-- Review -->
                                                     <div class="comment-review">
                                                         <div class="add-review">
@@ -299,6 +312,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        @if($canReview)
                                                                         <div class="col-lg-12 col-12">
                                                                             <div class="form-group">
                                                                                 <label>Write a review</label>
@@ -311,6 +325,7 @@
                                                                                     class="btn">Submit</button>
                                                                             </div>
                                                                         </div>
+                                                                        @endif
                                                                     </div>
                                                                 </form>
                                                             @else

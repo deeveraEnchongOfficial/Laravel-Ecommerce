@@ -34,9 +34,9 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Your Email<span>*</span></label>
-                                        <input type="email" name="email" placeholder="" required="required" value="{{old('email')}}">
-                                        @error('email')
+                                        <label>Your UserName<span>*</span></label>
+                                        <input type="text" name="name" placeholder="" required="required" value="{{old('name')}}">
+                                        @error('name')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>

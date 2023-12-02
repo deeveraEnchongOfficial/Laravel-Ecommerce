@@ -111,6 +111,15 @@
                         <td>Payment Status</td>
                         <td> : {{$order->payment_status}}</td>
                     </tr>
+                    <tr>
+                      <td>Product Ordered</td>
+                      <td>
+                          @foreach ($order->cart as $cartItem)
+                              : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}}
+                              <br>
+                          @endforeach
+                      </td>
+                    </tr>
               </table>
             </div>
           </div>
