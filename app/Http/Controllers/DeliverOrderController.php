@@ -188,7 +188,7 @@ class OrderController extends Controller
     {
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,processing,shipped,delivered,cancel'
+            'status'=>'required|in:new,processing,shipped,delivered,reject'
         ]);
         $data=$request->all();
         // return $request->status;
