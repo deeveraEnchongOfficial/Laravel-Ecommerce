@@ -1,9 +1,9 @@
 @extends('frontend.layouts.master')
 
-@section('title','Padilla Gowns and Barongs || Register Page')
+@section('title', 'Padilla Gowns and Barongs || Register Page')
 
 @section('main-content')
-	<!-- Breadcrumbs -->
+    <!-- Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
             <div class="row">
@@ -32,15 +32,6 @@
                         <form class="form" method="post" action="{{route('register.submit')}}">
                             @csrf
                             <div class="row">
-                                <!-- <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Name<span>*</span></label>
-                                        <input type="text" name="name" placeholder="" required="required" value="{{old('name')}}">
-                                        @error('name')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div> -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>First Name<span>*</span></label>
@@ -86,15 +77,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Address<span>*</span></label>
-                                        <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
-                                        @error('address')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-6">
                                     <label for="municipality_name" class="form-label">Municipality<span>*</span></label>
                                     <div class="form-group">
@@ -145,12 +127,8 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button class="btn" type="submit">Register</button>
+                                        <button class="btn" id="registerButton" type="submit">Register</button>
                                         <a href="{{route('login.form')}}" class="btn">Login</a>
-                                        {{-- OR
-                                        <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
-                                        <a href="{{route('login.redirect','github')}}" class="btn btn-github"><i class="ti-github"></i></a>
-                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +139,40 @@
             </div>
         </div>
     </section>
-    <!--/ End Login -->
+
+    <!-- Modal -->
+<!-- Add this modal code at the end of your registration view -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mt-5" role="document">
+        <div class="modal-content">
+            <!-- Terms and Conditions Content -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center mt-5">
+                <div class="modal-body text-center mt-5">
+                    <p>By registering, you agree to abide by our terms and conditions. Please read them carefully before proceeding.</p>
+                    <!-- Add any additional terms and conditions content here -->
+                </div>
+            </div>
+            
+            <!-- Your registration form goes here -->
+            <form class="form" method="post" action="{{route('register.submit')}}" id="registerForm">
+                @csrf
+                <!-- Your form fields go here -->
+
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('styles')
@@ -190,4 +201,36 @@
         background:rgb(243, 26, 26) !important;
     }
 </style>
+@endpush
+
+@push('scripts')
+<!-- Add these lines to your layout file or master blade file -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Show the terms modal when the user clicks the register button
+        $('#registerButton').click(function () {
+            $('#termsModal').modal('show'); // Show the terms modal
+        });
+
+        // Handle form submission inside the modal
+        $('#registerForm').submit(function (e) {
+            // You can perform any additional validation or actions here before submitting the form
+            // ...
+
+            // The form will submit naturally without preventing it
+        });
+    });
+</script>
+{{-- <script>
+    $(document).ready(function () {
+        // Show the terms modal when the user clicks the register button
+        $('form').submit(function (e) {
+            e.preventDefault(); // Prevent the form submission
+            $('#termsModal').modal('show'); // Show the terms modal
+        });
+    });
+</script> --}}
 @endpush
