@@ -10,7 +10,11 @@ use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Notification;
+// use App\Models\Notification;
+use App\Notifications\StatusNotification;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Refund;
+use Notification;
 
 
 class HomeController extends Controller
@@ -263,7 +267,7 @@ class HomeController extends Controller
     }
 
     public function notificationDelete($id){
-        $notification=Notification::find($id);
+        $notification=\Notification::find($id);
         if($notification){
             $status=$notification->delete();
             if($status){
@@ -279,5 +283,55 @@ class HomeController extends Controller
             request()->session()->flash('error','Notification not found');
             return back();
         }
+    }
+
+    public function refundIndex()
+    {
+        $refund_list = Refund::where('user_id', Auth::user()->id)->get();
+        return view('user.refund.index', ['refund_list' => $refund_list]);
+    }
+
+    public function refundCreate(Request $request)
+    {
+        // dd($request->id);
+        $order = Order::find($request->id);
+        // dd($order);
+
+        return view('user.refund.create', ['order' => $order]);
+        // return view('user.refund.create');
+    }
+
+    public function refundStore(Request $request)
+    {
+        $order = Order::find($request->input('order_id'));
+        $data = [
+            'reason' => $request->input('reason'),
+            'refund_amount' => $request->input('refund_amount'),
+            'description' => $request->input('description'),
+            'user_id' => $order->user_id,
+            'order_id' => $request->input('order_id'),
+        ];
+        $status=Refund::create($data);
+        if($status){
+
+            $users = User::where('role', 'admin')->first();
+            $details = [
+                'title' => 'New Refund Item',
+                // 'actionURL' => route('order.show', $order->id),
+                'actionURL' => "",
+                'fas' => 'fa-file-alt'
+            ];
+            Notification::send($users, new StatusNotification($details));
+            request()->session()->flash('success','Refund successfully Created');
+        }
+        else{
+            request()->session()->flash('error','Error occurred while adding Refund');
+        }
+        return redirect()->route('order.refund.index');
+    }
+
+    public function refundShow($id)
+    {
+        //
     }
 }
