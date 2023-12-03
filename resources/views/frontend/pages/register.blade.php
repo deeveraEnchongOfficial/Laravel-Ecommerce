@@ -125,6 +125,12 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-6 mb-3">
+                                    <label class="checkbox-inline" style="display: flex; align-items: center;">
+                                        <input id="terms" name="terms" type="checkbox" style="transform: scale(1);" required>
+                                        Terms and Conditions
+                                    </label>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group login-btn">
                                         <button class="btn" id="registerButton" type="submit">Register</button>
@@ -158,9 +164,13 @@
                     <!-- Add any additional terms and conditions content here -->
                 </div>
             </div>
-            
+
             <!-- Your registration form goes here -->
-            <form class="form" method="post" action="{{route('register.submit')}}" id="registerForm">
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Accecpt</button>
+            </div>
+
+            {{-- <form class="form" method="post" action="{{route('register.submit')}}" id="registerForm">
                 @csrf
                 <!-- Your form fields go here -->
 
@@ -168,7 +178,7 @@
                     <button type="submit" class="btn btn-primary">Register</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
-            </form>
+            </form> --}}
         </div>
     </div>
 </div>
@@ -210,8 +220,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Show the terms modal when the user clicks the register button
-        $('#registerButton').click(function () {
+        $('#terms').click(function () {
             $('#termsModal').modal('show'); // Show the terms modal
         });
 
