@@ -17,7 +17,7 @@
           <option value="processing" {{(($order->status=='processing')? 'selected' : '')}}>processing</option>
           <option value="shipped" {{(($order->status=='shipped')? 'selected' : '')}}>shipped</option>
           <option value="delivered" {{(($order->status=='delivered')? 'selected' : '')}}>Delivered</option>
-          <option value="cancel" {{(($order->status=='cancel')? 'selected' : '')}}>Cancel</option>
+          <option value="reject" {{(($order->status=='reject')? 'selected' : '')}}>Cancel</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Update</button>

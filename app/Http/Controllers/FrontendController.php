@@ -449,6 +449,13 @@ class FrontendController extends Controller
         if(Auth::attempt(['name' => $data['name'], 'password' => $data['password'],'status'=>'active'])){
             Session::put('user',$data['name']);
             request()->session()->flash('success','Successfully login');
+            
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin');
+            }
+            if (Auth::user()->role == 'delivery_user') {
+                return redirect()->route('delivery_user');
+            }
             return redirect()->route('home');
         }
         else{
