@@ -39,6 +39,7 @@
                                 <div class="row">
                                     <input type="hidden" name="selected_items" value="{{ implode(',', $selectedItemsArray) }}">
                                     <input type="hidden" name="coupon" value="{{number_format(session('coupon')['id'])}}">
+                                    <input type="hidden" name="shipping" value="{{Auth()->user()->municipality_name}}">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>First Name<span>*</span></label>
@@ -634,7 +635,18 @@
                                                 @error('shipping')
                                                     <span class='text-danger'>{{$message}}</span>
                                                 @enderror
+                                                {{-- <span>{{Auth()->user()->municipality_name}}</span> --}}
                                                 @if(count(Helper::shipping()) > 0 && Helper::cartCount() > 0)
+                                                @foreach(Helper::shipping() as $shipping)
+                                                            @php
+                                                                $selected = Auth()->user()->municipality_name == $shipping->id ? 'selected' : '';
+                                                            @endphp
+                                                            <span>{{$shipping->municipality_name}}: ₱{{$shipping->price}}</span>
+                                                @endforeach
+                                                @else
+                                                    <span>Free</span>
+                                                @endif
+                                                {{-- @if(count(Helper::shipping()) > 0 && Helper::cartCount() > 0)
                                                     <select name="shipping" class="nice-select">
                                                         <option value="">Select</option>
                                                         @foreach(Helper::shipping() as $shipping)
@@ -648,7 +660,7 @@
                                                     </select>
                                                 @else
                                                     <span>Free</span>
-                                                @endif
+                                                @endif --}}
                                             </li>
                                             @if(session('coupon'))
                                             {{-- <li class="coupon_price" data-price="{{ session('coupon')['value'] }}">You {{number_format(session('coupon')['id'])}} Save<span>₱{{number_format(session('coupon')['value'],2)}}</span></li> --}}
