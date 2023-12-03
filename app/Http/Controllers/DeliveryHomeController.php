@@ -133,7 +133,7 @@ class DeliveryHomeController extends Controller
         // dd($request->all());
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,processing,shipped,delivered,cancel'
+            'status'=>'required|in:new,processing,shipped,delivered,reject'
         ]);
         $data=$request->all();
         // return $request->status;
@@ -147,8 +147,35 @@ class DeliveryHomeController extends Controller
         }
 
         if ($request->status != 'new') {
+
+            $status = $request->status;
+            $statusText = '';
+
+            switch ($status) {
+                case 'processing':
+                    $statusText = 'Your order is being processed.';
+                    break;
+
+                case 'shipped':
+                    $statusText = 'Great news! Your order has been shipped.';
+                    break;
+
+                case 'delivered':
+                    $statusText = 'Success! Your order has been delivered.';
+                    break;
+
+                case 'reject':
+                    $statusText = 'Important Update: Your order has been cancelled.';
+                    break;
+
+                default:
+                    $statusText = 'Unknown Status';
+                    break;
+            }
+
+
             $details=[
-                'title' => 'The status of your order is ' . $request->status,
+                'title' => $statusText,
                 'actionURL'=>route('user.order.show',$order->id),
                 'fas'=>'fa-file-alt'
             ];

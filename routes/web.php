@@ -63,6 +63,7 @@ Route::get('/like',function(){
 Route::get('/like/{slug}','LikeController@like')->name('add-to-like')->middleware('user');
 Route::get('like-delete/{id}','LikeController@likeDelete')->name('like-delete');
 
+Route::get('/product-sales-chart', 'ProductController@productSalesChart')->name('product-sales-chart');
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
