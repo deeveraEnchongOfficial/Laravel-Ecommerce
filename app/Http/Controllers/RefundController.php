@@ -20,7 +20,7 @@ class RefundController extends Controller
     public function index()
     {
         $refund_list = Refund::all();
-        return view('user.refund.index', ['refund_list' => $refund_list]);
+        return view('backend.refund.index', ['refund_list' => $refund_list]);
     }
 
     /**
@@ -34,8 +34,8 @@ class RefundController extends Controller
         $order = Order::find($request->id);
         // dd($order);
 
-        return view('user.refund.create', ['order' => $order]);
-        // return view('user.refund.create');
+        return view('backend.refund.create', ['order' => $order]);
+        // return view('backend.refund.create');
     }
 
     /**
