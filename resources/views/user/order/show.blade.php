@@ -22,7 +22,7 @@
             <th>Total Amount</th>
             <th>Status</th>
             <th>Location Info</th>
-            {{-- <th>Action</th> --}}
+            <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -52,13 +52,14 @@
                 @endif
             </td>
             <td>{{$order->location_info}}</td>
-            {{-- <td>
-                <form method="POST" action="{{route('order.destroy',[$order->id])}}">
+            <td>
+                <a href="{{route('order.refund.create',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="refund" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                {{-- <form method="POST" action="{{route('order.destroy',[$order->id])}}">
                   @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </form>
-            </td> --}}
+                </form> --}}
+            </td>
 
         </tr>
       </tbody>
@@ -110,7 +111,7 @@
                     <td>Product Ordered</td>
                     <td>
                         @foreach ($order->cart as $cartItem)
-                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}} : <a href="{{route('product-detail',$cartItem->product->slug)}}" target="_blank">Review This Product</a>
+                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}} : <a href="{{route('product-detail',$cartItem->product->slug)}}" target="_blank">Review Product</a>
                             <br>
                         @endforeach
                     </td>

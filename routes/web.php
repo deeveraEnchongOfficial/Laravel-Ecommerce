@@ -155,6 +155,10 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     // Password Change
     Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
     Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
+
+    Route::patch('/refund/status/udpate/{id}','RefundController@refundStatusUpdate')->name('refund.status.update');
+    Route::resource('/refund','RefundController');
+    // update_refund_status
 });
 
 // User section start
@@ -186,8 +190,13 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     // Notification
     Route::get('/notification/{id}','HomeController@notificationShow')->name('user.notification');
     Route::get('/notifications','HomeController@notificationIndex')->name('user.all.notification');
-    Route::delete('/notification/{id}','HomeController@notificationDelete')->name('user.notification.delete');
+    Route::delete('/notification/{id}','@notificationDelete')->name('user.notification.delete');
 
+    // Route::resource('/refund','RefundController');
+    Route::get('/refund/create/{id}','HomeController@refundCreate')->name('order.refund.create');
+    Route::post('/refund/store','HomeController@refundStore')->name('order.refund.store');
+    Route::get('/refund/list','HomeController@refundIndex')->name('order.refund.index');
+    Route::get('/refund/show/{id}','HomeController@refundshow')->name('order.refund.show');
 });
 
 Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){
