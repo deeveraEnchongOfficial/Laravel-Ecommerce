@@ -60,12 +60,12 @@
                     </td>
                     {{-- <td>{{$refund->location_info}}</td> --}}
                     <td>
-                        {{-- <a href="{{route('user.refund.show',$refund->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a> --}}
-                        {{-- <form method="POST" action="{{route('user.refund.delete',[$refund->id])}}">
+                        <a href="{{route('order.refund.show',$refund->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
+                        <form method="POST" action="{{route('order.refund.delete',[$refund->id])}}">
                           @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$refund->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form> --}}
+                        </form>
                     </td>
                 </tr>
             @endforeach

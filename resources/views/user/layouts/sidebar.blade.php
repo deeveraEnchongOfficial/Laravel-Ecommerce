@@ -14,8 +14,8 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
       <a class="nav-link" href="{{route('user')}}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <i class="fas fa-shopping-bag"></i>
+        <span>Orders</span></a>
     </li>
 
     <!-- Divider -->
@@ -26,18 +26,24 @@
             Shop
         </div>
     <!--Orders -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('user.order.index')}}">
             <i class="fas fa-shopping-bag"></i>
             <span>Orders</span>
         </a>
-    </li>
+    </li> --}}
 
     <!-- Reviews -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.productreview.index')}}">
             <i class="fas fa-comments"></i>
             <span>Reviews</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('order.refund.index')}}">
+          <i class="fas fa-hammer fa-chart-area"></i>
+          <span>Refunds</span>
+      </a>
     </li>
 
 

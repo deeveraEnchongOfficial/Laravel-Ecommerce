@@ -197,6 +197,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('/refund/store','HomeController@refundStore')->name('order.refund.store');
     Route::get('/refund/list','HomeController@refundIndex')->name('order.refund.index');
     Route::get('/refund/show/{id}','HomeController@refundshow')->name('order.refund.show');
+    Route::delete('/refund/show/{id}','HomeController@refundDelete')->name('order.refund.delete');
 });
 
 Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){

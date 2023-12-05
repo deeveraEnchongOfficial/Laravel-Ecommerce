@@ -340,4 +340,25 @@ class HomeController extends Controller
         // dd($refund);
         return view('user.refund.show')->with('refund', $refund);
     }
+
+    public function refundDelete($id)
+    {
+        $refund=Refund::find($id);
+        if($refund){
+            $status=$refund->delete();
+            if($status){
+                request()->session()->flash('success','Refund successfully deleted');
+                return back();
+            }
+            else{
+                request()->session()->flash('error','Error please try again');
+                return back();
+            }
+        }
+        else{
+            request()->session()->flash('error','Refund not found');
+            return back();
+        }
+
+    }
 }
