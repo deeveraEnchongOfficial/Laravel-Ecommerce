@@ -73,7 +73,7 @@
         </table>
         {{-- <span style="float:right">{{$orders->links()}}</span> --}}
         @else
-          <h6 class="text-center">No orders found!!! Please refund some products</h6>
+          <h6 class="text-center">No refund orders yet!!!</h6>
         @endif
       </div>
     </div>

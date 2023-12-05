@@ -81,7 +81,9 @@ class RefundController extends Controller
      */
     public function show($id)
     {
-        //
+        $refund = Refund::find($id);
+        // dd($refund);
+        return view('backend.refund.show')->with('refund', $refund);
     }
 
     /**
@@ -116,5 +118,27 @@ class RefundController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function refundStatusUpdate(Request $request, $id)
+    {
+        // dd($request->input('status'));
+        $refund = Refund::find($id);
+        $refund->status = $request->input('status');
+        $refund->save();
+
+        if($refund->status)
+        {
+            $users = User::where('id', $refund->user_id)->first();
+            $details = [
+                'title' => 'Your Item Refund Status is ' . $refund->status,
+                // 'actionURL'=> '',
+                'actionURL' => route('order.refund.show', $refund->id),
+                'fas' => 'fa-file-alt'
+                ];
+                Notification::send($users, new StatusNotification($details));
+                request()->session()->flash('success','');
+        }
+        return redirect()->back()->with('success', 'Refund status updated successfully');
     }
 }

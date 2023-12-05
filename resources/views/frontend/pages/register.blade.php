@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Address<span>*</span></label>
+                                        <label>Province<span>*</span></label>
                                         <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
                                         @error('address')
                                             <span class="text-danger">{{$message}}</span>

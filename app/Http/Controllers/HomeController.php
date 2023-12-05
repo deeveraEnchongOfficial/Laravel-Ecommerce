@@ -330,8 +330,14 @@ class HomeController extends Controller
         return redirect()->route('order.refund.index');
     }
 
-    public function refundShow($id)
+    public function refundshow($id)
     {
-        //
+        $auth_user_id = Auth::user()->id;
+        // $refund = Refund::find($id);
+        $refund = Refund::where('id', $id)
+                ->where('user_id', $auth_user_id)
+                ->first();
+        // dd($refund);
+        return view('user.refund.show')->with('refund', $refund);
     }
 }

@@ -60,7 +60,7 @@
                     </td>
                     {{-- <td>{{$refund->location_info}}</td> --}}
                     <td>
-                        {{-- <a href="{{route('user.refund.show',$refund->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a> --}}
+                        <a href="{{route('refund.show',$refund->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
                         {{-- <form method="POST" action="{{route('user.refund.delete',[$refund->id])}}">
                           @csrf
                           @method('delete')
@@ -73,7 +73,7 @@
         </table>
         {{-- <span style="float:right">{{$orders->links()}}</span> --}}
         @else
-          <h6 class="text-center">No orders found!!! Please refund some products</h6>
+          <h6 class="text-center">No refund orders yet!!!</h6>
         @endif
       </div>
     </div>

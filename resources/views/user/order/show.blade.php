@@ -111,7 +111,7 @@
                     <td>Product Ordered</td>
                     <td>
                         @foreach ($order->cart as $cartItem)
-                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}} : <a href="{{route('product-detail',$cartItem->product->slug)}}" target="_blank">Review This Product</a>
+                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}} : <a href="{{route('product-detail',$cartItem->product->slug)}}" target="_blank">Review Product</a>
                             <br>
                         @endforeach
                     </td>
