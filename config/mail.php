@@ -36,12 +36,12 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_USERNAME', 'your-mailtrap-username'),
+            'password' => env('MAIL_PASSWORD', 'your-mailtrap-password'),
             'timeout' => null,
+            // 'encryption' => null, // Remove this line to use the default TLS encryption
             'auth_mode' => null,
         ],
 

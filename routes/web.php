@@ -26,6 +26,9 @@ Route::post('password-reset', 'FrontendController@showResetForm')->name('passwor
 // Socialite
 Route::get('login/{provider}/', 'Auth\LoginController@redirect')->name('login.redirect');
 Route::get('login/{provider}/callback/', 'Auth\LoginController@Callback')->name('login.callback');
+Route::post('pass-reset', 'FrontendController@reset')->name('pass.reset');
+Route::get('reset-verify', 'FrontendController@verify')->name('reset-verify');
+Route::post('pass-change', 'FrontendController@passChange')->name('pass.change');
 
 Route::get('/','FrontendController@home')->name('home');
 
