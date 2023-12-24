@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'Padilla Gowns and Barongs || Login Page')
+@section('title', 'Padilla Gowns and Barongs || Forgot Password Page')
 
 @section('main-content')
     <!-- Breadcrumbs -->
@@ -11,7 +11,7 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="{{ route('home') }}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0);">Login</a></li>
+                            <li class="active"><a href="javascript:void(0);">Forgot Password</a></li>
                         </ul>
                     </div>
                 </div>
@@ -20,54 +20,43 @@
     </div>
     <!-- End Breadcrumbs -->
 
-    <!-- Shop Login -->
+    <!-- Shop Forgot Password -->
     <section class="shop login section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-12">
                     <div class="login-form">
-                        <h2>Login</h2>
+                        <h2>Forgot Password</h2>
                         <p>Please register in order to checkout more quickly</p>
                         <!-- Form -->
-                        <form class="form" method="post" action="{{ route('login.submit') }}">
+                        <form class="form" method="post" action="{{ route('pass.change') }}">
                             @csrf
                             <div class="row">
+                                <input type="hidden" name="email" value="{{$email}}">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Your UserName<span>*</span></label>
-                                        <input type="text" name="name" placeholder="" required="required"
-                                            value="{{ old('name') }}">
-                                        @error('name')
+                                        <label>New Password<span>*</span></label>
+                                        <input type="password" name="new_password" placeholder="" required="required"
+                                            value="{{ old('new_password') }}">
+                                        @error('new_password')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Your Password<span>*</span></label>
-                                        <input type="password" name="password" placeholder="" required="required"
-                                            value="{{ old('password') }}">
-                                        @error('password')
+                                        <label>Confirm Password<span>*</span></label>
+                                        <input type="password" name="new_confirm_password" placeholder="" required="required"
+                                            value="{{ old('new_confirm_password') }}">
+                                        @error('new_confirm_password')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button class="btn" type="submit">Login</button>
-                                        <a href="{{ route('register.form') }}" class="btn">Register</a>
-                                        <br>
-                                        <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password?</a>
-                                        <!-- OR
-                                            <a href="{{ route('login.redirect', 'facebook') }}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
-                                            <a href="{{ route('login.redirect', 'github') }}" class="btn btn-github"><i class="ti-github"></i></a>
-                                            <a href="{{ route('login.redirect', 'google') }}" class="btn btn-google"><i class="ti-google"></i></a> -->
-
+                                        <button class="btn" type="submit">Change Password</button>
                                     </div>
-                                    {{-- <div class="checkbox">
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>
-                                    </div> --}}
-
                                 </div>
                             </div>
                         </form>
@@ -104,7 +93,7 @@
         </div>
     </div>
 
-    <!--/ End Login -->
+    <!--/ End Forgot Password -->
 @endsection
 @push('styles')
     <style>
