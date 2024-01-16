@@ -1,5 +1,9 @@
 <!-- Meta Tag -->
 @yield('meta')
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- Title Tag  -->
 <title>@yield('title')</title>
 <!-- Favicon -->
@@ -7,10 +11,13 @@
 <!-- Web Font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
+{{-- <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}"> --}}
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
 <!-- StyleSheet -->
 <link rel="manifest" href="/manifest.json">
 <!-- Bootstrap -->
-<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}"> --}}
+<link rel="stylesheet" href="../../../../public/frontend/css/bootstrap.css">
 <!-- Magnific Popup -->
 <link rel="stylesheet" href="{{asset('frontend/css/magnific-popup.min.css')}}">
 <!-- Font Awesome -->
