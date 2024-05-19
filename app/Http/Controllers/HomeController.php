@@ -15,6 +15,7 @@ use App\Notifications\StatusNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Refund;
 use Notification;
+use App\Models\UserLocation;
 
 
 class HomeController extends Controller
@@ -47,7 +48,7 @@ class HomeController extends Controller
     }
 
     public function profileUpdate(Request $request,$id){
-        // return $request->all();
+        // dd($request->all());
 
         $this->validate($request,[
             'photo' => 'image|mimes:jpeg,png,gif',
@@ -55,6 +56,11 @@ class HomeController extends Controller
 
         $user=User::findOrFail($id);
         $data=$request->all();
+
+        if ($data['location']) {
+            UserLocation::where('user_id', auth()->user()->id)->update(['status' => 'inactive']);
+            UserLocation::where('id', $data['location'])->update(['status' => 'active']);
+        }
 
         // Delete old image if a new image is being uploaded
         if ($request->hasFile('photo')) {

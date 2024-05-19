@@ -109,6 +109,7 @@
                                         @error('address1')
                                             <span class='text-danger'>{{ $message }}</span>
                                         @enderror
+                                        <small>Setup location? <a href="{{ route('user-profile') }}"><u>here</u></a></small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
