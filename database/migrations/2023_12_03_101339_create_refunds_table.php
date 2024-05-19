@@ -18,6 +18,7 @@ class CreateRefundsTable extends Migration
             $table->longText('reason')->nullable();
             $table->float('refund_amount')->nullable();
             $table->longText('description')->nullable();
+            $table->text('photo')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();

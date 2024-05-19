@@ -15,6 +15,7 @@ class Refund extends Model
         'order_id',
         'product_id',
         'status',
+        'photo'
     ];
 
     public function order(){

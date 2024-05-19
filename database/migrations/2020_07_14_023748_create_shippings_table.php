@@ -17,6 +17,7 @@ class CreateShippingsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('municipality_name')->nullable();
+            $table->integer('distance')->nullable();
             $table->decimal('price');
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();

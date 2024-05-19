@@ -216,7 +216,7 @@ class ProductController extends Controller
         ]);
 
         $data = $request->all();
-        dd($data);
+        // dd($data);
         $data['is_featured'] = $request->input('is_featured', 0);
         $size = $request->input('size');
         if ($size) {

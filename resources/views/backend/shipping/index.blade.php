@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Title</th>
+              <th>Distance</th>
               <th>Price</th>
               <th>Status</th>
               <th>Action</th>
@@ -38,7 +38,7 @@
             @foreach($shippings as $shipping)
                 <tr>
                     <td>{{$shipping->id}}</td>
-                    <td>{{$shipping->type}}</td>
+                    <td>{{$shipping->distance}}km</td>
                     <td>₱{{$shipping->price}}</td>
                     <td>
                         @if($shipping->status=='active')

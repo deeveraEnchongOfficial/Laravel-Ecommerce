@@ -111,7 +111,7 @@ class HomeController extends Controller
     public function orderShow($id)
     {
         $order=Order::find($id);
-        // return $order;
+        // dd($order);
         return view('user.order.show')->with('order',$order);
     }
     // Product Review
@@ -308,9 +308,18 @@ class HomeController extends Controller
             'reason' => $request->input('reason'),
             'refund_amount' => $request->input('refund_amount'),
             'description' => $request->input('description'),
+            'photo' => $request->input('photo'),
             'user_id' => $order->user_id,
             'order_id' => $request->input('order_id'),
         ];
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/refund', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=Refund::create($data);
         if($status){
 

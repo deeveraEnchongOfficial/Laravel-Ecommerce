@@ -93,7 +93,7 @@
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Shipping Charge</td>
-                        <td> : ₱ {{number_format($shipping_charge[0],2)}}</td>
+                        <td>{{Helper::fetchDistanceMatrixWithUnit($order->user_id)}} - ₱{{Helper::getShippingPrice($order->user_id)}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>

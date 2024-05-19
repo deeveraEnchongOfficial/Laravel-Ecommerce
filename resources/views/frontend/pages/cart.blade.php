@@ -120,7 +120,7 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
-                                           
+
 
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
@@ -475,6 +475,23 @@
                 });
                 $('input[name="selected_items"]').val(selectedItems.join(','));
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Function to validate at least one item is checked
+            function validateCheckedItems() {
+                return $('.cart-item-checkbox:checked').length > 0;
+            }
+
+            // Validate on form submission
+            $('form').submit(function(event) {
+                if (!validateCheckedItems()) {
+                    // Prevent form submission if no item is checked
+                    event.preventDefault();
+                    alert('Please select at least one item to proceed.');
+                }
+            });
         });
     </script>
 

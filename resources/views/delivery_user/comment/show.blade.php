@@ -83,7 +83,7 @@
                     </tr>
                     <tr>
                         <td>Shipping Charge</td>
-                        <td> : ₱ {{number_format($order->delivery_charge,2)}}</td>
+                        <td>{{Helper::fetchDistanceMatrixWithUnit($order->user_id)}} - ₱{{Helper::getShippingPrice($order->user_id)}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>

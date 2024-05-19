@@ -104,8 +104,8 @@ class OrderController extends Controller
         $order_data = $request->all();
         $order_data['order_number'] = 'ORD-' . strtoupper(Str::random(10));
         $order_data['user_id'] = $request->user()->id;
-        $order_data['shipping_id'] = $request->shipping;
-        $shipping = Shipping::where('id', $order_data['shipping_id'])->pluck('price');
+        // $order_data['shipping_id'] = $request->shipping;
+        // $shipping = Shipping::where('id', $order_data['shipping_id'])->pluck('price');
         // return session('coupon')['value'];
         // $order_data['sub_total'] = Helper::totalCartPrice();
         // dd($order_data['sub_total']);
@@ -118,15 +118,15 @@ class OrderController extends Controller
         }
         if ($request->shipping) {
             if (session('coupon')) {
-                // $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+                // $order_data['total_amount'] = Helper::totalCartPrice() + $request->shipping - session('coupon')['value'];
                 $order_data['total_amount'] = !$selectedItemsArray[0] == ''
-                                                ? $this->totalCartPrice($selectedItemsArray) + $shipping[0] - session('coupon')['value']
-                                                : Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+                                                ? $this->totalCartPrice($selectedItemsArray) + $request->shipping - session('coupon')['value']
+                                                : Helper::totalCartPrice() + $request->shipping - session('coupon')['value'];
             } else {
-                // $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0];
+                // $order_data['total_amount'] = Helper::totalCartPrice() + $request->shipping;
                 $order_data['total_amount'] = !$selectedItemsArray[0] == ''
-                                                ? $this->totalCartPrice($selectedItemsArray) + $shipping[0]
-                                                : Helper::totalCartPrice() + $shipping[0];
+                                                ? $this->totalCartPrice($selectedItemsArray) + $request->shipping
+                                                : Helper::totalCartPrice() + $request->shipping;
             }
         } else {
             if (session('coupon')) {
@@ -141,6 +141,7 @@ class OrderController extends Controller
                                                 : Helper::totalCartPrice();
             }
         }
+        // dd($order_data['total_amount']);
         // return $order_data['total_amount'];
         $order_data['status'] = "new";
         if (request('payment_method') == 'paypal') {

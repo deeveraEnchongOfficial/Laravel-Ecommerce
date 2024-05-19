@@ -5,7 +5,7 @@
     <div class="card">
         <h5 class="card-header">Create Refund</h5>
         <div class="card-body">
-            <form method="post" action="{{ route('order.refund.store') }}">
+            <form method="post" action="{{ route('order.refund.store') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <!-- Loop through product images -->
@@ -41,6 +41,18 @@
                         <option value="I want to Refund">I want to Refund</option>
                         <option value="other">other</option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input id="thumbnail" class="form-control" type="file" name="photo"
+                            value="{{ old('photo') }}">
+                    </div>
+                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                    @error('photo')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">

@@ -48,6 +48,8 @@ Route::post('/add-to-cart','CartController@singleAddToCart')->name('single-add-t
 Route::get('cart-delete/{id}','CartController@cartDelete')->name('cart-delete');
 Route::post('cart-update','CartController@cartUpdate')->name('cart.update');
 
+Route::get('/fetch-distance-matrix', 'DistanceMatrixController@fetchDistanceMatrix')->name('distance-metric');
+
 Route::get('/cart',function(){
     return view('frontend.pages.cart');
 })->name('cart');
@@ -201,6 +203,13 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/refund/list','HomeController@refundIndex')->name('order.refund.index');
     Route::get('/refund/show/{id}','HomeController@refundshow')->name('order.refund.show');
     Route::delete('/refund/show/{id}','HomeController@refundDelete')->name('order.refund.delete');
+
+    Route::get('/location','UserLocationController@index')->name('location.index');
+    Route::get('/location/create','UserLocationController@create')->name('location.create');
+    Route::get('/location/edit/{id}','UserLocationController@edit')->name('location.edit');
+    Route::post('/location/store','UserLocationController@store')->name('location.store');
+    Route::patch('/location/update/{id}','UserLocationController@update')->name('location.update');
+    Route::delete('/location/delete/{id}','UserLocationController@destroy')->name('location.destroy');
 });
 
 Route::group(['prefix'=>'/delivery_user','middleware'=>['delivery_user']],function(){

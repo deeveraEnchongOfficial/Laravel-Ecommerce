@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function notification(){
         return $this->hasMany('App\Models\Notification', 'notifiable_id');
     }
+
+    public function userLocation(){
+        return $this->hasMany('App\Models\UserLocation');
+    }
 }
