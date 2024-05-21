@@ -4,7 +4,8 @@
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+<h5 class="card-header">Order
+      {{-- <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a> --}}
   </h5>
   <div class="card-body">
     @if($order)
@@ -16,9 +17,11 @@
             <th>Name</th>
             <th>Email</th>
             <th>Quantity</th>
+            <th>Sub Total</th>
             <th>Charge</th>
             <th>Total Amount</th>
             <th>Status</th>
+            <th>Location Info</th>
             <th>Action</th>
         </tr>
       </thead>
@@ -26,18 +29,21 @@
         <tr>
             @php
                 $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp 
+            @endphp
             <td>{{$order->id}}</td>
             <td>{{$order->order_number}}</td>
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-            <td>${{number_format($order->total_amount,2)}}</td>
+            <td>{{$order->sub_total}}</td>
+            <td>@foreach($shipping_charge as $data) ₱ {{number_format($data,2)}} @endforeach</td>
+            <td>₱{{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
-                @elseif($order->status=='process')
+                @elseif($order->status=='processing')
+                  <span class="badge badge-warning">{{$order->status}}</span>
+                @elseif($order->status=='shipped')
                   <span class="badge badge-warning">{{$order->status}}</span>
                 @elseif($order->status=='delivered')
                   <span class="badge badge-success">{{$order->status}}</span>
@@ -45,14 +51,16 @@
                   <span class="badge badge-danger">{{$order->status}}</span>
                 @endif
             </td>
+            <td>{{$order->location_info}}</td>
             <td>
-                <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                  @csrf 
+                <a href="{{route('order.refund.create',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="refund" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                {{-- <form method="POST" action="{{route('order.destroy',[$order->id])}}">
+                  @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </form>
+                </form> --}}
             </td>
-          
+
         </tr>
       </tbody>
     </table>
@@ -85,11 +93,11 @@
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Shipping Charge</td>
-                        <td> : $ {{number_format($shipping_charge[0],2)}}</td>
+                        <td>{{Helper::fetchDistanceMatrixWithUnit($order->user_id)}} - ₱{{Helper::getShippingPrice($order->user_id)}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
+                        <td> : ₱ {{number_format($order->total_amount,2)}}</td>
                     </tr>
                     <tr>
                       <td>Payment Method</td>
@@ -99,6 +107,15 @@
                         <td>Payment Status</td>
                         <td> : {{$order->payment_status}}</td>
                     </tr>
+                  <tr>
+                    <td>Product Ordered</td>
+                    <td>
+                        @foreach ($order->cart as $cartItem)
+                            : {{$cartItem->product->title}} - Quantity: {{$cartItem->quantity}} : <a href="{{route('product-detail',$cartItem->product->slug)}}" target="_blank">Review Product</a>
+                            <br>
+                        @endforeach
+                    </td>
+                  </tr>
               </table>
             </div>
           </div>

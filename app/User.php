@@ -16,7 +16,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role','photo','status','provider','provider_id',
+        'name',
+        'first_name',
+        'last_name',
+        'email',
+        'phone_number',
+        'address',
+        'password',
+        'role',
+        'photo',
+        'status',
+        'provider',
+        'provider_id',
+        'municipality_name',
     ];
 
     /**
@@ -39,5 +51,17 @@ class User extends Authenticatable
 
     public function orders(){
         return $this->hasMany('App\Models\Order');
+    }
+
+    public function deliver(){
+        return $this->hasMany('App\Models\Order');
+    }
+
+    public function notification(){
+        return $this->hasMany('App\Models\Notification', 'notifiable_id');
+    }
+
+    public function userLocation(){
+        return $this->hasMany('App\Models\UserLocation');
     }
 }

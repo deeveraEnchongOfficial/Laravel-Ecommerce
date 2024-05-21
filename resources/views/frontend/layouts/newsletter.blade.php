@@ -1,6 +1,6 @@
 
 <!-- Start Shop Newsletter  -->
-<section class="shop-newsletter section">
+{{-- <section class="shop-newsletter section">
     <div class="container">
         <div class="inner-top">
             <div class="row">
@@ -20,5 +20,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- End Shop Newsletter -->

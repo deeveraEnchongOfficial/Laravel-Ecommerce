@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','E-SHOP || Banner Page')
+@section('title','Padilla Gowns and Barongs || Banner Page')
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -19,14 +19,14 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
+              {{-- <th>Title</th> --}}
+              {{-- <th>Slug</th> --}}
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
+          {{-- <tfoot>
             <tr>
               <th>S.N.</th>
               <th>Title</th>
@@ -35,13 +35,13 @@
               <th>Status</th>
               <th>Action</th>
               </tr>
-          </tfoot>
+          </tfoot> --}}
           <tbody>
             @foreach($banners as $banner)
                 <tr>
                     <td>{{$banner->id}}</td>
-                    <td>{{$banner->title}}</td>
-                    <td>{{$banner->slug}}</td>
+                    {{-- <td>{{$banner->title}}</td> --}}
+                    {{-- <td>{{$banner->slug}}</td> --}}
                     <td>
                         @if($banner->photo)
                             <img src="{{asset($banner->photo)}}" class="img-fluid zoom" style="max-width:80px" alt="{{$banner->photo}}">

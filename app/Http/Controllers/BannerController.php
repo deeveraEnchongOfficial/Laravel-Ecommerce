@@ -40,8 +40,8 @@ class BannerController extends Controller
     {
         // return $request->all();
         $this->validate($request,[
-            'title'=>'string|required|max:50',
-            'description'=>'string|nullable',
+            // 'title'=>'string|required|max:50',
+            // 'description'=>'string|nullable',
             'photo' => [
                 'required',
                 'file',
@@ -55,11 +55,11 @@ class BannerController extends Controller
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/banner', $filename, 'public');
             $data['photo']=$filePath;
         }
 
-        $slug=Str::slug($request->title);
+        $slug=Str::slug($request->id);
         $count=Banner::where('slug',$slug)->count();
         if($count>0){
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
@@ -111,8 +111,8 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $this->validate($request, [
-            'title' => 'string|required|max:50',
-            'description' => 'string|nullable',
+            // 'title' => 'string|required|max:50',
+            // 'description' => 'string|nullable',
             'photo' => 'image|mimes:jpeg,png,gif',
             'status' => 'required|in:active,inactive',
         ]);
@@ -127,7 +127,7 @@ class BannerController extends Controller
 
             $uploadedFile = $request->file('photo');
             $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+            $filePath = $uploadedFile->storeAs('images/banner', $filename, 'public');
             $data['photo'] = $filePath;
         }
 

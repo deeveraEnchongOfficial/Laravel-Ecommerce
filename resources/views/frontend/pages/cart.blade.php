@@ -27,11 +27,14 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>PRODUCT</th>
+                                {{-- <th><input type="checkbox" id="select-all"></th> <!-- New checkbox header --> --}}
+								<th>SELECT</th>
+                                <th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">UNIT PRICE</th>
 								<th class="text-center">QUANTITY</th>
 								<th class="text-center">TOTAL</th>
+                                <th class="text-center">SIZE</th>
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
 						</thead>
@@ -41,6 +44,10 @@
 								@if(Helper::getAllProductFromCart())
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
+                                            <td class="checkbox">
+                                                {{-- <input type="checkbox" name="selected_items[]" value="{{ $cart->id }}"> --}}
+                                                <input type="checkbox" class="cart-item-checkbox" name="selected_items[]" value="{{$cart->id}}">
+                                            </td>
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
@@ -49,7 +56,7 @@
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
-											<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
+											<td class="price" data-title="Price"><span>₱{{number_format($cart['price'],2)}}</span></td>
 											<td class="qty" data-title="Qty"><!-- Input Order -->
 												<div class="input-group">
 													<div class="button minus">
@@ -57,7 +64,10 @@
 															<i class="ti-minus"></i>
 														</button>
 													</div>
-													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
+                                                    {{-- @php
+                                                dd($cart->product->stock);
+                                                @endphp --}}
+													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="{{$cart->product->stock}}" value="{{$cart->quantity}}">
 													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
 													<div class="button plus">
 														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
@@ -65,9 +75,52 @@
 														</button>
 													</div>
 												</div>
+                                                {{-- @php
+                                                $product_detail = $cart->product;
+                                                @endphp
+                                                <div class="input-group">
+                                                    <div class="button minus">
+                                                        <button type="button" class="btn btn-primary btn-number"
+                                                            disabled="disabled" data-type="minus" data-field="quant[1]">
+                                                            <i class="ti-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input type="hidden" name="slug"
+                                                        value="{{ $product_detail->slug }}">
+                                                    <input type="text" name="quant[1]" class="input-number"
+                                                        data-min="1" data-max="{{ $product_detail->stock }}"
+                                                        value="@if ($product_detail->stock <= 0) 0 @else 1 @endif"
+                                                        id="quantity" @if ($product_detail->stock <= 1) readonly @endif>
+                                                    <div class="button plus">
+                                                        <button type="button" class="btn btn-primary btn-number"
+                                                            data-type="plus" data-field="quant[1]"
+                                                            @if ($product_detail->stock <= 1) disabled @endif>
+                                                            <i class="ti-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> --}}
 												<!--/ End Input Order -->
 											</td>
+
 											<td class="total-amount cart_single_price" data-title="Total"><span class="money">₱{{$cart['amount']}}</span></td>
+                                            <td class="" data-title=""><!-- Input Order -->
+												<div class="input-group">
+                                                    {{-- <p>{{ $cart->size }}</p>
+                                                    <label for="size-select">Size:</label> --}}
+													<select name="size" id="size-select" class="form-control">
+                                                        {{-- <option value="" disabled selected>Select Size</option> --}}
+                                                        <option value="{{ $cart->size }}">{{ $cart->size }}</option>
+                                                        @php
+                                                            $sizes = explode(',', $cart->product->size);
+                                                        @endphp
+                                                        @foreach ($sizes as $size)
+                                                            <option value="{{ $size }}">{{ $size }}</option>
+                                                        @endforeach
+                                                    </select>
+												</div>
+												<!--/ End Input Order -->
+											</td>
+
 
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
@@ -111,19 +164,19 @@
 											<button class="btn">Apply</button>
 										</form>
 									</div>
-									{{-- <div class="checkbox">`
+									<div class="checkbox">`
 										@php
 											$shipping=DB::table('shippings')->where('status','active')->limit(1)->get();
 										@endphp
 										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" onchange="showMe('shipping');"> Shipping</label>
-									</div> --}}
+									</div>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
 										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>₱{{number_format(Helper::totalCartPrice(),2)}}</span></li>
-										{{-- <div id="shipping" style="display:none;">
+										<div id="shipping" style="display:none;">
 											<li class="shipping">
 												Shipping {{session('shipping_price')}}
 												@if(count(Helper::shipping())>0 && Helper::cartCount()>0)
@@ -131,7 +184,7 @@
 														<select name="shipping" class="nice-select">
 															<option value="">Select</option>
 															@foreach(Helper::shipping() as $shipping)
-															<option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
+															<option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ₱{{$shipping->price}}</option>
 															@endforeach
 														</select>
 													</div>
@@ -142,10 +195,9 @@
 												@endif
 											</li>
 										</div>
-										 --}}
-										 {{-- {{dd(Session::get('coupon')['value'])}} --}}
+
 										@if(session()->has('coupon'))
-										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
+										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>₱{{number_format(Session::get('coupon')['value'],2)}}</span></li>
 										@endif
 										@php
 											$total_amount=Helper::totalCartPrice();
@@ -160,7 +212,16 @@
 										@endif
 									</ul>
 									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">Checkout</a>
+										{{-- <a href="{{route('checkout')}}" class="btn">Checkout</a> --}}
+                                        <form action="{{ route('checkout') }}" method="GET">
+                                            @csrf
+                                            <input type="hidden" name="selected_items" value="">
+                                            <button type="submit" class="btn checkout-btn">Checkout</button>
+                                        </form>
+                                        {{-- <form action="{{ route('checkout') }}" method="GET">
+                                            <input type="hidden" name="selected_items" value="{{ implode(',', $selectedItemsArray) }}">
+                                            <button type="submit" class="btn checkout-btn">Checkout</button>
+                                        </form> --}}
 										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a>
 									</div>
 								</div>
@@ -174,7 +235,7 @@
 	</div>
 	<!--/ End Shopping Cart -->
 
-	<!-- Start Shop Services Area  -->
+	{{-- <!-- Start Shop Services Area  -->
 	<section class="shop-services section">
 		<div class="container">
 			<div class="row">
@@ -216,7 +277,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!-- End Shop Newsletter -->
 
 	<!-- Start Shop Newsletter  -->
@@ -396,11 +457,42 @@
 				let subtotal = parseFloat( $('.order_subtotal').data('price') );
 				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
 				// alert(coupon);
-				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
+				$('#order_total_price span').text('₱'+(subtotal + cost-coupon).toFixed(2));
 			});
-
 		});
 
 	</script>
+    <script>
+        $(document).ready(function() {
+            $('.cart-item-checkbox').change(function() {
+                updateSelectedItems();
+            });
+
+            function updateSelectedItems() {
+                var selectedItems = [];
+                $('.cart-item-checkbox:checked').each(function() {
+                    selectedItems.push($(this).val());
+                });
+                $('input[name="selected_items"]').val(selectedItems.join(','));
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Function to validate at least one item is checked
+            function validateCheckedItems() {
+                return $('.cart-item-checkbox:checked').length > 0;
+            }
+
+            // Validate on form submission
+            $('form').submit(function(event) {
+                if (!validateCheckedItems()) {
+                    // Prevent form submission if no item is checked
+                    event.preventDefault();
+                    alert('Please select at least one item to proceed.');
+                }
+            });
+        });
+    </script>
 
 @endpush

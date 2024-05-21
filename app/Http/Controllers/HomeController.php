@@ -9,6 +9,14 @@ use App\Models\ProductReview;
 use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
+use Illuminate\Support\Facades\Storage;
+// use App\Models\Notification;
+use App\Notifications\StatusNotification;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Refund;
+use Notification;
+use App\Models\UserLocation;
+
 
 class HomeController extends Controller
 {
@@ -40,9 +48,32 @@ class HomeController extends Controller
     }
 
     public function profileUpdate(Request $request,$id){
-        // return $request->all();
+        // dd($request->all());
+
+        $this->validate($request,[
+            'photo' => 'image|mimes:jpeg,png,gif',
+        ]);
+
         $user=User::findOrFail($id);
         $data=$request->all();
+
+        if ($data['location']) {
+            UserLocation::where('user_id', auth()->user()->id)->update(['status' => 'inactive']);
+            UserLocation::where('id', $data['location'])->update(['status' => 'active']);
+        }
+
+        // Delete old image if a new image is being uploaded
+        if ($request->hasFile('photo')) {
+            if (Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated your profile');
@@ -58,11 +89,12 @@ class HomeController extends Controller
         $orders=Order::orderBy('id','DESC')->where('user_id',auth()->user()->id)->paginate(10);
         return view('user.order.index')->with('orders',$orders);
     }
+
     public function userOrderDelete($id)
     {
         $order=Order::find($id);
         if($order){
-           if($order->status=="process" || $order->status=='delivered' || $order->status=='cancel'){
+           if($order->status=="processing" || $order->status=='delivered' || $order->status=='reject'){
                 return redirect()->back()->with('error','You can not delete this order now');
            }
            else{
@@ -85,7 +117,7 @@ class HomeController extends Controller
     public function orderShow($id)
     {
         $order=Order::find($id);
-        // return $order;
+        // dd($order);
         return view('user.order.show')->with('order',$order);
     }
     // Product Review
@@ -152,6 +184,7 @@ class HomeController extends Controller
         $comments=PostComment::getAllUserComments();
         return view('user.comment.index')->with('comments',$comments);
     }
+
     public function userCommentDelete($id){
         $comment=PostComment::find($id);
         if($comment){
@@ -213,6 +246,7 @@ class HomeController extends Controller
     public function changePassword(){
         return view('user.layouts.userPasswordChange');
     }
+
     public function changPasswordStore(Request $request)
     {
         $request->validate([
@@ -220,11 +254,126 @@ class HomeController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('user')->with('success','Password successfully changed');
     }
 
-    
+    public function notificationIndex(){
+        return view('user.notification.index');
+    }
+
+    public function notificationShow(Request $request){
+        $notification=Auth()->user()->notifications()->where('id',$request->id)->first();
+        if($notification){
+            $notification->markAsRead();
+            return redirect($notification->data['actionURL']);
+        }
+    }
+
+    public function notificationDelete($id){
+        $notification=\Notification::find($id);
+        if($notification){
+            $status=$notification->delete();
+            if($status){
+                request()->session()->flash('success','Notification successfully deleted');
+                return back();
+            }
+            else{
+                request()->session()->flash('error','Error please try again');
+                return back();
+            }
+        }
+        else{
+            request()->session()->flash('error','Notification not found');
+            return back();
+        }
+    }
+
+    public function refundIndex()
+    {
+        $refund_list = Refund::where('user_id', Auth::user()->id)->get();
+        return view('user.refund.index', ['refund_list' => $refund_list]);
+    }
+
+    public function refundCreate(Request $request)
+    {
+        // dd($request->id);
+        $order = Order::find($request->id);
+        // dd($order);
+
+        return view('user.refund.create', ['order' => $order]);
+        // return view('user.refund.create');
+    }
+
+    public function refundStore(Request $request)
+    {
+        $order = Order::find($request->input('order_id'));
+        $data = [
+            'reason' => $request->input('reason'),
+            'refund_amount' => $request->input('refund_amount'),
+            'description' => $request->input('description'),
+            'photo' => $request->input('photo'),
+            'user_id' => $order->user_id,
+            'order_id' => $request->input('order_id'),
+        ];
+
+        if ($request->hasFile('photo')) {
+            $uploadedFile = $request->file('photo');
+            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+            $filePath = $uploadedFile->storeAs('images/refund', $filename, 'public');
+            $data['photo'] = $filePath;
+        }
+
+        $status=Refund::create($data);
+        if($status){
+
+            $users = User::where('role', 'admin')->first();
+            $details = [
+                'title' => 'New Refund Item',
+                // 'actionURL' => route('order.show', $order->id),
+                'actionURL' => "",
+                'fas' => 'fa-file-alt'
+            ];
+            Notification::send($users, new StatusNotification($details));
+            request()->session()->flash('success','Refund successfully Created');
+        }
+        else{
+            request()->session()->flash('error','Error occurred while adding Refund');
+        }
+        return redirect()->route('order.refund.index');
+    }
+
+    public function refundshow($id)
+    {
+        $auth_user_id = Auth::user()->id;
+        // $refund = Refund::find($id);
+        $refund = Refund::where('id', $id)
+                ->where('user_id', $auth_user_id)
+                ->first();
+        // dd($refund);
+        return view('user.refund.show')->with('refund', $refund);
+    }
+
+    public function refundDelete($id)
+    {
+        $refund=Refund::find($id);
+        if($refund){
+            $status=$refund->delete();
+            if($status){
+                request()->session()->flash('success','Refund successfully deleted');
+                return back();
+            }
+            else{
+                request()->session()->flash('error','Error please try again');
+                return back();
+            }
+        }
+        else{
+            request()->session()->flash('error','Refund not found');
+            return back();
+        }
+
+    }
 }
