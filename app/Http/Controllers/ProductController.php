@@ -263,7 +263,9 @@ class ProductController extends Controller
             $photos[] = $filePath;
         }
 
-        $data['photos'] = implode(',', $photos);
+        if ( $request->file('photo') || $request->hasFile('photo2') || $request->hasFile('photo3')) {
+            $data['photos'] = implode(',', $photos);
+        }
 
         $status = $product->fill($data)->save();
 
