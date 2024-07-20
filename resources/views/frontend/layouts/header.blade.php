@@ -1,41 +1,4 @@
 <header class="header shop">
-    <!-- Topbar -->
-    <!-- <div class="topbar">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-12">
-
-                    <div class="top-left">
-
-                    </div>
-
-                </div>
-                <div class="col-lg-6 col-md-12 col-12">
-
-                    <div class="right-content">
-                        <ul class="list-main">
-                            {{-- <li><i class="ti-location-pin"></i> <a href="{{ route('order.track') }}">Track Order</a></li> --}}
-                            {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
-                            @auth
-                                                    @if (Auth::user()->role == 'admin')
-    <li><i class="ti-user"></i> <a href="{{ route('admin') }}" target="_blank">Dashboard</a></li>
-@elseif(Auth::user()->role == 'delivery_user')
-    <li><i class="ti-user"></i> <a href="{{ route('delivery_user') }}" target="_blank">Editor Dashboard</a></li>
-@else
-    <li><i class="ti-user"></i> <a href="{{ route('user') }}" target="_blank">Dashboard</a></li>
-    @endif
-                                                    <li><i class="ti-power-off"></i> <a href="{{ route('user.logout') }}">Logout</a></li>
-@else
-    <li><i class="ti-power-off"></i><a href="{{ route('login.form') }}">Login /</a> <a href="{{ route('register.form') }}">Register</a></li>
-                            @endauth
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- End Topbar -->
     <div class="middle-inner">
         <div class="container">
             <div class="row">
@@ -46,7 +9,8 @@
                             $settings = DB::table('settings')->get();
                         @endphp
                         <a href="{{ route('home') }}"><img src="{{ asset('images/icon/Padilla_gowns_new.png') }}"
-                                alt="logo" width="100" height="80" style="border-radius: 10px; display:flex; align-items:center; justify-content:center;"></a>
+                                alt="logo" width="100" height="80"
+                                style="border-radius: 10px; display:flex; align-items:center; justify-content:center;"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -98,15 +62,6 @@
                                                 class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a>
                                     @endif
                                 @endif
-                                {{-- @if (Auth::user()->role == 'admin')
-                                    <a href="{{ route('all.notification') }}" class="single-icon"><i class="fa fa-bell-o"></i>
-                                        <span class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a>
-                                @else
-                                    <a href="{{ route('user.all.notification') }}" class="single-icon"><i class="fa fa-bell-o"></i>
-                                        <span class="total-count">0</span></a>
-                                @endif --}}
-                                {{-- <span class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a> --}}
-                                <!-- Shopping Item -->
                                 @auth
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
@@ -122,21 +77,7 @@
                                             @else
                                                 <a href="{{ route('user.all.notification') }}">Show All Notifications</a>
                                             @endif
-                                            {{-- <a href="{{ route('user.all.notification') }}">Show All Notifications</a> --}}
                                         </div>
-                                        {{-- <ul class="shopping-list">
-                                        @foreach (Helper::getAllProductFromWishlist() as $data)
-                                        @php
-                                        $photo=explode(',',$data->product['photo']);
-                                        @endphp
-                                        <li>
-                                            <a href="{{route('wishlist-delete',$data->id)}}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                            <a class="cart-img" href="#"><img src="{{asset($photo[0])}}" alt="{{$photo[0]}}"></a>
-                                            <h4><a href="{{route('product-detail',$data->product['slug'])}}" target="_blank">{{$data->product['title']}}</a></h4>
-                                            <p class="quantity">{{$data->quantity}} x - <span class="amount">₱{{number_format($data->price,2)}}</span></p>
-                                        </li>
-                                        @endforeach
-                                    </ul> --}}
                                         @foreach (Auth::user()->unreadNotifications as $notification)
                                             @if (Auth::user()->role == 'admin')
                                                 <a class="dropdown-item d-flex align-items-center" target="_blank"
@@ -145,8 +86,6 @@
                                                     <a class="dropdown-item d-flex align-items-center" target="_blank"
                                                         href="{{ route('user.notification', $notification->id) }}">
                                             @endif
-                                            {{-- <a class="dropdown-item d-flex align-items-center" target="_blank"
-                                                href="{{ route('user.notification', $notification->id) }}"> --}}
                                             <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     <i class="fas {{ $notification->data['fas'] }} text-white"></i>
@@ -155,8 +94,7 @@
                                             <div>
                                                 <div class="small text-gray-500">
                                                     {{ $notification->created_at->format('F d, Y h:i A') }}</div>
-                                                <span
-                                                    class="small text-gray-500">{{ $notification->data['title'] }}</span>
+                                                <span class="small text-gray-500">{{ $notification->data['title'] }}</span>
                                             </div>
                                             </a>
                                             @if ($loop->index + 1 == 5)
@@ -286,7 +224,6 @@
                                                 <span
                                                     class="total-amount">₱{{ number_format(Helper::totalLikePrice(), 2) }}</span>
                                             </div>
-                                            <!-- <a href="{{ route('cart') }}" class="btn animate">Cart</a> -->
                                         </div>
                                     </div>
                                 @endauth
