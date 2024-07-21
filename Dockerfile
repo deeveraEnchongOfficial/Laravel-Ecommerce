@@ -27,8 +27,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy existing application directory contents
 COPY . /var/www
 
-# Set permissions for copied files
-RUN chown -R www-data:www-data /var/www \
+# Set permissions for copied files and directories
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
     && chmod -R 775 /var/www/storage \
     && chmod -R 755 /var/www/bootstrap/cache
 
