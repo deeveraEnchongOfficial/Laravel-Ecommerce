@@ -45,6 +45,10 @@ class Kernel extends HttpKernel
         ],
     ];
 
+    protected $commands = [
+        \App\Console\Commands\ClearApp::class,
+    ];
+
     /**
      * The application's route middleware.
      *
