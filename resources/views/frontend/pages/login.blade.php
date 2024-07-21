@@ -29,7 +29,7 @@
                         <h2>Login</h2>
                         <p>Please register in order to checkout more quickly</p>
                         <!-- Form -->
-                        <form class="form" method="post" action="{{ route('login.submit') }}">
+                        <form class="form" method="post" action="http://13.212.254.74/user/login">
                             @csrf
                             <div class="row">
                                 <div class="col-12">
