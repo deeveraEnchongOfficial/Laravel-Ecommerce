@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') !== 'local') {
             URL::forceScheme('http');
         }
+        URL::forceScheme('http');
     }
 }
