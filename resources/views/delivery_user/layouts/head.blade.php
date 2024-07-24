@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content=""> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ URL::asset('/images/icon/Padilla_gowns_new.png') }}" type="image/x-icon"/>
+    <link rel="icon" type="image/png" href="/images/icon/Padilla_gowns_new.png">
 
     {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset("../images/icon/Padilla_gowns_new.png") }}" /> --}}
 

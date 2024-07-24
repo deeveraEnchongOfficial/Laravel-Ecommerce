@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
-    <link rel="icon" href="{{ URL::asset('/images/icon/Padilla_gowns_new.png') }}" type="image/x-icon"/>
+    <link rel="icon" type="image/png" href="/images/icon/Padilla_gowns_new.png">
     <title>Padilla Gowns and Barongs || DASHBOARD</title>
 
     <!-- Custom fonts for this template-->
