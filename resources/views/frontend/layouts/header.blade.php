@@ -15,12 +15,12 @@
                     <!--/ End Logo -->
                     <!-- Search Form -->
                     <div class="search-top">
-                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+                        <div class="top-search"><a href="#0"><i class="fa fa-searc"></i></a></div>
                         <!-- Search Form -->
                         <div class="search-top">
                             <form class="search-form">
                                 <input type="text" placeholder="Search here..." name="search">
-                                <button value="search" type="submit"><i class="ti-search"></i></button>
+                                <button value="search" type="submit"><i class="fa fa-searc"></i></button>
                             </form>
                         </div>
                         <!--/ End Search Form -->
@@ -40,7 +40,7 @@
                             <form method="POST" action="{{ route('product.search') }}">
                                 @csrf
                                 <input name="search" placeholder="Search Products Here....." type="search">
-                                <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                                <button class="btnn" type="submit"><i class="fa fa-searc"></i></button>
                             </form>
                         </div>
                     </div>
@@ -52,12 +52,12 @@
                                 @if (Auth::user())
                                     @if (Auth::user()->role == 'admin')
                                         <a href="{{ route('all.notification') }}" class="single-icon"><i
-                                                class="fa fa-bell-o"></i>
+                                                class="fa fa-bell"></i>
                                             <span
                                                 class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a>
                                     @elseif(Auth::user()->role == 'user')
                                         <a href="{{ route('user.all.notification') }}" class="single-icon"><i
-                                                class="fa fa-bell-o"></i>
+                                                class="fa fa-bell"></i>
                                             <span
                                                 class="total-count">{{ count(Auth::user()->unreadNotifications) }}</span></a>
                                     @endif
@@ -109,7 +109,7 @@
                             </div>
                             <div class="sinlge-bar shopping">
                                 <!-- Wishlist Link -->
-                                <a href="{{ route('wishlist') }}" class="single-icon"><i class="fa fa-heart-o"></i>
+                                <a href="{{ route('wishlist') }}" class="single-icon"><i class="fas fa-heart"></i>
                                     <span class="total-count">{{ Helper::wishlistCount() }}</span></a>
                                 <!-- Shopping Item -->
                                 @auth
@@ -150,7 +150,7 @@
                             </div>
                             <div class="sinlge-bar shopping">
                                 <!-- Cart Link -->
-                                <a href="{{ route('cart') }}" class="single-icon"><i class="ti-bag"></i> <span
+                                <a href="{{ route('cart') }}" class="single-icon"><i class="fa fa-shopping-bag"></i> <span
                                         class="total-count">{{ Helper::cartCount() }}</span></a>
                                 <!-- Shopping Item -->
                                 @auth
@@ -191,7 +191,7 @@
                             </div>
                             <div class="sinlge-bar shopping">
                                 <!-- Like Link -->
-                                <a href="{{ route('like') }}" class="single-icon"><i class="ti-thumb-up"></i> <span
+                                <a href="{{ route('like') }}" class="single-icon"><i class="fa fa-thumbs-up"></i> <span
                                         class="total-count">{{ Helper::likeCount() }}</span></a>
                                 <!-- Shopping Item -->
                                 @auth
@@ -229,39 +229,51 @@
                                 @endauth
                                 <!--/ End Shopping Item -->
                             </div>
-                            <div class="sinlge-bar shopping">
-                                <!-- User Links Dropdown -->
+                            {{-- <div class="single-bar shopping">
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" id="userDropdown"
-                                        data-toggle="dropdown">
-                                        <i class="ti-menu"></i>
+                                    <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="userDropdown">
                                         <ul class="dropdown border-0 shadow">
                                             @auth
                                                 @if (Auth::user()->role == 'admin')
-                                                    <li><a class="dropdown-item" href="{{ route('admin') }}"
-                                                            target="_blank">Dashboard</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('admin') }}" target="_blank">Dashboard</a></li>
                                                 @elseif(Auth::user()->role == 'delivery_user')
-                                                    <li><a class="dropdown-item" href="{{ route('delivery_user') }}"
-                                                            target="_blank">Dashboard</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('delivery_user') }}" target="_blank">Dashboard</a></li>
                                                 @else
-                                                    <li><a class="dropdown-item" href="{{ route('user') }}"
-                                                            target="_blank">Dashboard</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('user') }}" target="_blank">Dashboard</a></li>
                                                 @endif
-                                                <li><a class="dropdown-item" href="{{ route('user.logout') }}"><i
-                                                            class="ti-power-off"></i> Logout</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('user.logout') }}"><i class="ti-power-off"></i> Logout</a></li>
                                             @else
-                                                <li><a class="dropdown-item" href="{{ route('login.form') }}">Login</a>
-                                                </li>
-                                                <li><a class="dropdown-item"
-                                                        href="{{ route('register.form') }}">Register</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('login.form') }}">Login</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('register.form') }}">Register</a></li>
                                             @endauth
                                         </ul>
                                     </div>
                                 </div>
-                                <!--/ End User Links Dropdown -->
-                            </div>
+                            </div> --}}
+
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    @auth
+                                    @if (Auth::user()->role == 'admin')
+                                        <li><a class="dropdown-item" href="{{ route('admin') }}" target="_blank">Dashboard</a></li>
+                                    @elseif(Auth::user()->role == 'delivery_user')
+                                        <li><a class="dropdown-item" href="{{ route('delivery_user') }}" target="_blank">Dashboard</a></li>
+                                    @else
+                                        <li><a class="dropdown-item" href="{{ route('user') }}" target="_blank">Dashboard</a></li>
+                                    @endif
+                                    <li><a class="dropdown-item" href="{{ route('user.logout') }}"><i class="ti-power-off"></i> Logout</a></li>
+                                @else
+                                    <li><a class="dropdown-item" href="{{ route('login.form') }}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('register.form') }}">Register</a></li>
+                                @endauth
+                                </ul>
+                              </div>
                         </div>
                     </div>
                 </div>

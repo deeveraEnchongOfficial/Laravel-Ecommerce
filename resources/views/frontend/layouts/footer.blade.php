@@ -90,40 +90,40 @@
 <!-- /End Footer Area -->
 
 <!-- Jquery -->
-{{-- <script src="{{asset('frontend/js/jquery.min.js')}}"></script> --}}
-{{-- <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script> --}}
-{{-- <script src="{{asset('frontend/js/jquery-ui.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
+<script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
+<script src="{{asset('frontend/js/jquery-ui.min.js')}}"></script>
 <!-- Popper JS -->
-{{-- <script src="{{asset('frontend/js/popper.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/popper.min.js')}}"></script>
 <!-- Bootstrap JS -->
-{{-- <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
 <!-- Color JS -->
-{{-- <script src="{{asset('frontend/js/colors.js')}}"></script> --}}
+<script src="{{asset('frontend/js/colors.js')}}"></script>
 <!-- Slicknav JS -->
-{{-- <script src="{{asset('frontend/js/slicknav.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/slicknav.min.js')}}"></script>
 <!-- Owl Carousel JS -->
-{{-- <script src="{{asset('frontend/js/owl-carousel.js')}}"></script> --}}
+<script src="{{asset('frontend/js/owl-carousel.js')}}"></script>
 <!-- Magnific Popup JS -->
-{{-- <script src="{{asset('frontend/js/magnific-popup.js')}}"></script> --}}
+<script src="{{asset('frontend/js/magnific-popup.js')}}"></script>
 <!-- Waypoints JS -->
-{{-- <script src="{{asset('frontend/js/waypoints.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/waypoints.min.js')}}"></script>
 <!-- Countdown JS -->
-{{-- <script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script>
 <!-- Nice Select JS -->
-{{-- <script src="{{asset('frontend/js/nicesellect.js')}}"></script> --}}
+<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
 <!-- Flex Slider JS -->
-{{-- <script src="{{asset('frontend/js/flex-slider.js')}}"></script> --}}
+<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
 <!-- ScrollUp JS -->
-{{-- <script src="{{asset('frontend/js/scrollup.js')}}"></script> --}}
+<script src="{{asset('frontend/js/scrollup.js')}}"></script>
 <!-- Onepage Nav JS -->
-{{-- <script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script>
 {{-- Isotope --}}
-{{-- <script src="{{asset('frontend/js/isotope/isotope.pkgd.min.js')}}"></script> --}}
+<script src="{{asset('frontend/js/isotope/isotope.pkgd.min.js')}}"></script>
 <!-- Easing JS -->
-{{-- <script src="{{asset('frontend/js/easing.js')}}"></script> --}}
+<script src="{{asset('frontend/js/easing.js')}}"></script>
 
 <!-- Active JS -->
-{{-- <script src="{{asset('frontend/js/active.js')}}"></script> --}}
+<script src="{{asset('frontend/js/active.js')}}"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
@@ -158,6 +158,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <!-- Active JS -->
 {{-- <script src="path/to/your/active.js"></script> --}}
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+
+{{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script> --}}
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
 
 
