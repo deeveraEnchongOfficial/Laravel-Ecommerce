@@ -24,7 +24,7 @@
 						<div class="single-footer links">
 							<h4>Information</h4>
 							<ul>
-								<li><a href="/about-us">About Us</a></li>
+								<li><a href="http://35.232.55.107/about-us">About Us</a></li>
 								<li><a href="{{route('product-high-reviews')}}">Top Reviews</a></li>
 								<li><a href="{{route('contact')}}">Contact Us</a></li>
 							</ul>
