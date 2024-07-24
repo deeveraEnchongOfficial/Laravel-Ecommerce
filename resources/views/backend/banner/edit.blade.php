@@ -31,7 +31,7 @@
                 </div>
                 <div id="holder" style="margin-top: 15px; max-height: 100px;">
                     @if ($banner->photo)
-                    <img src="{{asset($banner->photo)}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
+                    <img src="data:image/png;base64,{{$banner->photo}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
                     @endif
                 </div>
                 <div id="holder" style="margin-top:15px;max-height:100px;"></div>

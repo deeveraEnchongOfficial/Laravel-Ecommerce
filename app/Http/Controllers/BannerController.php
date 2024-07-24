@@ -52,11 +52,18 @@ class BannerController extends Controller
         ]);
         $data=$request->all();
 
+        // if ($request->hasFile('photo')) {
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+        //     $data['photo']=$filePath;
+        // }
+
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
-            $data['photo']=$filePath;
+            $imgData = base64_encode(file_get_contents($uploadedFile));
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $slug=Str::slug($request->id);
