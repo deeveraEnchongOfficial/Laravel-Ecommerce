@@ -58,7 +58,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => public_path('images/banner'),
-            'url' => env('APP_URL').'/images/banner',
+            'url' => env('APP_URL').'/images',
             'visibility' => 'public',
         ],
 
