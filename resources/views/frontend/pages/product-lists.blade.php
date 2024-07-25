@@ -112,7 +112,7 @@
                                         @endphp
                                         <div class="single-post first">
                                             <div class="image">
-                                                <img src="{{asset($photo[0])}}" alt="{{asset($photo[0])}}">
+                                                <img src="data:image/png;base64,{{$photo[0]}}" alt="{{asset($photo[0])}}">
                                             </div>
                                             <div class="content">
                                                 <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
@@ -191,8 +191,8 @@
 															@php
 																$photo=explode(',',$product->photo);
 															@endphp
-															<img class="default-img" src="{{asset($photo[0])}}" alt="{{asset($photo[0])}}">
-															<img class="hover-img" src="{{asset($photo[0])}}" alt="{{asset($photo[0])}}">
+															<img class="default-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{asset($photo[0])}}">
+															<img class="hover-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{asset($photo[0])}}">
 															</a>
 															<div class="button-head">
 																<div class="product-action">
@@ -266,7 +266,7 @@
 														@endphp
 														@foreach($photo as $data)
 															<div class="single-slider">
-																<img src="{{asset($data)}}" alt="{{asset($data)}}">
+																<img src="data:image/png;base64,{{$data}}" alt="{{asset($data)}}">
 															</div>
 														@endforeach
 													</div>

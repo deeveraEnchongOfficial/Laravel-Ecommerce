@@ -31,7 +31,7 @@
                     </div>
                     <div id="holder" style="margin-top: 15px; max-height: 100px;">
                         @if ($data->logo)
-                            <img src="{{ asset($data->logo) }}" alt="{{ asset($data->logo) }}" class="img-fluid"
+                            <img src="data:image/png;base64,{{ $data->logo }}" alt="{{ $data->logo }}" class="img-fluid"
                                 style="max-height: 100px;">
                         @endif
                     </div>
@@ -50,7 +50,7 @@
                     </div>
                     <div id="holder" style="margin-top: 15px; max-height: 100px;">
                         @if ($data->photo)
-                            <img src="{{ asset($data->photo) }}" alt="{{ asset($data->photo) }}" class="img-fluid"
+                            <img src="data:image/png;base64,{{ $data->photo }}" alt="{{ $data->photo }}" class="img-fluid"
                                 style="max-height: 100px;">
                         @endif
                     </div>

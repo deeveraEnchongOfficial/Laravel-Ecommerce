@@ -82,13 +82,13 @@
                                                 <div class="col-md-6 mx-auto">
                                                     <div class="row">
                                                         <div class="col-md-6 text-center">
-                                                            <img src="{{ asset($item->product->photo) }}"
+                                                            <img src="data:image/png;base64,{{ $item->product->photo }}"
                                                                 alt="Product Image" class="img-fluid" style="width: 200px; height: 200px;">
                                                             <p class="mt-2">({{ $item->product->title }})</p>
                                                             <p class="mt-2">Actual Product Image</p>
                                                         </div>
                                                         <div class="col-md-6 text-center">
-                                                            <img src="{{ asset($refund->photo) }}" alt="Refund Image"
+                                                            <img src="data:image/png;base64,{{ $refund->photo }}" alt="Refund Image"
                                                                 class="img-fluid" style="width: 200px; height: 200px;">
                                                             <p class="mt-2">({{ $item->product->title }})</p>
                                                             <p class="mt-2">Refund Product Image</p>

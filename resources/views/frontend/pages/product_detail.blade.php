@@ -51,10 +51,10 @@
                                             // dd($photo);
                                         @endphp
                                         @foreach ($photo as $data)
-                                            <li data-thumb="{{ asset($data) }}" rel="adjustX:10, adjustY:">
+                                            <li data-thumb="data:image/png;base64,{{ $data }}" rel="adjustX:10, adjustY:">
                                                 {{-- <img src="{{ asset($data) }}" alt="{{ $data }}"> --}}
                                                 <div style="position: relative; display: inline-block;">
-                                                    <img src="{{ asset($data) }}" alt="{{ $data }}" style="width: 300px; height: 450px;" />
+                                                    <img src="data:image/png;base64,{{ $data }}" alt="{{ $data }}" style="width: 300px; height: 450px;" />
                                                     @if ($product_detail->stock <= 0)
                                                         <div
                                                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(192, 192, 192, 0.7); color: white; padding: 10px; font-weight: bold; border-radius: 50%; width: 150px; height: 80px; display: flex; align-items: center; justify-content: center;">
@@ -358,7 +358,7 @@
                                                             <div class="single-rating">
                                                                 <div class="rating-author">
                                                                     @if ($data->user_info['photo'])
-                                                                        <img src="{{ asset($data->user_info['photo']) }}"
+                                                                        <img src="data:image/png;base64,{{ $data->user_info['photo'] }}"
                                                                             alt="{{ asset($data->user_info['photo']) }}">
                                                                     @else
                                                                         <img src="{{ asset('backend/img/avatar.png') }}"
@@ -428,9 +428,9 @@
                                             @php
                                                 $photo = explode(',', $data->photo);
                                             @endphp
-                                            <img class="default-img" src="{{ asset($photo[0]) }}"
+                                            <img class="default-img" src="data:image/png;base64,{{ $photo[0] }}"
                                                 alt="{{ asset($photo[0]) }}">
-                                            <img class="hover-img" src="{{ asset($photo[0]) }}"
+                                            <img class="hover-img" src="data:image/png;base64,{{ $photo[0] }}"
                                                 alt="{{ asset($photo[0]) }}">
                                             <span class="price-dec">{{ $data->discount }} % Off</span>
                                             {{-- <span class="out-of-stock">Hot</span> --}}

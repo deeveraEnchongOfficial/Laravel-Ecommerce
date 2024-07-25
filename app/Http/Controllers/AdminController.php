@@ -43,15 +43,21 @@ class AdminController extends Controller
         $data=$request->all();
 
         // Delete old image if a new image is being uploaded
-        if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($user->photo)) {
-                Storage::disk('public')->delete($user->photo);
-            }
+        // if ($request->hasFile('photo')) {
+        //     if (Storage::disk('public')->exists($user->photo)) {
+        //         Storage::disk('public')->delete($user->photo);
+        //     }
 
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
+        //     $data['photo'] = $filePath;
+        // }
+
+        if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
-            $data['photo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $status=$user->fill($data)->save();
@@ -86,15 +92,20 @@ class AdminController extends Controller
         $settings=Settings::first();
 
         // Delete old image if a new image is being uploaded
-        if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($settings->photo)) {
-                Storage::disk('public')->delete($settings->photo);
-            }
+        // if ($request->hasFile('photo')) {
+        //     if (Storage::disk('public')->exists($settings->photo)) {
+        //         Storage::disk('public')->delete($settings->photo);
+        //     }
 
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
+        //     $data['photo'] = $filePath;
+        // }
+        if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
-            $data['photo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         // Delete old image if a new image is being uploaded

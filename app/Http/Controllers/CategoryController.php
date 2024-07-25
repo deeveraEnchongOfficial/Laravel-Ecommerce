@@ -56,11 +56,17 @@ class CategoryController extends Controller
         ]);
         $data= $request->all();
 
+        // if ($request->hasFile('photo')) {
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
+        //     $data['photo']=$filePath;
+        // }
+
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
-            $data['photo']=$filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $slug=Str::slug($request->title);
@@ -129,15 +135,21 @@ class CategoryController extends Controller
         $data= $request->all();
 
         // Delete old image if a new image is being uploaded
-        if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($category->photo)) {
-                Storage::disk('public')->delete($category->photo);
-            }
+        // if ($request->hasFile('photo')) {
+        //     if (Storage::disk('public')->exists($category->photo)) {
+        //         Storage::disk('public')->delete($category->photo);
+        //     }
 
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
+        //     $data['photo'] = $filePath;
+        // }
+
+        if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/category', $filename, 'public');
-            $data['photo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $data['is_parent']=$request->input('is_parent',0);

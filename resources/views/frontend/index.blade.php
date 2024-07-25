@@ -62,8 +62,8 @@
                                 $photo=explode(',',$product->photo);
                                 // dd($photo);
                                 @endphp
-                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img class="default-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img class="hover-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
                                 {{-- <span class="out-of-stock">Hot</span> --}}
                                 <span class="price-dec">{{$product->discount}}% Off</span>
                             </a>
@@ -122,7 +122,7 @@
                             $photo=explode(',',$cat->photo);
                             // dd($photo);
                             @endphp
-                            <img class="img-fluid default-img border border-4" src="{{$photo[0]}}" alt="{{$photo[0]}}" style="width: 400px; height: 400px;">
+                            <img class="img-fluid default-img border border-4" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}" style="width: 400px; height: 400px;">
                         </div>
                         <div class="product-content">
                             <div class="card-body">
@@ -222,8 +222,8 @@
                                         $photo=explode(',',$product->photo);
                                         // dd($photo);
                                         @endphp
-                                        <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                        <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img class="default-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img class="hover-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
                                         @if($product->stock<=0) <span class="out-of-stock">Sale out</span>
                                             @elseif($product->condition=='new')
                                             <span class="new">New</span @elseif($product->condition=='hot')
@@ -287,7 +287,7 @@
                     @php
                     $photo=explode(',',$data->photo);
                     @endphp
-                    <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                    <img src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
                     <div class="content">
                         <p>{{$data->cat_info['title']}}</p>
                         @if ($data->discount != 0)
@@ -328,8 +328,8 @@
                                 $photo=explode(',',$product->photo);
                                 // dd($photo);
                                 @endphp
-                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img class="default-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
+                                <img class="hover-img" src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
                                 {{-- <span class="out-of-stock">Hot</span> --}}
                             </a>
                             <div class="button-head">
@@ -396,7 +396,7 @@
                                         $photo=explode(',',$product->photo);
                                         // dd($photo);
                                         @endphp
-                                        <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                        <img src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}">
                                         <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
@@ -553,7 +553,7 @@
                                 @endphp
                                 @foreach($photo as $data)
                                 <div class="single-slider">
-                                    <img src="{{$data}}" alt="{{$data}}">
+                                    <img src="data:image/png;base64,{{$data}}" alt="{{$data}}">
                                 </div>
                                 @endforeach
                             </div>

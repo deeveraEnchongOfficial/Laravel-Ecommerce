@@ -8,21 +8,21 @@
         <form method="post" action="{{route('banner.update',$banner->id)}}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
                 <input id="inputTitle" type="text" name="title" placeholder="Enter title" value="{{$banner->title}}" class="form-control">
                 @error('title')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
-            </div>
+            </div> --}}
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="inputDesc" class="col-form-label">Description</label>
                 <textarea class="form-control" id="description" name="description">{{$banner->description}}</textarea>
                 @error('description')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>

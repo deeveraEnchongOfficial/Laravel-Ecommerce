@@ -39,7 +39,7 @@
         </div>
         <div id="holder" style="margin-top: 15px; max-height: 100px;">
             @if ($user->photo)
-            <img src="{{asset($user->photo)}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
+            <img src="data:image/png;base64,{{$user->photo}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
             @endif
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">

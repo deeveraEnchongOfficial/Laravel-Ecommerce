@@ -34,7 +34,7 @@ Route::get('/','FrontendController@home')->name('home');
 
 // Frontend Routes
 Route::get('/home', 'FrontendController@index');
-Route::get('http://35.232.55.107/about-us','FrontendController@aboutUs')->name('about-us');
+Route::get('/about-us','FrontendController@aboutUs')->name('about-us');
 Route::get('/contact','FrontendController@contact')->name('contact');
 Route::post('/contact/message','MessageController@store')->name('contact.store');
 Route::get('product-detail/{slug}','FrontendController@productDetail')->name('product-detail');

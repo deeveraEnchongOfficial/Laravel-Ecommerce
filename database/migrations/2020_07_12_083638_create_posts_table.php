@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('summary');
             $table->longText('description')->nullable();
             $table->text('quote')->nullable();
-            $table->string('photo')->nullable();
+            $table->longText('photo')->nullable();
             $table->string('tags')->nullable();
             $table->unsignedBigInteger('post_cat_id')->nullable();
             $table->unsignedBigInteger('post_tag_id')->nullable();

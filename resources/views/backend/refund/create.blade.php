@@ -15,7 +15,7 @@
                         <div class="row">
                             @foreach ($order->cart as $item)
                                 <div class="col-md-3 text-center">
-                                    <img src="{{ asset($item->product->photo) }}" alt="Product Image" class="img-fluid">
+                                    <img src="data:image/png;base64,{{$item->product->photo}}" alt="Product Image" class="img-fluid">
                                     <p class="mt-2">{{ $item->product->title }}</p>
                                 </div>
                             @endforeach

@@ -11,7 +11,7 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary float-left">Category Lists</h6>
         <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Category</a>
-        
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -61,7 +61,7 @@
                         </td>
                         <td>
                             @if($category->photo)
-                            <img src="{{asset($category->photo)}}" class="img-fluid zoom" style="max-width:80px" alt="{{$category->photo}}">
+                            <img src="data:image/png;base64,{{$category->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$category->photo}}">
                             @else
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                             @endif

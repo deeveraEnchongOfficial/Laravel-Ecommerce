@@ -140,7 +140,7 @@
                     </div>
                     <div id="holder" style="margin-top: 15px; max-height: 100px;">
                         @if ($product->photo)
-                            <img src="{{ asset($product->photo) }}" alt="Current Image" class="img-fluid"
+                            <img src="data:image/png;base64,{{$product->photo}}" alt="Current Image" class="img-fluid"
                                 style="max-height: 100px;">
                         @endif
                     </div>
@@ -157,7 +157,7 @@
                     </div>
                     <div id="holder" style="margin-top: 15px; max-height: 100px;">
                         @if ($product->photo2)
-                            <img src="{{ asset($product->photo2) }}" alt="Current Image" class="img-fluid"
+                            <img src="data:image/png;base64,{{$product->photo2}}" alt="Current Image" class="img-fluid"
                                 style="max-height: 100px;">
                         @endif
                     </div>
@@ -174,7 +174,7 @@
                     </div>
                     <div id="holder" style="margin-top: 15px; max-height: 100px;">
                         @if ($product->photo3)
-                            <img src="{{ asset($product->photo3) }}" alt="Current Image" class="img-fluid"
+                            <img src="data:image/png;base64,{{$product->photo3}}" alt="Current Image" class="img-fluid"
                                 style="max-height: 100px;">
                         @endif
                     </div>

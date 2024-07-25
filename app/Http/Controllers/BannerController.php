@@ -61,7 +61,6 @@ class BannerController extends Controller
 
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $imgData = base64_encode(file_get_contents($uploadedFile));
             $imageData = base64_encode(file_get_contents($uploadedFile));
             $data['photo'] = $imageData;
         }
@@ -127,15 +126,21 @@ class BannerController extends Controller
         $data = $request->all();
 
         // Delete old image if a new image is being uploaded
-        if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($banner->photo)) {
-                Storage::disk('public')->delete($banner->photo);
-            }
+        // if ($request->hasFile('photo')) {
+        //     if (Storage::disk('public')->exists($banner->photo)) {
+        //         Storage::disk('public')->delete($banner->photo);
+        //     }
 
+        //     $uploadedFile = $request->file('photo');
+        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
+        //     $filePath = $uploadedFile->storeAs('images', $filename, 'public');
+        //     $data['photo'] = $filePath;
+        // }
+
+        if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images', $filename, 'public');
-            $data['photo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $status = $banner->fill($data)->save();

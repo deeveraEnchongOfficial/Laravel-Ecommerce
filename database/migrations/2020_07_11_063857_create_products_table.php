@@ -19,10 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->text('summary')->nullable();
             $table->longText('description')->nullable();
-            $table->text('photo')->nullable();
-            $table->text('photo2')->nullable();
-            $table->text('photo3')->nullable();
-            $table->text('photos')->nullable();
+            $table->longText('photo')->nullable();
+            $table->longText('photo2')->nullable();
+            $table->longText('photo3')->nullable();
+            $table->longText('photos')->nullable();
             $table->integer('stock')->default(1);
             $table->string('size')->default('M')->nullable();
             $table->enum('condition',['default','new','hot'])->default('default');

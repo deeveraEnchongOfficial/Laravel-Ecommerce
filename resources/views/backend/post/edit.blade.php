@@ -80,7 +80,7 @@
         </div>
         <div id="holder" style="margin-top: 15px; max-height: 100px;">
                     @if ($post->photo)
-                    <img src="{{asset($post->photo)}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
+                    <img src="data:image/png;base64,{{$post->photo}}" alt="Current Image" class="img-fluid" style="max-height: 100px;">
                     @endif
                 </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>

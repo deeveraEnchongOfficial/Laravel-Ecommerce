@@ -126,7 +126,7 @@
                                                 <li>
                                                     <a href="{{ route('wishlist-delete', $data->id) }}" class="remove"
                                                         title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                    <a class="cart-img" href="#"><img src="{{ asset($photo[0]) }}"
+                                                    <a class="cart-img" href="#"><img src="data:image/png;base64,{{ $photo[0] }}"
                                                             alt="{{ $photo[0] }}"></a>
                                                     <h4><a href="{{ route('product-detail', $data->product['slug']) }}"
                                                             target="_blank">{{ $data->product['title'] }}</a></h4>
@@ -167,7 +167,7 @@
                                                 <li>
                                                     <a href="{{ route('cart-delete', $data->id) }}" class="remove"
                                                         title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                    <a class="cart-img" href="#"><img src="{{ $photo[0] }}"
+                                                    <a class="cart-img" href="#"><img src="data:image/png;base64,{{ $photo[0] }}"
                                                             alt="{{ $photo[0] }}"></a>
                                                     <h4><a href="{{ route('product-detail', $data->product['slug']) }}"
                                                             target="_blank">{{ $data->product['title'] }}</a></h4>
@@ -208,7 +208,7 @@
                                                 <li>
                                                     <a href="{{ route('like-delete', $data->id) }}" class="remove"
                                                         title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                    <a class="cart-img" href="#"><img src="{{ asset($photo[0]) }}"
+                                                    <a class="cart-img" href="#"><img src="data:image/png;base64,{{ $photo[0] }}"
                                                             alt="{{ $photo[0] }}"></a>
                                                     <h4><a href="{{ route('product-detail', $data->product['slug']) }}"
                                                             target="_blank">{{ $data->product['title'] }}</a></h4>
@@ -296,7 +296,7 @@
                                             <li class="{{ Request::path() == 'home' ? 'active' : '' }}"><a
                                                     href="{{ route('home') }}">Home</a></li>
                                             <li class="{{ Request::path() == 'about-us' ? 'active' : '' }}"><a
-                                                    href="http://35.232.55.107/about-us">About Us</a></li>
+                                                    href="{{ route('about-us') }}">About Us</a></li>
                                             <li class="@if (Request::path() == 'product-grids' || Request::path() == 'product-lists') active @endif"><a
                                                     href="{{ route('product-grids') }}">Products</a><span
                                                     class="new">New</span></li>
