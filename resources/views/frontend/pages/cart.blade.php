@@ -51,7 +51,7 @@
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+											<td class="image" data-title="No"><img src="data:image/png;base64,{{$photo[0]}}" alt="{{$photo[0]}}"></td>
 											<td class="product-des" data-title="Description">
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
@@ -61,7 +61,7 @@
 												<div class="input-group">
 													<div class="button minus">
 														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$key}}]">
-															<i class="ti-minus"></i>
+															<i class="fa fa-minus"></i>
 														</button>
 													</div>
                                                     {{-- @php
@@ -71,7 +71,7 @@
 													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
 													<div class="button plus">
 														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
-															<i class="ti-plus"></i>
+															<i class="fa fa-plus"></i>
 														</button>
 													</div>
 												</div>

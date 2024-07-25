@@ -146,7 +146,7 @@
                                                     <div class="button minus">
                                                         <button type="button" class="btn btn-primary btn-number"
                                                             disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                            <i class="ti-minus"></i>
+                                                            <i class="fa fa-minus"></i>
                                                         </button>
                                                     </div>
                                                     <input type="hidden" name="slug"
@@ -159,7 +159,7 @@
                                                         <button type="button" class="btn btn-primary btn-number"
                                                             data-type="plus" data-field="quant[1]"
                                                             @if ($product_detail->stock <= 0) disabled @endif>
-                                                            <i class="ti-plus"></i>
+                                                            <i class="fa fa-plus"></i>
                                                         </button>
                                                     </div>
                                                 </div>
