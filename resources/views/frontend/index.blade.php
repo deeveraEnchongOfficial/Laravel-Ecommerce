@@ -15,7 +15,8 @@
     <div class="carousel-inner" role="listbox">
         @foreach($banners as $key=>$banner)
         <div class="carousel-item {{(($key==0)? 'active' : '')}}">
-            <img class="first-slide" src="data:image/png;base64,{{$banner->photo}}" alt="First slide" style="height:580px;opacity:1">
+            {{-- <img class="first-slide" src="data:image/png;base64,{{$banner->photo}}" alt="First slide" style="height:580px;opacity:1"> --}}
+            <img class="first-slide" src="data:image/png;base64,{{$banner->photo}}" alt="First slide" style="width: 100%; height: 580px; object-fit: cover; opacity: 1;">
             <div class="carousel-caption d-none d-md-block text-left">
                 <h1 class="wow fadeInDown">{{$banner->title}}</h1>
                 <p>{!! html_entity_decode($banner->description) !!}</p>

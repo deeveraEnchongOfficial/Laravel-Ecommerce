@@ -8089,7 +8089,7 @@ Version:1.0
         }
 
         .hero-slider {
-            height: 416px;
+            height: 0;
         }
 
         .hero-slider .hero-text {

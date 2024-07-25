@@ -177,9 +177,9 @@
                                                 @endif
                                             </button>
                                             <a href="{{ route('add-to-wishlist', $product_detail->slug) }}"
-                                                class="btn min"><i class="ti-heart"></i></a>
+                                                class="btn min"><i class="fas fa-heart"></i></a>
                                             <a href="{{ route('add-to-like', $product_detail->slug) }}"
-                                                class="btn min"><i class="ti-thumb-up"></i></a>
+                                                class="btn min"><i class="fa fa-thumbs-up"></i></a>
                                         </div>
                                     </form>
 
