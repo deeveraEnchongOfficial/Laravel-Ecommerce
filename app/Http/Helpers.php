@@ -245,7 +245,7 @@ class Helper
 
             $apiKey = env('GOOGLE_MAPS_API_KEY');
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key={$apiKey}";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
 
             try {
                 $response = Http::get($url);
@@ -284,9 +284,9 @@ class Helper
         if ($userLocation && isset($userLocation->origin)) {
             $destination = $userLocation->origin;
 
-            $apiKey = env('GOOGLE_MAPS_API_KEY');
+            // $apiKey = 'AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc';
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key={$apiKey}";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
 
             try {
                 $response = Http::get($url);
