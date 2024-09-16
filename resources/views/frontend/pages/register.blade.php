@@ -154,9 +154,9 @@
             <!-- Terms and Conditions Content -->
             <div class="modal-header">
                 <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
-                </button>
+                </button> --}}
             </div>
             <div class="modal-body text-center mt-5">
                 <div class="modal-body text-center mt-5">
@@ -167,7 +167,8 @@
 
             <!-- Your registration form goes here -->
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Accecpt</button>
+                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Accecpt</button> --}}
+                <button type="button" class="btn btn-secondary" id="acceptTerms" data-dismiss="modal">Accept</button>
             </div>
 
             {{-- <form class="form" method="post" action="{{route('register.submit')}}" id="registerForm">
@@ -223,6 +224,10 @@
         $('#terms').click(function () {
             $('#termsModal').modal('show'); // Show the terms modal
         });
+
+        $('#acceptTerms').click(function() {
+                $('#termsModal').modal('hide'); // Hide the modal
+            });
 
         // Handle form submission inside the modal
         $('#registerForm').submit(function (e) {
