@@ -77,7 +77,16 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Province<span>*</span></label>
+                                        <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
+                                        @error('address')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- <div class="col-md-6">
                                     <label for="municipality_name" class="form-label">Municipality<span>*</span></label>
                                     <div class="form-group">
                                         <select class="form-control" name="municipality_name" id="municipality_name" required="required">
@@ -97,16 +106,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Province<span>*</span></label>
-                                        <input type="text" name="address" placeholder="" required="required" value="{{old('address')}}">
-                                        @error('address')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Your Password<span>*</span></label>

@@ -537,7 +537,7 @@ class FrontendController extends Controller
             'address' => $data['address'],
             'password' => Hash::make($data['password']),
             'status' => 'active',
-            'municipality_name' => $data['municipality_name'],
+            // 'municipality_name' => $data['municipality_name'],
         ]);
     }
 

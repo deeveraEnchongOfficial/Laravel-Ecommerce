@@ -10,7 +10,8 @@ class UserLocationController extends Controller
     // Show all user locations
     public function index()
     {
-        $userLocations=UserLocation::orderBy('id','ASC')->paginate(10);
+        $userLocations=UserLocation::where('user_id', auth()->user()->id)
+        ->orderBy('id','ASC')->paginate(10);
         return view('user.location.index')->with('userLocations',$userLocations);
     }
 
