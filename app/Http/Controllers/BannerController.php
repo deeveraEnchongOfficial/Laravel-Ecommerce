@@ -51,14 +51,6 @@ class BannerController extends Controller
             'status'=>'required|in:active,inactive',
         ]);
         $data=$request->all();
-
-        // if ($request->hasFile('photo')) {
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images', $filename, 'public');
-        //     $data['photo']=$filePath;
-        // }
-
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $imageData = base64_encode(file_get_contents($uploadedFile));
@@ -124,18 +116,6 @@ class BannerController extends Controller
         ]);
 
         $data = $request->all();
-
-        // Delete old image if a new image is being uploaded
-        // if ($request->hasFile('photo')) {
-        //     if (Storage::disk('public')->exists($banner->photo)) {
-        //         Storage::disk('public')->delete($banner->photo);
-        //     }
-
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images', $filename, 'public');
-        //     $data['photo'] = $filePath;
-        // }
 
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');

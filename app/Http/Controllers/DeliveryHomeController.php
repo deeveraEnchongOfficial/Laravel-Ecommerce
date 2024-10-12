@@ -52,18 +52,6 @@ class DeliveryHomeController extends Controller
 
         $user=User::findOrFail($id);
         $data=$request->all();
-
-        // Delete old image if a new image is being uploaded
-        // if ($request->hasFile('photo')) {
-        //     if (Storage::disk('public')->exists($user->photo)) {
-        //         Storage::disk('public')->delete($user->photo);
-        //     }
-
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
-        //     $data['photo'] = $filePath;
-        // }
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $imageData = base64_encode(file_get_contents($uploadedFile));

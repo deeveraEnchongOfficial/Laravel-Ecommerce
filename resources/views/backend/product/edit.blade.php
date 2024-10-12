@@ -101,7 +101,7 @@
             </div> --}}
                 <div class="form-group">
                     <label for="size">Size</label>
-                    <input type="text" name="size[]" class="form-control" placeholder="Enter sizes (comma-separated)">
+                    <input type="text" name="size[]" value="{{ $product->size }}" class="form-control" placeholder="Enter sizes (comma-separated)">
                 </div>
                 <div class="form-group">
                     <label for="brand_id">Brand</label>

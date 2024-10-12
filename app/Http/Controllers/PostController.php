@@ -67,9 +67,8 @@ class PostController extends Controller
 
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/post', $filename, 'public');
-            $data['photo']=$filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $slug=Str::slug($request->title);
@@ -151,14 +150,9 @@ class PostController extends Controller
 
         // Delete old image if a new image is being uploaded
         if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($post->photo)) {
-                Storage::disk('public')->delete($post->photo);
-            }
-
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/post', $filename, 'public');
-            $data['photo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         $tags=$request->input('tags');

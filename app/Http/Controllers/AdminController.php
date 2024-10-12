@@ -42,18 +42,6 @@ class AdminController extends Controller
         $user=User::findOrFail($id);
         $data=$request->all();
 
-        // Delete old image if a new image is being uploaded
-        // if ($request->hasFile('photo')) {
-        //     if (Storage::disk('public')->exists($user->photo)) {
-        //         Storage::disk('public')->delete($user->photo);
-        //     }
-
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/profile', $filename, 'public');
-        //     $data['photo'] = $filePath;
-        // }
-
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $imageData = base64_encode(file_get_contents($uploadedFile));
@@ -90,18 +78,6 @@ class AdminController extends Controller
 
         // return $data;
         $settings=Settings::first();
-
-        // Delete old image if a new image is being uploaded
-        // if ($request->hasFile('photo')) {
-        //     if (Storage::disk('public')->exists($settings->photo)) {
-        //         Storage::disk('public')->delete($settings->photo);
-        //     }
-
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
-        //     $data['photo'] = $filePath;
-        // }
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
             $imageData = base64_encode(file_get_contents($uploadedFile));
@@ -110,14 +86,9 @@ class AdminController extends Controller
 
         // Delete old image if a new image is being uploaded
         if ($request->hasFile('logo')) {
-            if (Storage::disk('public')->exists($settings->logo)) {
-                Storage::disk('public')->delete($settings->logo);
-            }
-
             $uploadedFile = $request->file('logo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/settings', $filename, 'public');
-            $data['logo'] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
         }
 
         // return $settings;

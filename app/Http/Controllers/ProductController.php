@@ -98,16 +98,6 @@ class ProductController extends Controller
         } else {
             $data['size'] = '';
         }
-        // return $size;
-        // return $data;
-
-        // if ($request->hasFile('photo')) {
-        //     $uploadedFile = $request->file('photo');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-        //     $data['photo'] = $filePath;
-        //     $photos[] = $filePath;
-        // }
 
         if ($request->hasFile('photo')) {
             $uploadedFile = $request->file('photo');
@@ -116,28 +106,12 @@ class ProductController extends Controller
             $photos[] = $imageData;
         }
 
-        // if ($request->hasFile('photo2')) {
-        //     $uploadedFile = $request->file('photo2');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-        //     $data['photo2'] = $filePath;
-        //     $photos[] = $filePath;
-        // }
-
         if ($request->hasFile('photo2')) {
             $uploadedFile = $request->file('photo2');
             $imageData = base64_encode(file_get_contents($uploadedFile));
             $data['photo2'] = $imageData;
             $photos[] = $imageData;
         }
-
-        // if ($request->hasFile('photo3')) {
-        //     $uploadedFile = $request->file('photo3');
-        //     $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-        //     $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-        //     $data['photo3'] = $filePath;
-        //     $photos[] = $filePath;
-        // }
 
         if ($request->hasFile('photo3')) {
             $uploadedFile = $request->file('photo3');
@@ -147,8 +121,6 @@ class ProductController extends Controller
         }
 
         $data['photos'] = implode(',', $photos);
-
-        // dd($data);
 
         $status = Product::create([
             'title' => $data['title'],
