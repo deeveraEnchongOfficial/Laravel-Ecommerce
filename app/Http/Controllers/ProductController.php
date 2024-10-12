@@ -249,39 +249,24 @@ class ProductController extends Controller
 
         // Delete old image if a new image is being uploaded
         if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($product->photo)) {
-                Storage::disk('public')->delete($product->photo);
-            }
-
             $uploadedFile = $request->file('photo');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-            $data['photo'] = $filePath;
-            $photos[] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo'] = $imageData;
+            $photos[] = $imageData;
         }
 
         if ($request->hasFile('photo2')) {
-            if (Storage::disk('public')->exists($product->photo2)) {
-                Storage::disk('public')->delete($product->photo2);
-            }
-
             $uploadedFile = $request->file('photo2');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-            $data['photo2'] = $filePath;
-            $photos[] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo2'] = $imageData;
+            $photos[] = $imageData;
         }
 
         if ($request->hasFile('photo3')) {
-            if (Storage::disk('public')->exists($product->photo3)) {
-                Storage::disk('public')->delete($product->photo3);
-            }
-
             $uploadedFile = $request->file('photo3');
-            $filename = time() . '_' . $uploadedFile->getClientOriginalName();
-            $filePath = $uploadedFile->storeAs('images/product', $filename, 'public');
-            $data['photo3'] = $filePath;
-            $photos[] = $filePath;
+            $imageData = base64_encode(file_get_contents($uploadedFile));
+            $data['photo3'] = $imageData;
+            $photos[] = $imageData;
         }
 
         if ( $request->file('photo') || $request->hasFile('photo2') || $request->hasFile('photo3')) {

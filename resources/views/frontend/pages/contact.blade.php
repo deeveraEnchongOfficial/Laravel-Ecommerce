@@ -50,13 +50,11 @@
                                             <input name="name" id="name" type="text"
                                                 placeholder="Enter your name">
                                         @endif
-                                        {{-- <input name="name" id="name" type="text"
-                                            placeholder="Enter your name" value="{{ Auth()->user()->name }}" readonly> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">
-                                        <label>Your Subjects<span>*</span></label>
+                                        <label>Your Subject<span>*</span></label>
                                         <input name="subject" type="text" id="subject" placeholder="Enter Subject">
                                     </div>
                                 </div>
@@ -65,22 +63,18 @@
                                         <label>Your Email<span>*</span></label>
                                         @if (Auth::check())
                                             <input name="email" type="email" id="email"
-                                                placeholder="Enter email address" value="{{ Auth()->user()->email }}"
+                                                placeholder="Enter email address" value="{{ Auth::user()->email }}"
                                                 readonly>
                                         @else
                                             <input name="email" type="email" id="email"
                                                 placeholder="Enter email address">
                                         @endif
-                                        {{-- <input name="email" type="email" id="email"
-                                            placeholder="Enter email address" value="{{ Auth()->user()->email }}"
-                                            readonly> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">
                                         <label>Your Phone<span>*</span></label>
                                         @if (Auth::check() && Auth()->user()->phone_number != '')
-
                                             <input id="phone" name="phone" type="number"
                                                 placeholder="Enter your phone"
                                                 value="{{ Auth()->user()->phone_number }}" readonly>
@@ -88,14 +82,11 @@
                                             <input id="phone" name="phone" type="number"
                                                 placeholder="Enter your phone">
                                         @endif
-                                        {{-- <input id="phone" name="phone" type="number"
-                                            placeholder="Enter your phone" value="{{ Auth()->user()->phone_number }}"
-                                            readonly> --}}
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group message">
-                                        <label>your message<span>*</span></label>
+                                        <label>Your Message<span>*</span></label>
                                         <textarea name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
                                     </div>
                                 </div>
@@ -162,7 +153,8 @@
 <!-- Start Shop Newsletter  -->
 @include('frontend.layouts.newsletter')
 <!-- End Shop Newsletter -->
-<!--================Contact Success  =================-->
+
+<!-- Contact Success Modal -->
 <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -173,14 +165,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p class="text-success">Your message is successfully sent...</p>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <p class="text-success" style="font-size: 24px; text-align: center;">
+                    Your message is successfully sent...
+                </p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modals error -->
+<!-- Contact Error Modal -->
 <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -192,7 +186,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-warning">Something went wrong.</p>
+                <p class="text-warning" style="font-size: 24px; text-align: center;">
+                    Something went wrong.
+                </p>
             </div>
         </div>
     </div>
@@ -201,26 +197,44 @@
 
 @push('styles')
 <style>
-    .modal-dialog .modal-content .modal-header {
-        position: initial;
-        padding: 10px 20px;
-        border-bottom: 1px solid #e9ecef;
-    }
-
-    .modal-dialog .modal-content .modal-body {
-        height: 100px;
-        padding: 10px 20px;
-    }
-
-    .modal-dialog .modal-content {
-        width: 50%;
-        border-radius: 0;
+    .modal-dialog {
+        width: 40%;
+        /* Reduce the width of the modal */
+        max-width: 100%;
+        /* Ensure it is responsive */
         margin: auto;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+        /* Optional: Adds a bit of rounded corners */
+    }
+
+    .modal-body p {
+        font-size: 24px;
+        /* Increase the font size of the message */
+        text-align: center;
+        /* Center the message */
+    }
+
+    .modal-header h2 {
+        text-align: center;
+        /* Center the header text */
+        width: 100%;
+        /* Ensure the header is centered across the modal */
     }
 </style>
 @endpush
+
 @push('scripts')
 <script src="{{ asset('frontend/js/jquery.form.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('frontend/js/contact.js') }}"></script>
+
+<script>
+    // Manually close modals if they don't close automatically
+    $('.modal').on('click', '.close', function() {
+        $(this).closest('.modal').modal('hide');
+    });
+</script>
 @endpush
