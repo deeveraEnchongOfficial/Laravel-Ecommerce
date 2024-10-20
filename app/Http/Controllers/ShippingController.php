@@ -100,12 +100,14 @@ class ShippingController extends Controller
         $shipping=Shipping::find($id);
         $this->validate($request,[
             'municipality_name'=>'string|nullable',
+            'distance' =>'nullable|numeric',
             'price'=>'nullable|numeric',
             'status'=>'required|in:active,inactive'
         ]);
         // $data=$request->all();
         $data = [
             'municipality_name' => (string)$request->input('municipality_name'),
+            'distance' => $request->input('distance'),
             'type' => (string)$request->input('municipality_name'),
             'price' => $request->input('price'),
             'status' => $request->input('status'),

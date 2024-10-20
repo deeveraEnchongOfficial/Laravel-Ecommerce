@@ -245,7 +245,7 @@ class Helper
 
             $apiKey = env('GOOGLE_MAPS_API_KEY');
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
 
             try {
                 $response = Http::get($url);
@@ -284,9 +284,9 @@ class Helper
         if ($userLocation && isset($userLocation->origin)) {
             $destination = $userLocation->origin;
 
-            // $apiKey = 'AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc';
+            // $apiKey = 'AIzaSyCxldtEtqbjYcHc3NfjcEAI4zmiUSlD2M4';
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
 
             try {
                 $response = Http::get($url);
@@ -321,6 +321,7 @@ class Helper
     public static function getShippingPrice($userId = null)
     {
         $distance = self::fetchDistanceMatrix($userId);
+        // dd($distance);
         // Retrieve all shipping records ordered by distance in ascending order
         $shippings = Shipping::orderBy('distance')->get();
 

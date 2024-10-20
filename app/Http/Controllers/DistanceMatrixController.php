@@ -30,7 +30,7 @@ class DistanceMatrixController extends Controller
     ) {
         $apiKey = env('GOOGLE_MAPS_API_KEY');
 
-        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
 
         try {
             $response = Http::get($url);
@@ -51,7 +51,7 @@ class DistanceMatrixController extends Controller
     ) {
         $apiKey = env('GOOGLE_MAPS_API_KEY');
 
-        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc";
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
 
         try {
             $response = Http::get($url);
