@@ -89,8 +89,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Load the Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxldtEtqbjYcHc3NfjcEAI4zmiUSlD2M4&callback=initMap" async defer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCV9Jh6vmTaVoyA4fDzCEz4Djeln_4eNDM&callback=initMap" async defer>
     </script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwUDCRqogDsvcAU7sdVh6oVBbjfZOjXcc&callback=initMap" async defer>
+    </script> --}}
 
     <script>
         let map, marker;
@@ -130,6 +132,8 @@
                     lng: parseFloat(lng)
                 };
 
+                console.log('latlng', latlng);
+
                 geocoder.geocode({
                     'location': latlng
                 }, function(results, status) {
@@ -138,6 +142,7 @@
                             document.getElementById('location-name').innerText = results[0].formatted_address;
                             document.getElementById('address-input').value = results[0]
                                 .formatted_address; // Update the address input field
+
                         } else {
                             document.getElementById('location-name').innerText = 'No results found';
                         }

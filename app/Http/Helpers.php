@@ -284,7 +284,7 @@ class Helper
         if ($userLocation && isset($userLocation->origin)) {
             $destination = $userLocation->origin;
 
-            // $apiKey = 'AIzaSyCxldtEtqbjYcHc3NfjcEAI4zmiUSlD2M4';
+            // $apiKey = 'AIzaSyCV9Jh6vmTaVoyA4fDzCEz4Djeln_4eNDM';
 
             $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
 
@@ -299,9 +299,10 @@ class Helper
                         // Extract the numeric part of the distance text and convert it to an integer
                         $distanceText = $data['rows'][0]['elements'][0]['distance']['text'];
                         $distanceInteger = (int) filter_var($distanceText, FILTER_SANITIZE_NUMBER_INT);
+                        $km = (int) filter_var($data['rows'][0]['elements'][0]['distance']['text'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
                         // Return the integer value of the distance
-                        return $distanceInteger;
+                        return $km;
                     } else {
                         return response()->json(['error' => 'Distance text not found in response'], 500);
                     }
@@ -333,6 +334,12 @@ class Helper
         foreach ($shippings as $shipping) {
             // Calculate the absolute difference between the current distance and the given distance
             $currentDistance = abs($shipping->distance - $distance);
+
+            // \Log::info([
+            //     'currentDistance' => $currentDistance,
+            //     // 'shipping' => $shipping,
+            //     // 'distance' => $distance,
+            // ]);
 
             // If the closest distance is not set or the current distance is smaller than the closest distance
             if ($closestDistance === null || $currentDistance < $closestDistance) {
