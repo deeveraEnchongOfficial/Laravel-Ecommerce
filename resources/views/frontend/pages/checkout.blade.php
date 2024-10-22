@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label>First Name<span>*</span></label>
                                         <input type="text" name="first_name" placeholder=""
-                                            value="{{ Auth()->user()->first_name }}" readonly>
+                                            value="{{ Auth()->user()->first_name }}">
                                         @error('first_name')
                                             <span class='text-danger'>{{ $message }}</span>
                                         @enderror
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label>Last Name<span>*</span></label>
                                         <input type="text" name="last_name" placeholder=""
-                                            value="{{ Auth()->user()->last_name }}" readonly>
+                                            value="{{ Auth()->user()->last_name }}">
                                         @error('last_name')
                                             <span class='text-danger'>{{ $message }}</span>
                                         @enderror
@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label>Email Address<span>*</span></label>
                                         <input type="email" name="email" placeholder=""
-                                            value="{{ Auth()->user()->email }}" readonly>
+                                            value="{{ Auth()->user()->email }}">
                                         @error('email')
                                             <span class='text-danger'>{{ $message }}</span>
                                         @enderror
