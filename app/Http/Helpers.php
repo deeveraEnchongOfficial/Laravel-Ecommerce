@@ -284,9 +284,9 @@ class Helper
         if ($userLocation && isset($userLocation->origin)) {
             $destination = $userLocation->origin;
 
-            // $apiKey = 'AIzaSyCV9Jh6vmTaVoyA4fDzCEz4Djeln_4eNDM';
+            // $apiKey = 'AIzaSyAT0VRiejhQXoH4qZO9WIpoDr3hPIer9Rg';
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAT0VRiejhQXoH4qZO9WIpoDr3hPIer9Rg";
 
             try {
                 $response = Http::get($url);
