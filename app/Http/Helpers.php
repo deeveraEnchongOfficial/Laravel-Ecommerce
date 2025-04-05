@@ -245,7 +245,7 @@ class Helper
 
             $apiKey = env('GOOGLE_MAPS_API_KEY');
 
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyDA9UP-Vw6rReGsIkNznSy8Hcg6jKEcPi4";
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$destination}&units=metrics&key=AIzaSyAT0VRiejhQXoH4qZO9WIpoDr3hPIer9Rg";
 
             try {
                 $response = Http::get($url);
